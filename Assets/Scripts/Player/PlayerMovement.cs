@@ -1,0 +1,123 @@
+using Unity.Netcode;
+using UnityEngine;
+
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(PlayerSprite))]
+public class PlayerMovement : NetworkBehaviour
+{
+    // === Serialized Fields ===
+    [Header("Dependencies")]
+    [SerializeField] private InputReader inputReader;
+    [SerializeField] private Animator animator;
+
+    [Header("Movement Settings")]
+    [SerializeField] private float baseMoveSpeed = 6f;
+    // private readonly NetworkVariable<bool> isWalking = new NetworkVariable<bool>(false);
+    // private readonly NetworkVariable<bool> isFacingRight = new NetworkVariable<bool>(true);
+    private Rigidbody2D rb;
+    private Vector2 moveInput;
+    private static readonly float MIN_MOVEMENT_THRESHOLD = 0.01f; 
+    // public bool IsWalking => isWalking.Value;
+    // public bool IsFacingRight => isFacingRight.Value;
+    public float BaseMoveSpeed => baseMoveSpeed;
+
+    private void Awake()
+    {
+        if (!TryGetComponent(out rb))
+        {
+            Debug.LogError($"Rigidbody2D not found on {gameObject.name}.");
+            enabled = false; 
+        }
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        // isFacingRight.OnValueChanged += OnFacingDirectionChanged;
+        // isWalking.OnValueChanged += OnWalkingChanged;
+
+        // init for all client
+        // OnFacingDirectionChanged(false, isFacingRight.Value); 
+        // OnWalkingChanged(false, isWalking.Value); 
+        if (IsOwner)
+        {
+            inputReader.MoveEvents += HandleMovementInput;
+        }
+        base.OnNetworkSpawn();
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        // isFacingRight.OnValueChanged -= OnFacingDirectionChanged;
+        // isWalking.OnValueChanged -= OnWalkingChanged;
+        if (IsOwner)
+        {
+            inputReader.MoveEvents -= HandleMovementInput;
+        }
+
+        base.OnNetworkDespawn();
+    }
+
+    private void HandleMovementInput(Vector2 moveDir)
+    {
+        moveInput = moveDir;
+    }
+
+    private void FixedUpdate()
+    {
+        if (!IsOwner)
+        {
+            return;
+        }
+        rb.linearVelocity = baseMoveSpeed  * moveInput;
+
+        bool currentWalkingState = rb.linearVelocity.sqrMagnitude > MIN_MOVEMENT_THRESHOLD;
+        if (currentWalkingState != GetComponent<PlayerSprite>().isWalking.Value)
+        {
+            GetComponent<PlayerSprite>().SetWalking(currentWalkingState);
+        }
+        // -- remove
+        // change direction base on aim
+        // if (moveInput.magnitude > MIN_MOVEMENT_THRESHOLD)
+        // {
+        //     // ChangeSpriteDirection();
+        // }
+    }
+
+    // [ServerRpc]
+    // private void SetWalkingServerRpc(bool walking)
+    // {
+    //     isWalking.Value = walking;
+    // }
+
+    // [ServerRpc]
+    // private void SetFacingRightServerRpc(bool facingRight)
+    // {
+    //     isFacingRight.Value = facingRight;
+    // }
+
+    // private void ChangeSpriteDirection()
+    // {
+    //     // Moving right and currently facing left?
+    //     if (moveInput.x > MIN_MOVEMENT_THRESHOLD && !isFacingRight.Value)
+    //     {
+    //         SetFacingRightServerRpc(true);//face right
+    //     }
+    //     // Moving left and currently facing right?
+    //     else if (moveInput.x < -MIN_MOVEMENT_THRESHOLD && isFacingRight.Value)
+    //     {
+    //         SetFacingRightServerRpc(false);//face left
+    //     }
+    // }
+
+    // private void OnWalkingChanged(bool oldVal, bool newVal)
+    // {
+    //     animator.SetBool("isWalking", newVal);
+    // }
+
+    // private void OnFacingDirectionChanged(bool oldVal, bool newVal)
+    // {
+    //     Vector3 newScale = transform.localScale;
+    //     newScale.x = newVal ? Mathf.Abs(newScale.x) : -Mathf.Abs(newScale.x);
+    //     transform.localScale = newScale;
+    // }
+}
