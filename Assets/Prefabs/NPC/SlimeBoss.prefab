@@ -127,6 +127,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3431919067030215821, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
       insertIndex: -1
       addedObject: {fileID: -5447942915404686646}
+    - targetCorrespondingSourceObject: {fileID: 4289218053732195853, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8471078737827596878}
   m_SourcePrefab: {fileID: 100100000, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
 --- !u!1 &2527012313577723167 stripped
 GameObject:
@@ -152,6 +155,7 @@ MonoBehaviour:
   detectionRange: 20
   attackRange: 2
   attackCooldown: 5
+  contactDamage: 20
   isBoss: 1
   isFinalRoomEnemy: 0
   damagePopupPrefab: {fileID: 8040580954099728450, guid: c646c7475af31fe4c807e2d1c5c491ae, type: 3}
@@ -162,9 +166,9 @@ MonoBehaviour:
     m_InternalValue: 2000
   rb: {fileID: 0}
   animator: {fileID: 3243560262103559482}
-  aoeProjectilePrefab: {fileID: 0}
-  jumpHeight: 2
-  jumpUpDuration: 0.3
+  aoeProjectilePrefab: {fileID: 2636463631664538298, guid: 13dc9ff48f599ad4eb78efc8d50cca21, type: 3}
+  jumpUpDuration: 0.5
+  moveMinDuration: 0.2
   slamDuration: 1
   attackCooldownTime: 2
   NPCLayerMask:
@@ -175,6 +179,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   ignoreProjectileLayer: 0
+  magicProjectileOffset: -1
   npcState:
     m_InternalValue: 0
 --- !u!95 &3243560262103559482 stripped
@@ -182,3 +187,21 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 2428021452842083496, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
   m_PrefabInstance: {fileID: 914618277071636882}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3978716287408347039 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4289218053732195853, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+  m_PrefabInstance: {fileID: 914618277071636882}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8471078737827596878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3978716287408347039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba79b09774088d34596dd9cc458c2c5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slime: {fileID: 0}

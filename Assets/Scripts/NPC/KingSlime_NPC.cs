@@ -10,14 +10,15 @@ public class KingSlime_NPC : BaseNPC
     [Header("Boss Attack")]
     [SerializeField] GameObject aoeProjectilePrefab;
     [Header("Jump Settings")]
-    [SerializeField] float jumpHeight = 2f;
     [SerializeField] float jumpUpDuration = 0.3f;
-    [SerializeField] float slamDuration = 0.6f;
+    [SerializeField] float moveMinDuration = 0.2f;
+    [SerializeField] float slamDuration = 1f;
     [SerializeField] float attackCooldownTime = 2f;
     [SerializeField] LayerMask NPCLayerMask;
     [SerializeField] int NPCLayer;
     [SerializeField] LayerMask ignoreProjectileLayerMask;
     [SerializeField] int ignoreProjectileLayer;
+    [SerializeField] float magicProjectileOffset;
     Vector3 jumpTargetPosition;
     float stateTimer;
     bool inCombat =false;
@@ -36,10 +37,10 @@ public class KingSlime_NPC : BaseNPC
         NPCLayer = (int)Mathf.Log(NPCLayerMask.value, 2);
         ignoreProjectileLayer = (int)Mathf.Log(ignoreProjectileLayerMask.value, 2);
 
-        print(ignoreProjectileLayerMask.value);
-        print((int)Math.Log(ignoreProjectileLayerMask.value,2));
-        print(NPCLayerMask.value);
-        print((int)Math.Log(ignoreProjectileLayerMask.value,2));
+        // // print(ignoreProjectileLayerMask.value);
+        // print((int)Math.Log(ignoreProjectileLayerMask.value,2));
+        // print(NPCLayerMask.value);
+        // print((int)Math.Log(ignoreProjectileLayerMask.value,2));
 
         base.Awake();
     }
@@ -79,7 +80,8 @@ public class KingSlime_NPC : BaseNPC
                 JumpMove();
                 break;
             case KingSlimeState.Slam:
-                Slam();
+                // Slam();
+                //just wait for animation
                 break;
 
             case KingSlimeState.Recover:
@@ -179,22 +181,23 @@ public class KingSlime_NPC : BaseNPC
         // aiPath.destination = jumpTargetPosition;
         destSetter.target = target;
         float dist = Vector2.Distance(transform.position, target.position);
-        if (dist <= attackRange)
+        if (dist <= attackRange && stateTimer > moveMinDuration)
         {
             SetState(KingSlimeState.Slam);
         }
     }
-    void Slam()
-    {
-        if(stateTimer >= slamDuration)
-        {
-            OnSlamEnd();
-        }
-    }
+    // void Slam()
+    // {
+        // if(stateTimer >= slamDuration)
+        // {
+        //     OnSlamEnd();
+        // }
+    // }
     public void OnSlamEnd()
     {
         //spawn AOE projectile or make hit box active
         Debug.Log("Slam Ended, spawn AOE");
+        SpawnAOEProjectile();
         SetState(KingSlimeState.Recover);
     }
     void Recovering()
@@ -210,13 +213,47 @@ public class KingSlime_NPC : BaseNPC
         || newState == KingSlimeState.JumpMove 
         || newState == KingSlimeState.Slam)
         {
-            print(ignoreProjectileLayer);
+            // print(ignoreProjectileLayer);
             gameObject.layer = ignoreProjectileLayer;
         }
         else
         {
-            print(NPCLayer);
+            // print(NPCLayer);
             gameObject.layer = NPCLayer;
+        }
+    }
+
+    void SpawnAOEProjectile()
+    {
+        if (!IsServer) return;
+        if (aoeProjectilePrefab == null) return;
+
+        if (!aoeProjectilePrefab.TryGetComponent<NetworkObject>(out var netObjToUse))
+            return;
+        
+        Vector3 magicProjectileOffsetValue = new Vector3(0, magicProjectileOffset,0);
+        Vector3 spawnPos = transform.position + magicProjectileOffsetValue;
+        Quaternion rot = Quaternion.identity;
+
+        NetworkObject netObj =
+            NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(
+                netObjToUse,
+                NetworkManager.Singleton.LocalClientId,
+                false, false, false,
+                spawnPos,
+                rot
+            );
+
+        GameObject proj = netObj.gameObject;
+
+        if (proj.TryGetComponent<ServerProjectile>(out var serverProjectile))
+        {
+            serverProjectile.OnSpawn(
+                Vector2.zero, //no dir needed
+                contactDamage,        
+                false,                
+                1f                    
+            );
         }
     }
 }
