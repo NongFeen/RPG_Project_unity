@@ -70,7 +70,7 @@ public class MapManager : NetworkBehaviour
         //normal spawn
         if(id < 1000)
         {
-            SpawnNPCManager.Instance.SpawnAtPoint(id.ToString());
+            SpawnNPCManager.Instance.SpawnAtPoint(id.ToString(),false);
         }
         else //spawn as boss of map 
         {
@@ -204,5 +204,9 @@ public class MapManager : NetworkBehaviour
     {
         if (!IsServer) return;
         currenState.Value = MapState.FinalRoom;
+    }
+    public void PlayerTriggeredExtractTile()
+    {
+        CompleteMap();
     }
 }

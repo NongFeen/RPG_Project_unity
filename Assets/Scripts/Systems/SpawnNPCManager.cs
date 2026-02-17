@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -12,6 +13,9 @@ public class SpawnPointData
     public bool spawnOnStart = false;
     public bool isSpawned = false;      // tracks if already spawned
     public bool isLastRoom = false;
+    public bool isRepeat = false;
+    [SerializeField] public float repeatTimer = 5;//in sec
+    public float currentTimer = 0f;
 }
 
 public class SpawnNPCManager : NetworkBehaviour
@@ -21,7 +25,6 @@ public class SpawnNPCManager : NetworkBehaviour
 
     [Header("Spawn Point Configurations")]
     [SerializeField] private SpawnPointData[] spawnPointConfigs;
-
     private Dictionary<string, SpawnPointData> spawnPointDict = new();
     public static SpawnNPCManager Instance { get; private set; }
 
@@ -57,26 +60,34 @@ public class SpawnNPCManager : NetworkBehaviour
         foreach (var sp in spawnPointConfigs)
         {
             if (sp.spawnOnStart && !sp.isSpawned)
-                SpawnAtPoint(sp.id);
+                SpawnAtPoint(sp.id,false);
         }
     }
-    //deprecated
-    // Called from player input
-    // private void OnSpawnEnemyInput(bool pressed)
-    // {
-    //     if (!pressed) return;
 
-    //     // For example, call spawn point "1"
-    //     RequestSpawnEnemyServerRpc("1");
-    // }
+    void Update()
+    {
+        if (!IsServer) return;
+        foreach (var sp in spawnPointConfigs)
+        {
+            if (!sp.isRepeat)
+                continue;
 
+            sp.currentTimer += Time.deltaTime;
+
+            if (sp.currentTimer >= sp.repeatTimer && sp.isSpawned)
+            {
+                sp.currentTimer = 0f;
+                SpawnAtPoint(sp.id,true);
+            }
+        }
+    }
     [ServerRpc(RequireOwnership = false)]
     private void RequestSpawnEnemyServerRpc(string id)
     {
-        SpawnAtPoint(id);
+        SpawnAtPoint(id,true);
     }
 
-    public void SpawnAtPoint(string id)
+    public void SpawnAtPoint(string id,bool isForce)
     {
         if (!IsServer)
             return;
@@ -93,7 +104,7 @@ public class SpawnNPCManager : NetworkBehaviour
             return;
         }
 
-        if (sp.isSpawned)
+        if (sp.isSpawned && isForce == false)
         {
             Debug.Log($"[Spawner] SpawnPoint '{id}' already spawned.");
             return;
@@ -155,4 +166,5 @@ public class SpawnNPCManager : NetworkBehaviour
         MapManager.Instance.RegisterBossSpawned();
         return netObj;
     }
+    
 }

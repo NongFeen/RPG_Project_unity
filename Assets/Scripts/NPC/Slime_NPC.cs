@@ -10,7 +10,6 @@ public class SlimeEnemy : BaseNPC
 {
 
     [Header("Combat")]
-    [SerializeField] float contactDamage = 10f;
     [SerializeField] float knockbackForce = 6f;
     [SerializeField] float recoverTime = 1f;
 
@@ -62,11 +61,6 @@ public class SlimeEnemy : BaseNPC
     AIDestinationSetter destSetter;
     Rigidbody2D rb;
 
-
-    // ===============================
-    // TIMERS
-    // ===============================
-
     float nextRoamTime;
     float nextJumpTime;
     float recoverEndTime;
@@ -76,18 +70,9 @@ public class SlimeEnemy : BaseNPC
     float nextBurstTime;
     float targetSpeed;
 
-
-    // ===============================
-    // RANDOM
-    // ===============================
-
     float speedMul = 1f;
     float timeMul = 1f;
 
-
-    // ===============================
-    // INIT
-    // ===============================
 
     protected override void Awake()
     {
@@ -263,10 +248,6 @@ public class SlimeEnemy : BaseNPC
     }
 
 
-    // ===============================
-    // SPEED BURST
-    // ===============================
-
     void StartBurst()
     {
         burstTimer = burstTime * timeMul;
@@ -337,10 +318,6 @@ public class SlimeEnemy : BaseNPC
         );
     }
 
-
-    // ===============================
-    // ATTACK
-    // ===============================
 
     protected override void TryAttack()
     {

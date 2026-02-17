@@ -8,7 +8,7 @@ public class TileTrigger : MonoBehaviour
 
     [SerializeField]public bool isOnceTimeTrigger = false;
 
-    void OnTriggerEnter2D(Collider2D collision)
+    public virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Player")) return;
         print("Tile Triggered by Player: " + spawnerID);

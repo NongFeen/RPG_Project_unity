@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using Unity.Services.Matchmaker.Models;
 using Pathfinding;
+using System;
 
 public class KingSlime_NPC : BaseNPC
 {
@@ -13,6 +14,10 @@ public class KingSlime_NPC : BaseNPC
     [SerializeField] float jumpUpDuration = 0.3f;
     [SerializeField] float slamDuration = 0.6f;
     [SerializeField] float attackCooldownTime = 2f;
+    [SerializeField] LayerMask NPCLayerMask;
+    [SerializeField] int NPCLayer;
+    [SerializeField] LayerMask ignoreProjectileLayerMask;
+    [SerializeField] int ignoreProjectileLayer;
     Vector3 jumpTargetPosition;
     float stateTimer;
     bool inCombat =false;
@@ -28,11 +33,26 @@ public class KingSlime_NPC : BaseNPC
     {
         aiPath = GetComponent<AIPath>();
         destSetter = GetComponent<AIDestinationSetter>();
+        NPCLayer = (int)Mathf.Log(NPCLayerMask.value, 2);
+        ignoreProjectileLayer = (int)Mathf.Log(ignoreProjectileLayerMask.value, 2);
+
+        print(ignoreProjectileLayerMask.value);
+        print((int)Math.Log(ignoreProjectileLayerMask.value,2));
+        print(NPCLayerMask.value);
+        print((int)Math.Log(ignoreProjectileLayerMask.value,2));
+
         base.Awake();
     }
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
+        npcState.OnValueChanged += OnStateChanged;
+        OnStateChanged(npcState.Value, npcState.Value);
+    }
+    public override void OnNetworkDespawn()
+    {
+        npcState.OnValueChanged -= OnStateChanged;
+        base.OnNetworkDespawn();
     }
     protected override void Attack()
     {
@@ -127,7 +147,7 @@ public class KingSlime_NPC : BaseNPC
         }
 
         //randomly select a player
-        int index = Random.Range(0, players.Length);
+        int index = UnityEngine.Random.Range(0, players.Length);
         target = players[index].transform;
         float currentDetectionRange = inCombat ? Mathf.Infinity : detectionRange;
         if(Vector2.Distance(transform.position,target.position) < currentDetectionRange )// player not in range and attack in cooldown
@@ -182,6 +202,21 @@ public class KingSlime_NPC : BaseNPC
         if(stateTimer >= attackCooldownTime)
         {
             SetState(KingSlimeState.Idle);
+        }
+    }
+    void OnStateChanged(KingSlimeState oldState, KingSlimeState newState)//for client
+    {
+        if(newState == KingSlimeState.JumpUp 
+        || newState == KingSlimeState.JumpMove 
+        || newState == KingSlimeState.Slam)
+        {
+            print(ignoreProjectileLayer);
+            gameObject.layer = ignoreProjectileLayer;
+        }
+        else
+        {
+            print(NPCLayer);
+            gameObject.layer = NPCLayer;
         }
     }
 }

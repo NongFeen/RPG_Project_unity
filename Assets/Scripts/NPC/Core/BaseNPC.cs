@@ -10,6 +10,7 @@ public abstract class BaseNPC : NetworkBehaviour
     [SerializeField] protected float detectionRange = 5f;
     [SerializeField] protected float attackRange = 1f;
     [SerializeField] protected float attackCooldown = 1.5f;
+    [SerializeField] protected float contactDamage= 1f;
     [SerializeField] public bool isBoss = false;
     [SerializeField] public bool isFinalRoomEnemy = false;
     [SerializeField] private GameObject damagePopupPrefab;
@@ -58,6 +59,8 @@ public abstract class BaseNPC : NetworkBehaviour
 
         foreach (var p in players)
         {
+            p.TryGetComponent<PlayerStats>(out PlayerStats pStats);
+            if(pStats.currentHP.Value <=0 ) continue;
             float dist = Vector2.Distance(transform.position, p.transform.position);
             if (dist < closest && dist <= detectionRange)
             {
@@ -89,7 +92,6 @@ public abstract class BaseNPC : NetworkBehaviour
     protected virtual void TryAttack()
     {
         if (Time.time - lastAttackTime < attackCooldown) return;
-
         lastAttackTime = Time.time;
         Attack();
     }
