@@ -19,5 +19,6 @@ public class TileTrigger : MonoBehaviour
         }
         MapManager.Instance.PlayerTriggeredTile(spawnerID);
     }
+
 }
 

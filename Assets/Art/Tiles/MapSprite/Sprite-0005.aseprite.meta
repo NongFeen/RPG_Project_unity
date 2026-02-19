@@ -402,6 +402,48 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 268, y: 1060}
+  - name: Tile02_13
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 268
+      y: 1324
+      width: 256
+      height: 256
+    spriteID: 8d72715823f61a34386080abe1094831
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 268, y: 1324}
+  - name: Tile02_14
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 268
+      y: 1588
+      width: 256
+      height: 256
+    spriteID: 0180e0c88b153e94c9a2535ff9dfe71a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 268, y: 1588}
   asepriteLayers:
   - layerIndex: 0
     uuid:
@@ -424,7 +466,7 @@ ScriptedImporter:
         y: 0
         width: 5
         height: 5
-      tileIndices: 010000000200000003000000050000000c0000000400000005000000060000000b0000000a0000000700000008000000090000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a000000
+      tileIndices: 010000000200000003000000050000000c0000000400000005000000060000000b0000000a0000000700000008000000090000000d0000000e0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a000000
     tileSetIndex: 0
     parentIndex: -1
   tileSets:
@@ -506,6 +548,18 @@ ScriptedImporter:
         y: 256
       name: Tile02_12
       spriteId: ad8c462ee4acd824a86535103a306e19
+    - tileId: 13
+      size:
+        x: 256
+        y: 256
+      name: Tile02_13
+      spriteId: 8d72715823f61a34386080abe1094831
+    - tileId: 14
+      size:
+        x: 256
+        y: 256
+      name: Tile02_14
+      spriteId: 0180e0c88b153e94c9a2535ff9dfe71a
     guid: 2041267236
   platformSettings:
   - name: DefaultTexturePlatform

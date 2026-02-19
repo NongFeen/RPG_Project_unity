@@ -95,14 +95,14 @@ public class KingSlime_NPC : BaseNPC
         npcState.Value = newState;
         switch(newState){
             case KingSlimeState.Idle:
-                animator.SetBool("JumpToAir", false);
+                // animator.SetBool("JumpToAir", false);
                 aiPath.canMove = false;
                 destSetter.target = null;
                 break;
             case KingSlimeState.JumpUp:
                 stateTimer = 0;
                 aiPath.canMove = false;
-                animator.SetBool("JumpToAir", true);
+                // animator.SetBool("JumpToAir", true);
                 break;
             case KingSlimeState.JumpMove:
                 stateTimer = 0;
@@ -114,13 +114,13 @@ public class KingSlime_NPC : BaseNPC
                 stateTimer = 0;
                 aiPath.canMove = false;
                 destSetter.target = null;
-                animator.SetBool("JumpToAir", false);
-                animator.SetBool("Slam", true);
+                // animator.SetBool("JumpToAir", false);
+                // animator.SetBool("Slam", true);
                 break;
             case KingSlimeState.Recover:
                 stateTimer = 0;
-                animator.SetBool("Slam", false);
-                animator.SetBool("JumpToAir", false);
+                // animator.SetBool("Slam", false);
+                // animator.SetBool("JumpToAir", false);
                 aiPath.canMove = false;
                 destSetter.target = null;
                 break;
@@ -129,6 +129,7 @@ public class KingSlime_NPC : BaseNPC
                 break;
         }
     }
+    
     void UpdateIdle()
     {
         var players = GameObject.FindGameObjectsWithTag("Player");
@@ -209,17 +210,30 @@ public class KingSlime_NPC : BaseNPC
     }
     void OnStateChanged(KingSlimeState oldState, KingSlimeState newState)//for client
     {
-        if(newState == KingSlimeState.JumpUp 
-        || newState == KingSlimeState.JumpMove 
-        || newState == KingSlimeState.Slam)
-        {
-            // print(ignoreProjectileLayer);
-            gameObject.layer = ignoreProjectileLayer;
-        }
-        else
-        {
-            // print(NPCLayer);
-            gameObject.layer = NPCLayer;
+        switch(newState){
+            case KingSlimeState.Idle:
+                gameObject.layer = NPCLayer;
+                animator.SetBool("JumpToAir", false);
+                break;
+            case KingSlimeState.JumpUp:
+                gameObject.layer = ignoreProjectileLayer;
+                animator.SetBool("JumpToAir", true);
+                break;
+            case KingSlimeState.JumpMove:
+                gameObject.layer = ignoreProjectileLayer;
+                break;
+            case KingSlimeState.Slam:
+                gameObject.layer = ignoreProjectileLayer;
+                animator.SetBool("JumpToAir", false);
+                animator.SetBool("Slam", true);
+                break;
+            case KingSlimeState.Recover:
+                gameObject.layer = NPCLayer;
+                animator.SetBool("Slam", false);
+                animator.SetBool("JumpToAir", false);
+                break;
+            default:
+                break;
         }
     }
 

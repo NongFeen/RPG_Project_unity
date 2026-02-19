@@ -82,42 +82,9 @@ public class PlayerMovement : NetworkBehaviour
         //     // ChangeSpriteDirection();
         // }
     }
-
-    // [ServerRpc]
-    // private void SetWalkingServerRpc(bool walking)
-    // {
-    //     isWalking.Value = walking;
-    // }
-
-    // [ServerRpc]
-    // private void SetFacingRightServerRpc(bool facingRight)
-    // {
-    //     isFacingRight.Value = facingRight;
-    // }
-
-    // private void ChangeSpriteDirection()
-    // {
-    //     // Moving right and currently facing left?
-    //     if (moveInput.x > MIN_MOVEMENT_THRESHOLD && !isFacingRight.Value)
-    //     {
-    //         SetFacingRightServerRpc(true);//face right
-    //     }
-    //     // Moving left and currently facing right?
-    //     else if (moveInput.x < -MIN_MOVEMENT_THRESHOLD && isFacingRight.Value)
-    //     {
-    //         SetFacingRightServerRpc(false);//face left
-    //     }
-    // }
-
-    // private void OnWalkingChanged(bool oldVal, bool newVal)
-    // {
-    //     animator.SetBool("isWalking", newVal);
-    // }
-
-    // private void OnFacingDirectionChanged(bool oldVal, bool newVal)
-    // {
-    //     Vector3 newScale = transform.localScale;
-    //     newScale.x = newVal ? Mathf.Abs(newScale.x) : -Mathf.Abs(newScale.x);
-    //     transform.localScale = newScale;
-    // }
+    [ClientRpc]
+    public void TeleportClientRpc(Vector3 pos)
+    {
+        transform.position = pos;
+    }
 }

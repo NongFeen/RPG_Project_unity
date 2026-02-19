@@ -128,7 +128,7 @@ public class MapManager : NetworkBehaviour
 
         CheckMapCompletion();
     }
-    private void CheckMapCompletion()
+    public virtual void CheckMapCompletion()
     {
         if (!IsServer) return;
 
