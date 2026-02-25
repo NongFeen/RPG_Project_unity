@@ -5,7 +5,7 @@ public class TeleprotPadTrigger : MonoBehaviour
 {
     [SerializeField] Transform teleportTarget;
     [SerializeField] private TeleportGroup group;
-    private void OnTriggerEnter2D(Collider2D collider)
+    public void OnTriggerStay2D(Collider2D collider)
     {
         if (!collider.CompareTag("Player")) return;
 

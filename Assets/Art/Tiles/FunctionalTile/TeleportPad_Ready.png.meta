@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 439e9f8c1437b0f4385ff6443e102905
+guid: 6ee79a482cf0dcd4d8a3695bb4abd9ed
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7095948284930971354
-    second: 4af0089191479244_0
+      213: 8420638659019200364
+    second: TeleportPad_Ready_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 4af0089191479244_0
+      name: TeleportPad_Ready_0
       rect:
         serializedVersion: 2
-        x: 79
-        y: 65
-        width: 343
-        height: 364
+        x: 0
+        y: 0
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ad65ad38e5fd97260800000000000000
-      internalID: 7095948284930971354
+      spriteID: c67d2c4fe3e1cd470800000000000000
+      internalID: 8420638659019200364
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      4af0089191479244_0: 7095948284930971354
+      TeleportPad_Ready_0: 8420638659019200364
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

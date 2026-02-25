@@ -209,4 +209,8 @@ public class MapManager : NetworkBehaviour
     {
         CompleteMap();
     }
+    public virtual void CheckFriendshipCondition(int value)
+    {
+        
+    }
 }
