@@ -1,0 +1,265 @@
+using Unity.Netcode;
+using UnityEngine;
+using Pathfinding;
+
+public class OverSeer_NPC : BaseNPC
+{
+    [Header("References")]
+    [SerializeField] public NetworkVariable<OverseerState> currentState = new NetworkVariable<OverseerState>();
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private LayerMask obstacleLayer;
+    private AIPath aiPath;
+    public enum OverseerState
+    {
+        Idle,
+        Kiting,
+        Dodging
+    }
+
+
+    [Header("Ranges")]
+    [SerializeField] private float nearbyRange = 15f;
+    [SerializeField] private float preferredDistance = 30f;
+    [SerializeField] private float tooCloseDistance = 4f;
+
+    [Header("Combat")]
+    [SerializeField] private float fireInterval = 1.5f;
+    private float nextFireTime;
+
+    [Header("Idle Movement")]
+    [SerializeField] private float idleMoveMinTime = 2f;
+    [SerializeField] private float idleMoveMaxTime = 4f;
+    [SerializeField] private float idleMoveDistance = 4f;
+    [SerializeField] private float idleSpeed = 2f;
+    private float nextIdleMoveTime;
+    private Vector3 idleDestination;
+
+    [Header("Dodge")]
+    [SerializeField] private float dodgeDuration = 0.4f;
+    private bool orbitClockwise = false;
+    private float dodgeTimer;
+    private Vector2 dodgeDirection;
+
+    private float stateTimer;
+    
+
+    protected override void Awake()
+    {
+        aiPath = GetComponent<AIPath>();
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if (IsServer)
+            currentState.Value = OverseerState.Idle;
+    }
+
+    protected override void Update()
+    {
+        if (!IsServer) return;
+        switch (currentState.Value)
+        {
+            case OverseerState.Idle:
+                HandleIdle();
+                break;
+
+            case OverseerState.Kiting:
+                HandleKiting();
+                break;
+
+            case OverseerState.Dodging:
+                HandleDodge();
+                break;
+        }
+    }
+
+    void HandleIdle()
+    {
+        stateTimer += Time.deltaTime;
+        FindTarget();
+        //switch state if found target
+        if (target != null)
+        {
+            currentState.Value = OverseerState.Kiting;
+            return;
+        }
+        aiPath.maxSpeed = idleSpeed;
+        aiPath.canMove = true;
+        // idle move time
+        if (stateTimer >= nextIdleMoveTime)
+        {
+            Vector2 dir = GetRandomCompassDirection();
+
+            idleDestination = transform.position + (Vector3)(dir * idleMoveDistance);
+
+            aiPath.destination = idleDestination;
+
+            nextIdleMoveTime = Random.Range(idleMoveMinTime, idleMoveMaxTime);
+        }
+    }
+    void HandleCombat()
+    {
+    }
+    void HandleKiting()
+    {
+        
+    }
+
+    void HandleDodge()
+    {
+        
+    }
+
+    protected override void FindTarget()
+    {
+        var players = GameObject.FindGameObjectsWithTag("Player");
+        Transform bestCandidate = null;
+        float closestDistance = detectionRange;
+        foreach (var p in players)
+        {
+            if (!p.TryGetComponent<PlayerStats>(out var stats))
+                continue;
+
+            if (stats.currentHP.Value <= 0)
+                continue;
+
+            float dist = Vector2.Distance(transform.position, p.transform.position);
+
+            if (dist > detectionRange)
+                continue;
+
+            if (!HasLineOfSight(p.transform))
+                continue;
+
+            if (dist < closestDistance)
+            {
+                closestDistance = dist;
+                bestCandidate = p.transform;
+            }
+        }
+
+        if (target == null)
+        {
+            target = bestCandidate;
+            return;
+        }
+
+        if (target.TryGetComponent<PlayerStats>(out var currentStats))
+        {
+            if (currentStats.currentHP.Value <= 0)
+            {
+                target = bestCandidate;
+                return;
+            }
+        }
+
+        if (bestCandidate != null)
+        {
+            float currentDist = Vector2.Distance(transform.position, target.position);
+
+            if (closestDistance < currentDist)
+            {
+                target = bestCandidate;
+            }
+        }
+
+        // if found no better target, keep old target
+    }
+    Vector2 GetRandomCompassDirection()
+    {
+        Vector2[] dirs = new Vector2[]
+        {
+            new Vector2(1,1),
+            new Vector2(-1,1),
+            new Vector2(-1,-1),
+            new Vector2(1,-1),
+            new Vector2(1,0),
+            new Vector2(-1,0),
+            new Vector2(0,-1),
+            new Vector2(0,1)
+        };
+
+        return dirs[Random.Range(0, dirs.Length)].normalized;
+    }
+
+
+    private bool HasLineOfSight(Transform target)
+    {
+        Vector2 origin = transform.position;
+        Vector2 direction = (target.position - transform.position).normalized;
+        float distance = Vector2.Distance(transform.position, target.position);
+
+        RaycastHit2D hit = Physics2D.Raycast(
+            origin,
+            direction,
+            distance,
+            obstacleLayer
+        );
+
+        // If nothing hit → no obstacle blocking
+        return hit.collider == null;
+    }
+
+    float DistanceToTarget()
+    {
+        if (target == null) return Mathf.Infinity;
+        return Vector2.Distance(transform.position, target.transform.position);
+    }
+
+    
+    void TryShoot()
+    {
+        if (Time.time < nextFireTime) return;
+        SpawnProjectile();
+        nextFireTime = Time.time + fireInterval;
+    }
+
+    void SpawnProjectile()
+    {
+        if (!IsServer) return;
+        if (bulletPrefab == null) return;
+
+        if (!bulletPrefab.TryGetComponent<NetworkObject>(out var netObjToUse))
+            return;
+        Vector2 dir = (target.transform.position - transform.position).normalized;
+        Vector3 magicProjectileOffsetValue = new Vector3(0, 0,0);
+        Vector3 spawnPos = transform.position + magicProjectileOffsetValue;
+        Quaternion rot = Quaternion.identity;
+
+        NetworkObject netObj =
+            NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(
+                netObjToUse,
+                NetworkManager.Singleton.LocalClientId,
+                false, false, false,
+                spawnPos,
+                rot
+            );
+
+        GameObject proj = netObj.gameObject;
+
+        if (proj.TryGetComponent<ServerProjectile>(out var serverProjectile))
+        {
+            serverProjectile.OnSpawn(
+                dir, //no dir needed
+                contactDamage,        
+                false,                
+                1f                    
+            );
+        }
+    }
+    
+
+    void SetDestination(Vector2 pos)
+    {
+        if (aiPath != null)
+        {
+            aiPath.destination = pos;
+            aiPath.SearchPath();
+        }
+    }
+
+    protected override void Attack()
+    {
+       //not contact damage
+    }
+}

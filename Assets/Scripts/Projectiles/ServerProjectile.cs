@@ -39,7 +39,10 @@ public class ServerProjectile : NetworkBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(!IsServer)return;
-
+        if(collision.gameObject.CompareTag("Wall and Obstacle"))
+        {
+            DestroySelf();
+        }
         if (canHitPlayer && !isFriendly && collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.TryGetComponent<PlayerStats>(out var player);
