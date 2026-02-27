@@ -86,18 +86,12 @@ public class Proton_NPC : BaseNPC
                 break;
         }
 
-        if(target != null)
+        if(target != null && npcState.Value == ProtonState.Dash)
         {
             float dist = Vector2.Distance(transform.position, target.position);
-            if (dist > attackRange)
+            if (dist < attackRange)
             {
-                aiPath.canMove = true;
-                aiPath.destination = target.position;
-            }
-            else
-            {
-                aiPath.canMove = false;
-                TryAttack(); // uses BaseNPC cooldown system
+                TryAttack();
             }
         }
     }
