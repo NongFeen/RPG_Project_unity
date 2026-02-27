@@ -7,7 +7,6 @@ public class OverSeer_NPC : BaseNPC
     [Header("References")]
     [SerializeField] public NetworkVariable<OverseerState> currentState = new NetworkVariable<OverseerState>();
     [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private LayerMask obstacleLayer;
     private AIPath aiPath;
     public enum OverseerState
     {
@@ -232,21 +231,6 @@ public class OverSeer_NPC : BaseNPC
         return dirs[Random.Range(0, dirs.Length)].normalized;
     }
 
-    private bool HasLineOfSight(Transform target)
-    {
-        Vector2 origin = transform.position;
-        Vector2 direction = (target.position - transform.position).normalized;
-        float distance = Vector2.Distance(transform.position, target.position);
-
-        RaycastHit2D hit = Physics2D.Raycast(
-            origin,
-            direction,
-            distance,
-            obstacleLayer
-        );
-
-        return hit.collider == null;
-    }
     bool HasLineOfSightFromPoint(Vector2 from, Vector2 to)
     {
         Vector2 direction = (to - from).normalized;

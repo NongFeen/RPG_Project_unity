@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
@@ -8,6 +9,27 @@ public class ChargingPadTrigger : NetworkBehaviour
     [SerializeField] private NetworkVariable<float> padProgressTime = new NetworkVariable<float>();
     [SerializeField] private int playersInside = 0;
     [SerializeField] private float drainRate = 2;
+    [SerializeField] private Sprite unChargedPad;
+    [SerializeField] private Sprite chargedPad;
+
+    public override void OnNetworkSpawn()
+    {
+        padProgressTime.OnValueChanged += OnPadProgressTimerUpdate;
+    }
+
+    private void OnPadProgressTimerUpdate(float previousValue, float newValue)
+    {
+        this.TryGetComponent<SpriteRenderer>(out var currentSprite);
+        if(newValue < padChargedTime)
+        {
+            currentSprite.sprite = unChargedPad; 
+        }
+        else
+        {
+            currentSprite.sprite = chargedPad;
+        }
+    }
+
     void Update()
     {
         if (!IsServer) return;
@@ -51,5 +73,6 @@ public class ChargingPadTrigger : NetworkBehaviour
     {
         padProgressTime.Value = 0;
     }
+    
 }
 

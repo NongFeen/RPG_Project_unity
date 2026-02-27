@@ -166,6 +166,9 @@ MonoBehaviour:
     m_InternalValue: 2000
   rb: {fileID: 0}
   animator: {fileID: 3243560262103559482}
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
   aoeProjectilePrefab: {fileID: 2636463631664538298, guid: 13dc9ff48f599ad4eb78efc8d50cca21, type: 3}
   jumpUpDuration: 0.5
   moveMinDuration: 0.2

@@ -538,6 +538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61b63742c9eb89a4d8c8306af4536bda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   rb: {fileID: 3331725097010812407}
   inputReader: {fileID: 11400000, guid: 1103830ac2ad5e24f9122dbb95b609de, type: 2}
   playerExperience: {fileID: 6326442693015793568}
@@ -550,6 +551,7 @@ MonoBehaviour:
     bonusDefense: 0
     bonusCritChance: 0
     bonusCritDamage: 0
+    bonusDamage: 0
   characterClass: 0
 --- !u!114 &6326442693015793568
 MonoBehaviour:
@@ -606,30 +608,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  playerName:
-    m_InternalValue: Playername
   playerClass:
     m_InternalValue: 0
   level:
     m_InternalValue: 1
-  maxHP:
-    m_InternalValue: 100
   currentHP:
     m_InternalValue: 100
-  defense:
-    m_InternalValue: 10
   bonusStats:
     m_InternalValue:
       bonusHealth: 0
       bonusDefense: 0
       bonusCritChance: 0
       bonusCritDamage: 0
+      bonusDamage: 0
+  stableStats:
+    m_InternalValue:
+      health: 0
+      defense: 0
+      critRate: 0
+      critDamage: 0
+      extraDamage: 0
   stats:
     m_InternalValue:
       health: 0
       defense: 0
       critRate: 0
       critDamage: 0
+      extraDamage: 0
   uiPrefab: {fileID: 947318832750015143, guid: 1e345b738b387f54881ddd181f3f7433, type: 3}
 --- !u!114 &704731320939996596
 MonoBehaviour:

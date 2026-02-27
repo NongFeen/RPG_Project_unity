@@ -24,6 +24,7 @@ public abstract class BaseNPC : NetworkBehaviour
     [SerializeField] public bool IsDead => currentHealth.Value <= 0;
     [Header("Animation")]
     [SerializeField] public Animator animator;
+    [SerializeField] public LayerMask obstacleLayer;
 
     public override void OnNetworkSpawn()
     {
@@ -188,5 +189,27 @@ public abstract class BaseNPC : NetworkBehaviour
     //     if (currentTarget == null) return false;
     //     return Vector2.Distance(transform.position, currentTarget.position) <= range;
     // }
+    public virtual bool HasLineOfSight(Transform target)
+    {
+        if (!target) return false;
 
+        Vector2 origin = GetComponent<Collider2D>().bounds.center;
+
+        Collider2D col = target.GetComponent<Collider2D>();
+        if (col == null) return false;
+
+        Vector2 targetCenter = col.bounds.center;
+
+        Vector2 direction = (targetCenter - origin).normalized;
+        float distance = Vector2.Distance(origin, targetCenter);
+
+        RaycastHit2D hit = Physics2D.Raycast(
+            origin,
+            direction,
+            distance,
+            obstacleLayer
+        );
+
+        return hit.collider == null;
+    }
 }

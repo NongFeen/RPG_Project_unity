@@ -119,6 +119,9 @@ MonoBehaviour:
     m_InternalValue: 100
   rb: {fileID: 0}
   animator: {fileID: 6391507302115121641}
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!95 &6391507302115121641 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2428021452842083496, guid: b20346e90f442be42a9b31dc3194220c, type: 3}

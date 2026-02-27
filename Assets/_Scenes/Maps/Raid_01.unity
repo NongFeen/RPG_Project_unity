@@ -13382,9 +13382,9 @@ MonoBehaviour:
   inputReader: {fileID: 11400000, guid: 1103830ac2ad5e24f9122dbb95b609de, type: 2}
   spawnPointConfigs:
   - id: 1
-    enemyPrefab: {fileID: 0}
+    enemyPrefab: {fileID: 3051449957824930752, guid: d9a3c027f28948f4fa616a6af61f4753, type: 3}
     spawnPoint: {fileID: 1004748314}
-    spawnCount: 0
+    spawnCount: 1
     spawnOnStart: 0
     isSpawned: 0
     isLastRoom: 0
@@ -13444,7 +13444,7 @@ MonoBehaviour:
   - id: 7
     enemyPrefab: {fileID: 3051449957824930752, guid: de83e99709104d74d8b541d1829a4b51, type: 3}
     spawnPoint: {fileID: 1940093499}
-    spawnCount: 1
+    spawnCount: 0
     spawnOnStart: 0
     isSpawned: 0
     isLastRoom: 0

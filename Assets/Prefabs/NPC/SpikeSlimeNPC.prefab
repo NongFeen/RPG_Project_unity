@@ -282,6 +282,7 @@ MonoBehaviour:
   detectionRange: 30
   attackRange: 1
   attackCooldown: 1.5
+  contactDamage: 20
   isBoss: 0
   isFinalRoomEnemy: 0
   damagePopupPrefab: {fileID: 8040580954099728450, guid: c646c7475af31fe4c807e2d1c5c491ae, type: 3}
@@ -292,7 +293,9 @@ MonoBehaviour:
     m_InternalValue: 150
   rb: {fileID: 0}
   animator: {fileID: 887718728399319310}
-  contactDamage: 20
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
   knockbackForce: 4
   recoverTime: 1
   minJumpInterval: 3

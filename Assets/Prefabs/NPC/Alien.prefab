@@ -119,3 +119,6 @@ MonoBehaviour:
     m_InternalValue: 100
   rb: {fileID: 0}
   animator: {fileID: 0}
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128

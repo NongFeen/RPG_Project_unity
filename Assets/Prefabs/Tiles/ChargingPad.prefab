@@ -78,8 +78,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 7423264771523540079, guid: b8962d9df156f7d4d9d270f5c57fcde9, type: 3}
+  m_SortingOrder: -1
+  m_Sprite: {fileID: 4018918794373090891, guid: b5c1fdd992ab0234ebc60d342450d913, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -168,3 +168,6 @@ MonoBehaviour:
   padProgressTime:
     m_InternalValue: 0
   playersInside: 0
+  drainRate: 2
+  unChargedPad: {fileID: 4018918794373090891, guid: b5c1fdd992ab0234ebc60d342450d913, type: 3}
+  chargedPad: {fileID: 7756414197507959373, guid: a7cdd08471bd42543aef72c1baaf5ca4, type: 3}
