@@ -104,7 +104,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   npcName: Overseer
   maxHealth: 300
-  moveSpeed: 2
+  moveSpeed: 4
   detectionRange: 15
   attackRange: 0
   attackCooldown: 2
@@ -131,4 +131,8 @@ MonoBehaviour:
   fireInterval: 2
   idleMoveMinTime: 2
   idleMoveMaxTime: 4
-  dodgeDuration: 0.6
+  idleMoveDistance: 4
+  idleSpeed: 3
+  aimTime: 2
+  losConfirmTime: 1
+  stateTimer: 0

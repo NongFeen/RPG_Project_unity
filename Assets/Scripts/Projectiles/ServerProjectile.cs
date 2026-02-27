@@ -39,7 +39,7 @@ public class ServerProjectile : NetworkBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(!IsServer)return;
-        if(collision.gameObject.CompareTag("Wall and Obstacle"))
+        if(collision.gameObject.CompareTag("Wall"))
         {
             DestroySelf();
         }
@@ -49,7 +49,7 @@ public class ServerProjectile : NetworkBehaviour
             player.TakeDamage(this.damage);
             pierce -= 1;
         }
-        print("Player Take Damage"+ this.damage);
+        // print("Player Take Damage"+ this.damage);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
