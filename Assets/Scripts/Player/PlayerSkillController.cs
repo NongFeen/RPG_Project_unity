@@ -12,9 +12,13 @@ public class PlayerSkillController : NetworkBehaviour
     [SerializeField] private bool canCooldown = true;
 
     
-    [SerializeField]private SkillInstance skillV;
-    [SerializeField]private SkillInstance skillQ;
-    [SerializeField]private SkillInstance skillF;
+    // [SerializeField]private SkillInstance skillV;
+    // [SerializeField]private SkillInstance skillQ;
+    // [SerializeField]private SkillInstance skillF;
+    [SerializeField]private SkillBehaviour skillV;
+    [SerializeField]private SkillBehaviour skillQ;
+    [SerializeField]private SkillBehaviour skillF;
+
     
     void Start()
     {
@@ -25,16 +29,22 @@ public class PlayerSkillController : NetworkBehaviour
         }
         SetUpSkill(player.GetClassType());
         // print($"Skills Set Up for {player.GetClassType()}");
-    //V Q F
-    //1 2 3
+        //V Q F
+        //1 2 3
     }
     public void SetUpSkill(ClassType classType)
     {
         // print("Setting up skills");
         classSkillData = classSkillDataBase.GetClassSkillData(classType);
-        skillV = new SkillInstance { definition = classSkillData.skillV };
-        skillQ = new SkillInstance { definition = classSkillData.skillQ };  
-        skillF = new SkillInstance { definition = classSkillData.skillF };
+        skillV = AddSkill(classSkillData.skillV);
+        skillQ = AddSkill(classSkillData.skillQ);
+        skillF = AddSkill(classSkillData.skillF);
+    }
+    SkillBehaviour AddSkill(SkillDefinition def)
+    {
+        var behaviour = gameObject.AddComponent(def.GetBehaviourType()) as SkillBehaviour;
+        behaviour.Initialize(player, def);
+        return behaviour;
     }
     public override void OnDestroy()
     {
@@ -59,71 +69,74 @@ public class PlayerSkillController : NetworkBehaviour
         switch (skillIndex)
         {
             case 0:
-                TryUseSkill(skillV);
+                // TryUseSkill(skillV);
+                skillV.ActivateSkill(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 break;
             case 1:
-                TryUseSkill(skillQ);
+                skillQ.ActivateSkill(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 break;
             case 2:
-                TryUseSkill(skillF);
+                // TryUseSkill(skillF);
+                skillF.ActivateSkill(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 break;
         }
     }
-    void TryUseSkill(SkillInstance skill)
-    {
-        if (!skill.CanUse) return;
-        skill.TriggerCooldown();
-        ActivateSkillServerRpc(skill.definition.skillId, Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
-    }
+    // void TryUseSkill(SkillInstance skill)
+    // {
+        // if (!skill.CanUse) return;
+        // skill.TriggerCooldown();
+        // ActivateSkillServerRpc(skill.definition.skillId, Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
+    // }
 
-    [ServerRpc]
-    void ActivateSkillServerRpc(SkillId skillId, Vector3 targetPos)
-    {
-        if (classSkillDataBase == null)
-        {
-            Debug.LogError("ClassSkillDatabase is NULL on server", this);
-            return;
-        }
+    // [ServerRpc]
+    // void ActivateSkillServerRpc(SkillId skillId, Vector3 targetPos)
+    // {
+    //     if (classSkillDataBase == null)
+    //     {
+    //         Debug.LogError("ClassSkillDatabase is NULL on server", this);
+    //         return;
+    //     }
 
-        if (player == null)
-        {
-            Debug.LogError("PlayerStats is NULL on server", this);
-            return;
-        }
+    //     if (player == null)
+    //     {
+    //         Debug.LogError("PlayerStats is NULL on server", this);
+    //         return;
+    //     }
 
-        // 1️⃣ Resolve owner
-        PlayerStats ownerStats = player;
+    //     // 1️⃣ Resolve owner
+    //     PlayerStats ownerStats = player;
 
-        // 2️⃣ Get skill definition
-        SkillDefinition def = classSkillDataBase.GetSkillDefinition(skillId);
-        if (def == null)
-        {
-            Debug.LogError($"Skill not found: {skillId}", this);
-            return;
-        }
+    //     // 2️⃣ Get skill definition
+    //     SkillDefinition def = classSkillDataBase.GetSkillDefinition(skillId);
+    //     if (def == null)
+    //     {
+    //         Debug.LogError($"Skill not found: {skillId}", this);
+    //         return;
+    //     }
 
-        if (def.skillPrefab == null)
-        {
-            Debug.LogError($"Skill prefab missing for {skillId}", this);
-            return;
-        }
+    //     if (def.skillPrefab == null)
+    //     {
+    //         Debug.LogError($"Skill prefab missing for {skillId}", this);
+    //         return;
+    //     }
 
-        // 3️⃣ Spawn skill object
-        GameObject skillObj = Instantiate(def.skillPrefab);
-        NetworkObject netObj = skillObj.GetComponent<NetworkObject>();
+    //     // 3️⃣ Spawn skill object
+    //     GameObject skillObj = Instantiate(def.skillPrefab);
+    //     NetworkObject netObj = skillObj.GetComponent<NetworkObject>();
 
-        if (netObj == null)
-        {
-            Debug.LogError($"Skill prefab {def.skillPrefab.name} has no NetworkObject", this);
-            Destroy(skillObj);
-            return;
-        }
+    //     if (netObj == null)
+    //     {
+    //         Debug.LogError($"Skill prefab {def.skillPrefab.name} has no NetworkObject", this);
+    //         Destroy(skillObj);
+    //         return;
+    //     }
 
-        netObj.Spawn(true);
+    //     netObj.Spawn(true);
 
-        // 4️⃣ Initialize & activate
-        SkillBehaviour behaviour = skillObj.GetComponent<SkillBehaviour>();
-        behaviour.Initialize(ownerStats);
-        behaviour.ActivateSkill(targetPos);
-    }
+    //     // 4️⃣ Initialize & activate
+    //     SkillBehaviour behaviour = skillObj.GetComponent<SkillBehaviour>();
+    //     behaviour.Initialize(ownerStats);
+    //     behaviour.ActivateSkill(targetPos);
+    // }
+
 }

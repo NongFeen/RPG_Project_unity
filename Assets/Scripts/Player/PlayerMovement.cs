@@ -16,6 +16,7 @@ public class PlayerMovement : NetworkBehaviour
     // private readonly NetworkVariable<bool> isFacingRight = new NetworkVariable<bool>(true);
     private Rigidbody2D rb;
     private Vector2 moveInput;
+    private Vector2 externalVelocity;
     private static readonly float MIN_MOVEMENT_THRESHOLD = 0.01f; 
     // public bool IsWalking => isWalking.Value;
     // public bool IsFacingRight => isFacingRight.Value;
@@ -68,8 +69,11 @@ public class PlayerMovement : NetworkBehaviour
         {
             return;
         }
-        rb.linearVelocity = baseMoveSpeed  * moveInput;
+        Vector2 movementVelocity = baseMoveSpeed * moveInput;
+        rb.linearVelocity = movementVelocity + externalVelocity;
+        externalVelocity = Vector2.Lerp(externalVelocity, Vector2.zero, 10f * Time.fixedDeltaTime);
 
+        //animation
         bool currentWalkingState = rb.linearVelocity.sqrMagnitude > MIN_MOVEMENT_THRESHOLD;
         if (currentWalkingState != GetComponent<PlayerSprite>().isWalking.Value)
         {
@@ -86,5 +90,9 @@ public class PlayerMovement : NetworkBehaviour
     public void TeleportClientRpc(Vector3 pos)
     {
         transform.position = pos;
+    }
+    public void AddExternalVelocity(Vector2 force)
+    {
+        externalVelocity += force;
     }
 }

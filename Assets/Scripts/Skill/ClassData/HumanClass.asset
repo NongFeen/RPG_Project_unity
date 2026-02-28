@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: HumanClass
   m_EditorClassIdentifier: 
   characterClass: 0
-  skillV: {fileID: 11400000, guid: 514427aa014224d43b77626dfbea6d96, type: 2}
+  skillV: {fileID: 11400000, guid: a404ade557bd82a45a9b231c667c66ec, type: 2}
   skillQ: {fileID: 11400000, guid: 514427aa014224d43b77626dfbea6d96, type: 2}
   skillF: {fileID: 11400000, guid: 514427aa014224d43b77626dfbea6d96, type: 2}

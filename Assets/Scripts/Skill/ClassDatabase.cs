@@ -55,24 +55,24 @@ public class ClassDataBase : ScriptableObject
 
         return classSkillDictionary[classType];
     }
-    public SkillDefinition GetSkillDefinition(SkillId skillId)
+    public SkillDefinition GetSkillDefinition(SkillBehaviourType skillType)
     {
         if (classSkillDictionary == null)
             BuildDictionary();
 
         foreach (var classSkillData in classSkillDictionary.Values)
         {
-            if (classSkillData.skillV != null && classSkillData.skillV.skillId == skillId)
+            if (classSkillData.skillV != null && classSkillData.skillV.skillType == skillType)
                 return classSkillData.skillV;
 
-            if (classSkillData.skillQ != null && classSkillData.skillQ.skillId == skillId)
+            if (classSkillData.skillQ != null && classSkillData.skillQ.skillType == skillType)
                 return classSkillData.skillQ;
 
-            if (classSkillData.skillF != null && classSkillData.skillF.skillId == skillId)
+            if (classSkillData.skillF != null && classSkillData.skillF.skillType == skillType)
                 return classSkillData.skillF;
         }
 
-        Debug.LogWarning($"Skill not found in any class: {skillId}", this);
+        Debug.LogWarning($"Skill not found in any class: {skillType}", this);
         return null;
     }
     public ClassStatData GetClassStatData(ClassType classType)

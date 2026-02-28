@@ -1146,12 +1146,6 @@ MonoBehaviour:
   itemData: {fileID: 11400000, guid: d203ddf62c4e24647b2223c222752341, type: 2}
   classData: {fileID: 11400000, guid: 88089642180456f43a82e5999096e063, type: 2}
   mapData: {fileID: 11400000, guid: 4c96cddbddd14fb43ad52a299de513f8, type: 2}
-  classStatData:
-  - {fileID: 11400000, guid: 128932b673152e7408b9eade8a18cefd, type: 2}
-  - {fileID: 11400000, guid: 9c1909fe30bd54c44b22277adb9efd4c, type: 2}
-  - {fileID: 11400000, guid: 4c0cbd81d5528a244a95367c1972aa53, type: 2}
-  - {fileID: 11400000, guid: b25e146bb27eb4a46b9e488d79c83c52, type: 2}
-  - {fileID: 11400000, guid: 3140912a59467be46a7dc7ca5a738b67, type: 2}
 --- !u!1 &281359425
 GameObject:
   m_ObjectHideFlags: 0
@@ -2391,6 +2385,7 @@ MonoBehaviour:
         bonusDefense: 0
         bonusCritChance: 0
         bonusCritDamage: 0
+        bonusDamage: 0
     itemSaveData:
       equipList: []
       itemList: []
@@ -3740,17 +3735,20 @@ MonoBehaviour:
   inventoryItems: []
   equippedItems:
   - itemID: 
-    bonusDamage: 0
-    critRate: 0
-    critDamage: 0
+    bonusStat:
+      bonusDamage: 0
+      critRate: 0
+      critDamage: 0
   - itemID: 
-    bonusDamage: 0
-    critRate: 0
-    critDamage: 0
+    bonusStat:
+      bonusDamage: 0
+      critRate: 0
+      critDamage: 0
   - itemID: 
-    bonusDamage: 0
-    critRate: 0
-    critDamage: 0
+    bonusStat:
+      bonusDamage: 0
+      critRate: 0
+      critDamage: 0
 --- !u!1 &919626698
 GameObject:
   m_ObjectHideFlags: 0

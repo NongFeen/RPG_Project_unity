@@ -3,10 +3,19 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player/Skill")]
 public class SkillDefinition : ScriptableObject
 {
-    public SkillId skillId;
+    public SkillBehaviourType skillType;
+    [SerializeField]private string behaviourClassName;
     public string displayName;
     public float cooldown;
-    public GameObject skillPrefab; // NetworkBehaviour prefab
     public Sprite icon;
+    public GameObject projectilePrefab;
+    public float magicNumber1;
+    public float magicNumber2;
+    public float magicNumber3;
+
+    public System.Type GetBehaviourType()
+    {
+        return System.Type.GetType(behaviourClassName);
+    }
 }
 

@@ -10,11 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7627c2f7ebde8e46a67ad35cb551417, type: 3}
-  m_Name: SimpleBullet
+  m_Name: DashSkill
   m_EditorClassIdentifier: 
-  skillType: 0
-  behaviourClassName: ExampleSkill
-  displayName: Example Skill Bullet
-  cooldown: 5
-  icon: {fileID: 7607144487970100932, guid: ceb6596747fa76b4cad221a1339d6dc0, type: 3}
-  projectilePrefab: {fileID: 3661950033510355805, guid: 66e39e300d3214a4a872545d393a5e4f, type: 3}
+  skillType: 1
+  behaviourClassName: DashSkill
+  displayName: Dash
+  cooldown: 8
+  icon: {fileID: -7743216434121861909, guid: 980a91904d686cc4692711b155e12a40, type: 3}
+  projectilePrefab: {fileID: 0}
+  magicNumber1: 100
+  magicNumber2: 0
+  magicNumber3: 0

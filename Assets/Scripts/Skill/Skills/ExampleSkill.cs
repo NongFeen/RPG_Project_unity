@@ -6,13 +6,18 @@ public class ExampleSkill : SkillBehaviour
     //fire a projectile towards target position
     public GameObject projectilePrefab;
     [SerializeField] public int skillDamage = 30;
+    public override void Initialize(PlayerStats owner,SkillDefinition def)
+    {
+        base.Initialize(owner,def);
+        projectilePrefab = definition.projectilePrefab;
+    }
     public override void ActivateSkill(Vector3 targetPos)
     {
+        base.ActivateSkill(targetPos);
         if (!IsServer) return;
-
         Vector3 dir = (targetPos - owner.transform.position).normalized;
         SpawnProjectileServer(owner.transform.position, dir);
-        NetworkObject.Despawn(true);
+        base.ActivateSkill(targetPos);
     }
     public void SpawnProjectileServer(Vector3 firePointPosition, Vector2 direction)
     {
