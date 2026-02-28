@@ -143,6 +143,7 @@ public abstract class BaseNPC : NetworkBehaviour
         {
             if (isBoss)
             {
+                MapManager.Instance.RegisterEnemyDied();
                 MapManager.Instance.OnBossDefeated();
             }
             else

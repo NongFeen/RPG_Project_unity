@@ -18,7 +18,7 @@ public class MapManager : NetworkBehaviour
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Server
     );
-    [SerializeField] private NetworkVariable<int> aliveEnemyCount = new(
+    [SerializeField] public NetworkVariable<int> aliveEnemyCount = new(
         0,
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Server
@@ -140,7 +140,7 @@ public class MapManager : NetworkBehaviour
             CompleteMap();
         }
     }
-    public void CompleteMap()
+    public virtual void CompleteMap()
     {
         if (currenState.Value == MapState.Completed)
         return;
@@ -171,7 +171,7 @@ public class MapManager : NetworkBehaviour
         return itemInstances;
     }
 
-    public void OnBossDefeated()
+    public virtual void OnBossDefeated()
     {
         if (!IsServer) return;
         Debug.Log("Boss defeated!");

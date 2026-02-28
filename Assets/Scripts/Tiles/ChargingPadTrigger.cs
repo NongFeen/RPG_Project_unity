@@ -11,7 +11,8 @@ public class ChargingPadTrigger : NetworkBehaviour
     [SerializeField] private float drainRate = 2;
     [SerializeField] private Sprite unChargedPad;
     [SerializeField] private Sprite chargedPad;
-
+    public event Action OnPadFullyCharged;
+    [SerializeField] private Transform fillMaskTransform;
     public override void OnNetworkSpawn()
     {
         padProgressTime.OnValueChanged += OnPadProgressTimerUpdate;
@@ -19,21 +20,34 @@ public class ChargingPadTrigger : NetworkBehaviour
 
     private void OnPadProgressTimerUpdate(float previousValue, float newValue)
     {
-        this.TryGetComponent<SpriteRenderer>(out var currentSprite);
-        if(newValue < padChargedTime)
-        {
-            currentSprite.sprite = unChargedPad; 
-        }
-        else
-        {
-            currentSprite.sprite = chargedPad;
-        }
+        float percent = Mathf.Clamp01(newValue / padChargedTime);
+
+        SpriteMask mask = fillMaskTransform.GetComponent<SpriteMask>();
+        float spriteHeight = mask.sprite.bounds.size.y;
+
+        Vector3 scale = fillMaskTransform.localScale;
+        scale.y = percent;
+        fillMaskTransform.localScale = scale;
+
+        Vector3 pos = fillMaskTransform.localPosition;
+        pos.y = (-spriteHeight / 2f) + (spriteHeight * percent / 2f);
+        fillMaskTransform.localPosition = pos;
+        // this.TryGetComponent<SpriteRenderer>(out var currentSprite);
+        // if(newValue < padChargedTime)
+        // {
+        //     currentSprite.sprite = unChargedPad; 
+        // }
+        // else
+        // {
+        //     currentSprite.sprite = chargedPad;
+        // }
     }
 
     void Update()
     {
         if (!IsServer) return;
 
+        bool wasCharged = padProgressTime.Value >= padChargedTime;
         if (playersInside > 0)
         {
             padProgressTime.Value += Time.deltaTime;
@@ -44,6 +58,10 @@ public class ChargingPadTrigger : NetworkBehaviour
         }
 
         padProgressTime.Value = Mathf.Clamp(padProgressTime.Value, 0f, padChargedTime);
+        if (!wasCharged && IsCharged())
+        {
+            OnPadFullyCharged?.Invoke();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

@@ -20,10 +20,14 @@ MonoBehaviour:
   itemType: 1
   clientProjectilePrefab: {fileID: 4091576519318105471, guid: de6cad3707aaca245964ff65aa88d749, type: 3}
   serverProjectilePrefab: {fileID: 3661950033510355805, guid: 8cc2f37218421ec4ca5ba35762571f03, type: 3}
-  baseDamage: 12
+  baseDamage: 100
   baseFirerate: 1800
   baseMaxammo: 999
   baseReloadSpeed: 2
   animator: {fileID: 0}
   animationClip: {fileID: 7400000, guid: ca1be0bfbb57073438e0829f4b9ac46c, type: 2}
   weaponPrefab: {fileID: 2722307789887907519, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
+  weaponExtraStat:
+    bonusDamage: 0
+    critRate: 0
+    critDamage: 0

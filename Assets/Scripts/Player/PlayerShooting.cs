@@ -56,7 +56,7 @@ public class PlayerShooting : NetworkBehaviour
         WeaponBehaviour weapon = playerEquipedItem.activeWeapon;
         bool isCrit = false;
         float rollvalue = UnityEngine.Random.Range(0f, 1f);
-        print($"Roll {rollvalue:F2} < CritChance {critChance:F2}");
+        // print($"Roll {rollvalue:F2} < CritChance {critChance:F2}");
         if (rollvalue < critChance)
             isCrit = true;
         weapon.SpawnProjectileServer(firePointPosition, dir, isCrit, critDamageMultiplier);

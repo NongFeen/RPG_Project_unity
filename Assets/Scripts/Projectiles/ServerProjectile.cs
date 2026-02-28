@@ -16,7 +16,7 @@ public class ServerProjectile : NetworkBehaviour
     public void OnSpawn(Vector2 direction, float damage,bool isCrit, float critDamageMultiplier)
     {
         this.direction = direction.normalized;
-        print($"Projectile damage {this.damage} (isCrit: {isCrit}) critMul: {critDamageMultiplier} shouldbe {damage * critDamageMultiplier}");
+        // print($"Projectile damage {this.damage} (isCrit: {isCrit}) critMul: {critDamageMultiplier} shouldbe {damage * critDamageMultiplier}");
         this.damage = isCrit ? damage * critDamageMultiplier : damage;
         this.isCrit = isCrit;
         lifeTimer = lifeTime;
@@ -54,7 +54,7 @@ public class ServerProjectile : NetworkBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!IsServer) return;
-        print("Hit target");
+        // print("Hit target");
         if (canHitPlayer && !isFriendly && collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.TryGetComponent<PlayerStats>(out var player);

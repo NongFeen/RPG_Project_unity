@@ -255,7 +255,10 @@ public class OverSeer_NPC : BaseNPC
         Vector2 dir = (targetTransform.position - transform.position).normalized;
         Vector3 magicProjectileOffsetValue = new Vector3(0, 0,0);
         Vector3 spawnPos = transform.position + magicProjectileOffsetValue;
-        Quaternion rot = Quaternion.identity;
+
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        Quaternion rot = Quaternion.Euler(0, 0, angle);
+        // Quaternion rot = Quaternion.identity;
 
         NetworkObject netObj =
             NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(
@@ -269,7 +272,7 @@ public class OverSeer_NPC : BaseNPC
         if (proj.TryGetComponent<ServerProjectile>(out var serverProjectile))
         {
             serverProjectile.OnSpawn(
-                dir, //no dir needed
+                dir, 
                 contactDamage,        
                 false,                
                 1f                    
