@@ -14,7 +14,7 @@ public class ExampleSkill : SkillBehaviour
     public override void ActivateSkill(Vector3 targetPos)
     {
         base.ActivateSkill(targetPos);
-        if (!IsServer) return;
+        // if (!IsServer) return;
         Vector3 dir = (targetPos - owner.transform.position).normalized;
         SpawnProjectileServer(owner.transform.position, dir);
         base.ActivateSkill(targetPos);

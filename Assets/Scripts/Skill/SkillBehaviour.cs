@@ -1,7 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public abstract class SkillBehaviour : NetworkBehaviour
+public abstract class SkillBehaviour 
 {
     public SkillDefinition definition;
     protected PlayerStats owner;

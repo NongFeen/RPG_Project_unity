@@ -1,5 +1,6 @@
 using Unity.Netcode;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem.Composites;
 [RequireComponent(typeof(PlayerStats))]
@@ -15,9 +16,12 @@ public class PlayerSkillController : NetworkBehaviour
     // [SerializeField]private SkillInstance skillV;
     // [SerializeField]private SkillInstance skillQ;
     // [SerializeField]private SkillInstance skillF;
-    [SerializeField]private SkillBehaviour skillV;
-    [SerializeField]private SkillBehaviour skillQ;
-    [SerializeField]private SkillBehaviour skillF;
+    // [SerializeField]private SkillBehaviour skillV;
+    // [SerializeField]private SkillBehaviour skillQ;
+    // [SerializeField]private SkillBehaviour skillF;
+    [SerializeField]private SkillLogic skillV;
+    [SerializeField]private SkillLogic skillQ;
+    [SerializeField]private SkillLogic skillF;
 
     
     void Start()
@@ -36,16 +40,32 @@ public class PlayerSkillController : NetworkBehaviour
     {
         // print("Setting up skills");
         classSkillData = classSkillDataBase.GetClassSkillData(classType);
-        skillV = AddSkill(classSkillData.skillV);
-        skillQ = AddSkill(classSkillData.skillQ);
-        skillF = AddSkill(classSkillData.skillF);
+        // skillV = AddSkill(classSkillData.skillV);
+        // skillQ = AddSkill(classSkillData.skillQ);
+        // skillF = AddSkill(classSkillData.skillF);
+        skillV = CreateSkill(classSkillData.skillV);
+        skillQ = CreateSkill(classSkillData.skillQ);
+        skillF = CreateSkill(classSkillData.skillF);
     }
-    SkillBehaviour AddSkill(SkillDefinition def)
+    SkillLogic CreateSkill(SkillDefinition def)
     {
-        var behaviour = gameObject.AddComponent(def.GetBehaviourType()) as SkillBehaviour;
-        behaviour.Initialize(player, def);
-        return behaviour;
+        switch(def.skillType)
+        {
+            case SkillBehaviourType.Dash:
+                return new DashSkillLogic(this, def);
+
+            case SkillBehaviourType.ExampleProjectile:
+                return new ProjectileSkillLogic(this, def);
+        }
+
+        return null;
     }
+    // SkillBehaviour AddSkill(SkillDefinition def)
+    // {
+    //     var behaviour = gameObject.AddComponent(def.GetBehaviourType()) as SkillBehaviour;
+    //     behaviour.Initialize(player, def);
+    //     return behaviour;
+    // }
     public override void OnDestroy()
     {
         if (!IsOwner) return;
@@ -70,15 +90,42 @@ public class PlayerSkillController : NetworkBehaviour
         {
             case 0:
                 // TryUseSkill(skillV);
-                skillV.ActivateSkill(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
+                skillV.TryActivate(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
+                // skillV.ActivateSkill(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 break;
             case 1:
-                skillQ.ActivateSkill(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
+                skillQ.TryActivate(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
+                // skillQ.ActivateSkill(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 break;
             case 2:
                 // TryUseSkill(skillF);
-                skillF.ActivateSkill(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
+                skillF.TryActivate(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
+                // skillF.ActivateSkill(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 break;
+        }
+    }
+        // controller.SpawnProjectileServerRpc(dir, definition.magicNumber1);
+    [ServerRpc]
+    public void SpawnProjectileServerRpc(float damage, Vector2 direction, SkillBehaviourType skillId)
+    {
+        // This check is the authoritative gate to ensure this is only done on the server.
+        if (!IsServer) return;
+        SkillDefinition def = classSkillDataBase.GetSkillDefinition(skillId);
+        GameObject prefabToUse = def.projectilePrefab;
+        prefabToUse.TryGetComponent<NetworkObject>(out NetworkObject netObjToUse);
+        if (prefabToUse == null) return;
+        
+        // Calculate rotation
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion rot = Quaternion.Euler(0, 0, angle);
+
+        NetworkObject netObj = NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(netObjToUse, NetworkManager.Singleton.LocalClientId,false,false,false,player.transform.position,rot);
+
+        GameObject proj = netObj.gameObject;
+
+        if (proj.TryGetComponent<ServerProjectile>(out ServerProjectile serverProjectile))
+        {
+            serverProjectile.OnSpawn(direction, damage ,false, 1f);
         }
     }
     // void TryUseSkill(SkillInstance skill)

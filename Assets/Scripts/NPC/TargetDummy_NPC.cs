@@ -15,6 +15,7 @@ public class TargetDummy_NPC : BaseNPC
     }
     protected override void Update()
     {
+        if(!IsServer) return;
         this.currentHealth.Value = maxHealth;
         this.transform.position = spawnPos;
     }
