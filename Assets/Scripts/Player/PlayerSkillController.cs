@@ -19,9 +19,9 @@ public class PlayerSkillController : NetworkBehaviour
     // [SerializeField]private SkillBehaviour skillV;
     // [SerializeField]private SkillBehaviour skillQ;
     // [SerializeField]private SkillBehaviour skillF;
-    [SerializeField]private SkillLogic skillV;
-    [SerializeField]private SkillLogic skillQ;
-    [SerializeField]private SkillLogic skillF;
+    [SerializeField]public SkillLogic SkillV;
+    [SerializeField]public SkillLogic SkillQ;
+    [SerializeField]public SkillLogic SkillF;
 
     
     void Start()
@@ -43,29 +43,26 @@ public class PlayerSkillController : NetworkBehaviour
         // skillV = AddSkill(classSkillData.skillV);
         // skillQ = AddSkill(classSkillData.skillQ);
         // skillF = AddSkill(classSkillData.skillF);
-        skillV = CreateSkill(classSkillData.skillV);
-        skillQ = CreateSkill(classSkillData.skillQ);
-        skillF = CreateSkill(classSkillData.skillF);
+        SkillV = CreateSkill(classSkillData.skillV);
+        SkillQ = CreateSkill(classSkillData.skillQ);
+        SkillF = CreateSkill(classSkillData.skillF);
+        UIManager.Instance.SetUpSkill(gameObject);
     }
     SkillLogic CreateSkill(SkillDefinition def)
     {
+        //switch back to use database
         switch(def.skillType)
         {
             case SkillBehaviourType.Dash:
                 return new DashSkillLogic(this, def);
-
             case SkillBehaviourType.ExampleProjectile:
                 return new ProjectileSkillLogic(this, def);
+            case SkillBehaviourType.DinenDash:
+                return new DineAndDashSkillLogic(this, def);
         }
 
         return null;
     }
-    // SkillBehaviour AddSkill(SkillDefinition def)
-    // {
-    //     var behaviour = gameObject.AddComponent(def.GetBehaviourType()) as SkillBehaviour;
-    //     behaviour.Initialize(player, def);
-    //     return behaviour;
-    // }
     public override void OnDestroy()
     {
         if (!IsOwner) return;
@@ -77,9 +74,9 @@ public class PlayerSkillController : NetworkBehaviour
         if (!IsOwner) return;
         if (canCooldown)
         {
-            skillV.Tick(Time.deltaTime);
-            skillQ.Tick(Time.deltaTime);
-            skillF.Tick(Time.deltaTime);
+            SkillV.Tick(Time.deltaTime);
+            SkillQ.Tick(Time.deltaTime);
+            SkillF.Tick(Time.deltaTime);
         }
     }
     void OnSkillUse(int skillIndex)
@@ -90,16 +87,16 @@ public class PlayerSkillController : NetworkBehaviour
         {
             case 0:
                 // TryUseSkill(skillV);
-                skillV.TryActivate(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
+                SkillV.TryActivate(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 // skillV.ActivateSkill(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 break;
             case 1:
-                skillQ.TryActivate(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
+                SkillQ.TryActivate(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 // skillQ.ActivateSkill(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 break;
             case 2:
                 // TryUseSkill(skillF);
-                skillF.TryActivate(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
+                SkillF.TryActivate(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 // skillF.ActivateSkill(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 break;
         }
@@ -128,62 +125,4 @@ public class PlayerSkillController : NetworkBehaviour
             serverProjectile.OnSpawn(direction, damage ,false, 1f);
         }
     }
-    // void TryUseSkill(SkillInstance skill)
-    // {
-        // if (!skill.CanUse) return;
-        // skill.TriggerCooldown();
-        // ActivateSkillServerRpc(skill.definition.skillId, Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
-    // }
-
-    // [ServerRpc]
-    // void ActivateSkillServerRpc(SkillId skillId, Vector3 targetPos)
-    // {
-    //     if (classSkillDataBase == null)
-    //     {
-    //         Debug.LogError("ClassSkillDatabase is NULL on server", this);
-    //         return;
-    //     }
-
-    //     if (player == null)
-    //     {
-    //         Debug.LogError("PlayerStats is NULL on server", this);
-    //         return;
-    //     }
-
-    //     // 1️⃣ Resolve owner
-    //     PlayerStats ownerStats = player;
-
-    //     // 2️⃣ Get skill definition
-    //     SkillDefinition def = classSkillDataBase.GetSkillDefinition(skillId);
-    //     if (def == null)
-    //     {
-    //         Debug.LogError($"Skill not found: {skillId}", this);
-    //         return;
-    //     }
-
-    //     if (def.skillPrefab == null)
-    //     {
-    //         Debug.LogError($"Skill prefab missing for {skillId}", this);
-    //         return;
-    //     }
-
-    //     // 3️⃣ Spawn skill object
-    //     GameObject skillObj = Instantiate(def.skillPrefab);
-    //     NetworkObject netObj = skillObj.GetComponent<NetworkObject>();
-
-    //     if (netObj == null)
-    //     {
-    //         Debug.LogError($"Skill prefab {def.skillPrefab.name} has no NetworkObject", this);
-    //         Destroy(skillObj);
-    //         return;
-    //     }
-
-    //     netObj.Spawn(true);
-
-    //     // 4️⃣ Initialize & activate
-    //     SkillBehaviour behaviour = skillObj.GetComponent<SkillBehaviour>();
-    //     behaviour.Initialize(ownerStats);
-    //     behaviour.ActivateSkill(targetPos);
-    // }
-
 }

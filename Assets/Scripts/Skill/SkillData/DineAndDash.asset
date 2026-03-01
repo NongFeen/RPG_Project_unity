@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7627c2f7ebde8e46a67ad35cb551417, type: 3}
-  m_Name: SimpleBullet
+  m_Name: DineAndDash
   m_EditorClassIdentifier: 
-  skillType: 0
-  displayName: Example Skill Bullet
+  skillType: 2
+  displayName: Dine 'n' Dash
   cooldown: 9
-  icon: {fileID: 3725415137118365631, guid: c63da8deb622f6742b96cd03623c7f7c, type: 3}
-  projectilePrefab: {fileID: 3661950033510355805, guid: 66e39e300d3214a4a872545d393a5e4f, type: 3}
-  magicNumber1: 0
+  icon: {fileID: 4962624118238521107, guid: 282b19b5165201244966fc633c8cba9f, type: 3}
+  projectilePrefab: {fileID: 3661950033510355805, guid: 7303644bf0a1be84ab4dc7422846410b, type: 3}
+  magicNumber1: 50
   magicNumber2: 0
   magicNumber3: 0

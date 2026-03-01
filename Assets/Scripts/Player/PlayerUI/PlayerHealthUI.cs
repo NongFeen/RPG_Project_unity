@@ -8,9 +8,9 @@ public class PlayerHealthUI : MonoBehaviour,IPlayerStatUI
     [SerializeField] TextMeshProUGUI hpNumberText;
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private Slider HPbar;
-    public void SetPlayerData(PlayerStats stats, PlayerEquipedItem equip)
+    public void SetPlayerData(GameObject player)
     {
-        playerStats = stats;
+        playerStats = player.GetComponent<PlayerStats>();
         UpdateHp(0, playerStats.currentHP.Value);
         playerStats.currentHP.OnValueChanged += UpdateHp;
         playerStats.stats.OnValueChanged += UpdateMaxHp;

@@ -38,4 +38,9 @@ public abstract class SkillLogic
         return coolDownTimer / definition.cooldown;
     }
     public abstract void Activate(Vector3 targetPos);
+
+    public SkillDefinition GetSkillDefinition()
+    {
+        return definition;
+    }
 }

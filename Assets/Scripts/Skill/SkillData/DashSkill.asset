@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: DashSkill
   m_EditorClassIdentifier: 
   skillType: 1
-  behaviourClassName: DashSkill
   displayName: Dash
-  cooldown: 8
+  cooldown: 9
   icon: {fileID: -7743216434121861909, guid: 980a91904d686cc4692711b155e12a40, type: 3}
   projectilePrefab: {fileID: 0}
   magicNumber1: 100

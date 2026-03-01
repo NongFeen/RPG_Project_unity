@@ -14,10 +14,10 @@ public class PlayerWeaponUI : MonoBehaviour,IPlayerStatUI
     void OnDestroy()
     {
     }
-    public void SetPlayerData(PlayerStats stats, PlayerEquipedItem equip)
+    public void SetPlayerData(GameObject player)
     {
-        this.playerStats = stats;
-        playerEquiped = equip;
+        this.playerStats = player.GetComponent<PlayerStats>();
+        playerEquiped = player.GetComponent<PlayerEquipedItem>();
     }
     void Update()
     {

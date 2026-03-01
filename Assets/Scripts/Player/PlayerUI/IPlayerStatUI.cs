@@ -1,8 +1,9 @@
 using System;
 using System.Runtime.Serialization;
 using Unity.VisualScripting;
+using UnityEngine;
 
 public interface IPlayerStatUI
 {
-    void SetPlayerData(PlayerStats stats, PlayerEquipedItem equip);
+    void SetPlayerData(GameObject player);
 }

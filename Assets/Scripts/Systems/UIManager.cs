@@ -14,11 +14,17 @@ public class UIManager : MonoBehaviour
         Instance = this;
         // DontDestroyOnLoad(gameObject);
     }
-    public void ActivePlayerHUD(PlayerStats playerStats,PlayerEquipedItem playerEquipedItem)
+    public void ActivePlayerHUD(GameObject player)
     {
         PlayerHUDUI.SetActive(true);
         PlayerHUDUI.TryGetComponent<PlayerGameplayUI>(out var playerGameplayUI);
-        playerGameplayUI.SetPlayerData(playerStats, playerEquipedItem);
+        // playerGameplayUI.SetPlayerData(playerStats, playerEquipedItem);
+        playerGameplayUI.SetPlayerData(player);
+    }
+    public void SetUpSkill(GameObject player)
+    {
+        PlayerHUDUI.TryGetComponent<PlayerGameplayUI>(out var playerGameplayUI);
+        playerGameplayUI.SetPlayerSkill(player);
     }
     public void DeactivePlayerHUD()
     {

@@ -51,7 +51,7 @@ public class PlayerStats : NetworkBehaviour
         if (IsOwner)
         {
             currentHP.OnValueChanged += OnHPChanged;
-            UIManager.Instance.ActivePlayerHUD(this,GetComponent<PlayerEquipedItem>());
+            UIManager.Instance.ActivePlayerHUD(gameObject);
         }
     }
     
