@@ -27,6 +27,28 @@ public struct Stats : INetworkSerializable, IEquatable<Stats>
         serializer.SerializeValue(ref critDamage);
         serializer.SerializeValue(ref extraDamage);
     }
+    public static Stats operator +(Stats a, Stats b)
+    {
+        return new Stats
+        {
+            health = a.health + b.health,
+            defense = a.defense + b.defense,
+            critRate = a.critRate + b.critRate,
+            critDamage = a.critDamage + b.critDamage,
+            extraDamage = a.extraDamage + b.extraDamage
+        };
+    }
+    public static Stats operator +(Stats a, BonusStats b)
+    {
+        return new Stats
+        {
+            health = a.health + b.bonusHealth,
+            defense = a.defense + b.bonusDefense,
+            critRate = a.critRate + b.bonusCritChance,
+            critDamage = a.critDamage + b.bonusCritDamage,
+            extraDamage = a.extraDamage + b.bonusDamage
+        };
+    }
     public override string ToString()
     {
         return $"Health: {health}, Defense: {defense}, CritRate: {critRate}, CritDamage: {critDamage}, ExtraDamage: {extraDamage}";

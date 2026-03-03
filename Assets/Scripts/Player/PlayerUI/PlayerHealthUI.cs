@@ -13,7 +13,7 @@ public class PlayerHealthUI : MonoBehaviour,IPlayerStatUI
         playerStats = player.GetComponent<PlayerStats>();
         UpdateHp(0, playerStats.currentHP.Value);
         playerStats.currentHP.OnValueChanged += UpdateHp;
-        playerStats.stats.OnValueChanged += UpdateMaxHp;
+        playerStats.activeStats.OnValueChanged += UpdateMaxHp;
     }
     private void OnDestroy()
     {
@@ -22,8 +22,8 @@ public class PlayerHealthUI : MonoBehaviour,IPlayerStatUI
     }
     private void UpdateHp(float oldValue, float newValue)
     {
-        hpNumberText.text = $"{newValue:F2} / {playerStats.stats.Value.health:F2}";
-        HPbar.value = newValue / playerStats.stats.Value.health;
+        hpNumberText.text = $"{newValue:F2} / {playerStats.activeStats.Value.health:F2}";
+        HPbar.value = newValue / playerStats.activeStats.Value.health;
     }
     private void UpdateMaxHp(Stats oldValue, Stats newValue)
     {

@@ -59,8 +59,11 @@ public class PlayerSkillController : NetworkBehaviour
                 return new ProjectileSkillLogic(this, def);
             case SkillBehaviourType.DinenDash:
                 return new DineAndDashSkillLogic(this, def);
+            case SkillBehaviourType.HolyLight:
+                return new HolyLightSkillLogic(this,def);
+            case SkillBehaviourType.HealAndCure:
+                return new HealAndCure(this,def);
         }
-
         return null;
     }
     public override void OnDestroy()
@@ -103,9 +106,8 @@ public class PlayerSkillController : NetworkBehaviour
     }
         // controller.SpawnProjectileServerRpc(dir, definition.magicNumber1);
     [ServerRpc]
-    public void SpawnProjectileServerRpc(float damage, Vector2 direction, SkillBehaviourType skillId)
+    public void SpawnProjectileServerRpc(float damage,Vector2 position, Vector2 direction, SkillBehaviourType skillId)
     {
-        // This check is the authoritative gate to ensure this is only done on the server.
         if (!IsServer) return;
         SkillDefinition def = classSkillDataBase.GetSkillDefinition(skillId);
         GameObject prefabToUse = def.projectilePrefab;
@@ -116,7 +118,7 @@ public class PlayerSkillController : NetworkBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion rot = Quaternion.Euler(0, 0, angle);
 
-        NetworkObject netObj = NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(netObjToUse, NetworkManager.Singleton.LocalClientId,false,false,false,player.transform.position,rot);
+        NetworkObject netObj = NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(netObjToUse, NetworkManager.Singleton.LocalClientId,false,false,false,position,rot);
 
         GameObject proj = netObj.gameObject;
 

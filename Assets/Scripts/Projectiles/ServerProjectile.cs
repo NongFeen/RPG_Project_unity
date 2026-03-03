@@ -47,6 +47,15 @@ public class ServerProjectile : NetworkBehaviour
             player.TakeDamage(this.damage);
             pierce -= 1;
         }
+        if (isFriendly && collision.gameObject.TryGetComponent<BaseNPC>(out var npc))
+        {
+            print($"{name} is hitting");
+            this.OnProjectileHit(npc);
+            npc.OnHit(damage,isCrit);
+            pierce -= 1;
+        }
+        if(pierce < 1)
+            DestroySelf();
         // print("Player Take Damage"+ this.damage);
     }
     public virtual void OnCollisionEnter2D(Collision2D collision)

@@ -119,12 +119,12 @@ MonoBehaviour:
     m_InternalValue: 100
   rb: {fileID: 0}
   animator: {fileID: 0}
-  currentState:
-    m_InternalValue: 0
-  bulletPrefab: {fileID: 2636463631664538298, guid: 860720301a9992e4bb0cade879891424, type: 3}
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 128
+  currentState:
+    m_InternalValue: 0
+  bulletPrefab: {fileID: 2636463631664538298, guid: 860720301a9992e4bb0cade879891424, type: 3}
   nearbyRange: 10
   preferredDistance: 10
   tooCloseDistance: 3

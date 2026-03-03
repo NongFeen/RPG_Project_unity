@@ -213,7 +213,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -334,9 +334,11 @@ MonoBehaviour:
   lifeTime: 10
   pierce: 1
   canHitPlayer: 0
+  isFriendly: 1
   direction: {x: 0, y: 0}
   damage: 0
-  weaponOwner: {fileID: 0}
+  isCrit: 0
+  lifeTimer: 0
 --- !u!4 &4096414764253170182 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5096499499145613973, guid: b5052fca5d4800f45990d8f05c2efe0d, type: 3}

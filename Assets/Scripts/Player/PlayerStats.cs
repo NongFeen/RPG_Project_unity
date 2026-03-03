@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.Netcode;
 using System;
+using System.Collections.Generic;
 
 public class PlayerStats : NetworkBehaviour
 {
@@ -35,10 +36,17 @@ public class PlayerStats : NetworkBehaviour
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Server);
     // modifiable stats when playing
-    public NetworkVariable<Stats> stats =
+    public NetworkVariable<Stats> activeStats =
         new NetworkVariable<Stats>(new Stats(),
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Server);
+    private class ActiveBuff
+    {
+        public BuffType type;
+        public Stats statModifier;
+        public float endTime;
+    }
+    private readonly List<ActiveBuff> activeBuffs = new();
     [SerializeField] GameObject uiPrefab;
     public override void OnNetworkSpawn()
     {
@@ -82,7 +90,7 @@ public class PlayerStats : NetworkBehaviour
     public void TakeDamage(float amount)
     {
         if (!IsServer) return;
-        float def = stats.Value.defense;
+        float def = activeStats.Value.defense;
 
         // Get reduction in range 0 - 1
         float reduction = GetDamageReduction(def);
@@ -115,10 +123,14 @@ public class PlayerStats : NetworkBehaviour
 
     public void Heal(float amount)
     {
-        if (!IsOwner) return;
-        currentHP.Value = Mathf.Min(currentHP.Value + amount, stats.Value.health);
+        if (!IsServer) return;
+        currentHP.Value = Mathf.Min(currentHP.Value + amount, activeStats.Value.health);
     }
-
+    [ServerRpc]
+    public void HealServerRpc(float amount)
+    {
+        Heal(amount);
+    }
     private void OnHPChanged(float oldValue, float newValue)
     {
         Debug.Log($"{OwnerClientId} HP: {oldValue} -> {newValue}");
@@ -165,8 +177,21 @@ public class PlayerStats : NetworkBehaviour
     }
     private void SetStartStat()
     {
+        Stats baseStat = stableStats.Value;
+        activeStats.Value = baseStat;
+        currentHP.Value = activeStats.Value.health;
+    }
+    private void RecalculateActiveStats()
+    {
         Stats activeStat = stableStats.Value;
-        stats.Value = activeStat;
-        currentHP.Value = stats.Value.health;
+        activeStat += bonusStats.Value;
+
+        activeStats.Value = activeStat;
+        //TODO 
+    }
+    public void AddBuff(BuffType buffType, float duration)
+    {
+        //TODO
+        RecalculateActiveStats();
     }
 }

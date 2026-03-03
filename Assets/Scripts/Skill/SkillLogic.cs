@@ -16,10 +16,13 @@ public abstract class SkillLogic
     {
         Debug.Log(definition.displayName + " CooldownTimer: "+ CooldownRemaining());
         if (!IsReady()) return;
-
-        coolDownTimer = definition.cooldown;
-        Activate(targetPos);
+        bool success = Activate(targetPos);
+        if (success)
+        {
+            coolDownTimer = definition.cooldown;
+        }
     }
+    public abstract bool Activate(Vector3 targetPos);
     public void Tick(float deltaTime)
     {
         coolDownTimer -= deltaTime;
@@ -37,7 +40,6 @@ public abstract class SkillLogic
     {
         return coolDownTimer / definition.cooldown;
     }
-    public abstract void Activate(Vector3 targetPos);
 
     public SkillDefinition GetSkillDefinition()
     {
