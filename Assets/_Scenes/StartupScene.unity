@@ -299,6 +299,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -35
       objectReference: {fileID: 0}
+    - target: {fileID: 8299176053958467007, guid: 1e345b738b387f54881ddd181f3f7433, type: 3}
+      propertyPath: buffCardPrefab
+      value: 
+      objectReference: {fileID: 2139753568921960836, guid: dc62927dc1394914a938e4fdf13b929e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1092,6 +1096,7 @@ MonoBehaviour:
   itemData: {fileID: 11400000, guid: d203ddf62c4e24647b2223c222752341, type: 2}
   classData: {fileID: 11400000, guid: 88089642180456f43a82e5999096e063, type: 2}
   mapData: {fileID: 11400000, guid: 4c96cddbddd14fb43ad52a299de513f8, type: 2}
+  buffData: {fileID: 11400000, guid: b6825722f1a93f64689b71134344c7a2, type: 2}
 --- !u!1 &292244665
 GameObject:
   m_ObjectHideFlags: 0

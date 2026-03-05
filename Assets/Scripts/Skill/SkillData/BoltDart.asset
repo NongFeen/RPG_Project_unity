@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7627c2f7ebde8e46a67ad35cb551417, type: 3}
-  m_Name: LockedInSkill
+  m_Name: BoltDart
   m_EditorClassIdentifier: 
-  skillType: 4
-  displayName: LOCKED IN
-  cooldown: 5
-  icon: {fileID: -8774827867185692175, guid: e2ad661681248314786b2fb24289665e, type: 3}
-  projectilePrefab: {fileID: 0}
-  magicNumber1: 10
-  magicNumber2: 15
-  magicNumber3: 30
+  skillType: 3
+  displayName: BoltDart
+  cooldown: 3
+  icon: {fileID: 3725415137118365631, guid: c63da8deb622f6742b96cd03623c7f7c, type: 3}
+  projectilePrefab: {fileID: 2636463631664538298, guid: ee18a292c6a85d047a3f5a60bf453534, type: 3}
+  magicNumber1: 50
+  magicNumber2: 25
+  magicNumber3: 0

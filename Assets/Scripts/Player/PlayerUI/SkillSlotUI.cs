@@ -11,7 +11,6 @@ public class SkillSlotUI : MonoBehaviour
 
     public void Bind(SkillLogic skillLogic, SkillDefinition skillDefinition)
     {
-
         skill = skillLogic;
         maxCooldown = skillDefinition.cooldown;
         skillIcon.sprite = skillDefinition.icon;

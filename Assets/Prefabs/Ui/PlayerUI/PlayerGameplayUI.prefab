@@ -249,6 +249,7 @@ MonoBehaviour:
   playerHealthUI: {fileID: 3496534877606071287}
   playerWeaponUI: {fileID: 133766982811134565}
   playerSkillUI: {fileID: 4603076285315957087}
+  playerBuffUI: {fileID: 8299176053958467007}
 --- !u!1 &1442340718672979636
 GameObject:
   m_ObjectHideFlags: 0
@@ -2492,13 +2493,15 @@ GameObject:
   - component: {fileID: 5354609244155237666}
   - component: {fileID: 3318331840747109993}
   - component: {fileID: 7476708217099165469}
+  - component: {fileID: 4768349806156259041}
+  - component: {fileID: 8299176053958467007}
   m_Layer: 5
   m_Name: BuffList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5354609244155237666
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2515,8 +2518,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -840.21, y: 0.000023842}
-  m_SizeDelta: {x: 239.5943, y: 317.4213}
+  m_AnchoredPosition: {x: -810.04, y: 0.000065875}
+  m_SizeDelta: {x: 300, y: 317.4213}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3318331840747109993
 CanvasRenderer:
@@ -2556,6 +2559,46 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4768349806156259041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9210046283299426944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 300, y: 70}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
+--- !u!114 &8299176053958467007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9210046283299426944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d002bdf86b5fc4c9ca05305512bb8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStats: {fileID: 0}
+  buffCardPrefab: {fileID: 0}
+  buffContainer: {fileID: 5354609244155237666}
+  activeBuffCards: []
 --- !u!1001 &1192622293569905733
 PrefabInstance:
   m_ObjectHideFlags: 0

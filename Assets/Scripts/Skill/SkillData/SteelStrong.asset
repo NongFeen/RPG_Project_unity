@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7627c2f7ebde8e46a67ad35cb551417, type: 3}
   m_Name: SteelStrong
   m_EditorClassIdentifier: 
-  skillType: 0
+  skillType: 7
   displayName: Steel Strong
   cooldown: 30
   icon: {fileID: 792494858163547246, guid: 6aef6b9442f900c4a8d9e61b1f00d1d1, type: 3}

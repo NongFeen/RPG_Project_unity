@@ -3,6 +3,7 @@ public enum SkillBehaviourType
     ExampleProjectile,
     Dash,
     DinenDash,
+    BoltDart,
     LockedIn,
     HealAndCure,
     HolyLight,

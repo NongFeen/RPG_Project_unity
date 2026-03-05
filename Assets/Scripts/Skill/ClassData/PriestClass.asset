@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b193f979d6717e498e73d9a206fd12c, type: 3}
-  m_Name: HumanClass
+  m_Name: PriestClass
   m_EditorClassIdentifier: 
-  characterClass: 0
-  skillV: {fileID: 11400000, guid: a404ade557bd82a45a9b231c667c66ec, type: 2}
-  skillQ: {fileID: 11400000, guid: 1ce42f2577888154c8d909dd3c64eb45, type: 2}
-  skillF: {fileID: 0}
+  characterClass: 2
+  skillV: {fileID: 11400000, guid: fef53424963482d4c98e8b665fd77147, type: 2}
+  skillQ: {fileID: 11400000, guid: b6f0ed8d54bd94d43bb31f9ad63e877d, type: 2}
+  skillF: {fileID: 11400000, guid: 4281da41e0f3a5344af74462820f546b, type: 2}

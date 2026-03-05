@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game/Buff Data")]
-public class BuffData : ScriptableObject
+[CreateAssetMenu(menuName = "Buff/Buff Data")]
+public class BuffDefinition : ScriptableObject
 {
     public BuffType buffType;
 

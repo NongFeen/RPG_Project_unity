@@ -9,6 +9,7 @@ public class PlayerGameplayUI : MonoBehaviour,IPlayerStatUI
     [SerializeField] private PlayerHealthUI playerHealthUI;
     [SerializeField] private PlayerWeaponUI playerWeaponUI;
     [SerializeField] private PlayerSkillUI playerSkillUI;
+    [SerializeField] private PlayerBuffUI playerBuffUI;
 
     public void SetPlayerData(GameObject player)
     {
@@ -19,6 +20,7 @@ public class PlayerGameplayUI : MonoBehaviour,IPlayerStatUI
         playerHealthUI.SetPlayerData(player);
         playerWeaponUI.SetPlayerData(player);
         // playerSkillUI.SetPlayerData(player);
+        playerBuffUI.SetPlayerData(player);
     }
     public void SetPlayerSkill(GameObject player)
     {

@@ -1,10 +1,15 @@
 using UnityEngine;
 
-public class StatBuff : BaseBuff
+public class LockedInBuff : BaseBuff
 {
-    public StatBuff(PlayerStats owner, BuffData data)
-        : base(owner, data) { }
+    public LockedInBuff(PlayerStats owner, BuffDefinition data,float duration)
+        : base(owner, data, duration) { }
 
+    public override void Update()
+    {
+        Debug.Log($"Buff : {data.buffType}, Time Left: {duration}");
+        base.Update();
+    }
     public override Stats ModifyStats(Stats baseStats)
     {
         Stats result = baseStats;

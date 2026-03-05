@@ -40,13 +40,7 @@ public class PlayerStats : NetworkBehaviour
         new NetworkVariable<Stats>(new Stats(),
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Server);
-    private class ActiveBuff
-    {
-        public BuffType type;
-        public Stats statModifier;
-        public float endTime;
-    }
-    private readonly List<ActiveBuff> activeBuffs = new();
+    private Dictionary<BuffType, BaseBuff> activeBuffs= new Dictionary<BuffType, BaseBuff>();
     [SerializeField] GameObject uiPrefab;
     public override void OnNetworkSpawn()
     {
@@ -62,7 +56,29 @@ public class PlayerStats : NetworkBehaviour
             UIManager.Instance.ActivePlayerHUD(gameObject);
         }
     }
-    
+
+    public void Update()
+    {
+        if (!IsServer) return;
+        List<BuffType> toRemove = new();
+
+        foreach (var buff in activeBuffs)
+        {
+            buff.Value.Update();
+
+            if (buff.Value.IsExpired)
+                toRemove.Add(buff.Key);
+        }
+
+        foreach (var type in toRemove)
+        {
+            activeBuffs[type].Remove();
+            activeBuffs.Remove(type);
+        }
+
+        if (toRemove.Count > 0)
+            RecalculateActiveStats();
+    }
     private void LoadFromLobby()
     {
         if (!IsServer) return;
@@ -183,15 +199,57 @@ public class PlayerStats : NetworkBehaviour
     }
     private void RecalculateActiveStats()
     {
-        Stats activeStat = stableStats.Value;
-        activeStat += bonusStats.Value;
-
-        activeStats.Value = activeStat;
+        Stats newStats = stableStats.Value;
+        newStats += bonusStats.Value;
+        
+        activeStats.Value = newStats;
         //TODO 
     }
-    public void AddBuff(BuffType buffType, float duration)
+    [ServerRpc]
+    public void AddBuffServerRpc(BuffType type, float duration)
     {
-        //TODO
-        RecalculateActiveStats();
+        BuffDefinition buff = GameDatabase.Instance.GetBuffDatabase().GetBuffDefinition(type);
+        AddBuff(buff, duration);
+        AddBuffClientRpc(type, duration);
+    }
+    public void AddBuff(BuffDefinition data, float duration)
+    {
+        // if (!IsServer) return;
+
+        if (activeBuffs.ContainsKey(data.buffType))
+            return;
+
+        BaseBuff buff = CreateBuffInstance(data, duration);
+        activeBuffs.Add(data.buffType, buff);
+
+        if(!IsServer) return;
+            RecalculateActiveStats();
+    }
+    [ClientRpc]
+    public void AddBuffClientRpc(BuffType type, float duration)
+    {
+        if(IsServer) return;
+        BuffDefinition buff = GameDatabase.Instance.GetBuffDatabase().GetBuffDefinition(type);
+        AddBuff(buff, duration);
+    }
+    private BaseBuff CreateBuffInstance(BuffDefinition def,float duration = 0)
+    {
+        switch (def.buffType)
+        {
+            case BuffType.LockedIn:
+                return new LockedInBuff(this, def, duration);
+
+            // case BuffType.ChadAura:
+                // return new AuraBuff(this, data);
+
+            // default:
+                // return new BaseBuff(this, def);
+                default:
+                return null;
+        }
+    }
+    public Dictionary<BuffType, BaseBuff> GetActiveBuffs()
+    {
+        return activeBuffs;
     }
 }

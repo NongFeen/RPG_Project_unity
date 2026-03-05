@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b193f979d6717e498e73d9a206fd12c, type: 3}
-  m_Name: HumanClass
+  m_Name: NecroClass
   m_EditorClassIdentifier: 
-  characterClass: 0
-  skillV: {fileID: 11400000, guid: a404ade557bd82a45a9b231c667c66ec, type: 2}
-  skillQ: {fileID: 11400000, guid: 1ce42f2577888154c8d909dd3c64eb45, type: 2}
-  skillF: {fileID: 0}
+  characterClass: 4
+  skillV: {fileID: 11400000, guid: 00791fca064b1fd41aa596869e6c60cc, type: 2}
+  skillQ: {fileID: 11400000, guid: d9e46f1d0ea24414bb8d921ba58e39af, type: 2}
+  skillF: {fileID: 11400000, guid: 4918bbd9ab1e0a94b89db28eacdf3ffd, type: 2}

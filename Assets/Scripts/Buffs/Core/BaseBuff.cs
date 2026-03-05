@@ -3,24 +3,29 @@ using UnityEngine;
 public abstract class BaseBuff
 {
     protected PlayerStats owner;
-    protected BuffData data;
+    protected BuffDefinition data;
     protected float endTime;
-
+    public float duration;
     public BuffType Type => data.buffType;
-    public bool IsExpired => Time.time >= endTime;
+    public bool IsExpired => duration <= 0;
 
-    public BaseBuff(PlayerStats owner, BuffData data)
+    public BaseBuff(PlayerStats owner, BuffDefinition data,float duration = 0)
     {
         this.owner = owner;
         this.data = data;
-        endTime = Time.time + data.duration;
+        this.duration = duration;
+        endTime = Time.time + duration;
+
 
         OnApply();
     }
 
     protected virtual void OnApply() { }
 
-    public virtual void Update() { }
+    public virtual void Update()
+    {
+        duration -= Time.deltaTime;
+    }
 
     protected virtual void OnRemove() { }
 

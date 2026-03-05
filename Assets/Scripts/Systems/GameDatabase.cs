@@ -3,9 +3,10 @@ using UnityEngine;
 public class GameDatabase : MonoBehaviour
 {
     public static GameDatabase Instance { get; private set; }
-    [SerializeField] ItemDatabase itemData;
-    [SerializeField] ClassDataBase classData;
-    [SerializeField] MapDatabase mapData;
+    [SerializeField] private ItemDatabase itemData;
+    [SerializeField] private ClassDataBase classData;
+    [SerializeField] private MapDatabase mapData;
+    [SerializeField] private BuffDatabase buffData;
 
     private void Awake()
     {
@@ -27,5 +28,9 @@ public class GameDatabase : MonoBehaviour
     public MapDatabase GetMapDatabase()
     {
         return mapData;
+    }
+    public BuffDatabase GetBuffDatabase()
+    {
+        return buffData;
     }
 }

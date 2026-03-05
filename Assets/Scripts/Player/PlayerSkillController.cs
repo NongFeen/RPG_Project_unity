@@ -43,28 +43,33 @@ public class PlayerSkillController : NetworkBehaviour
         // skillV = AddSkill(classSkillData.skillV);
         // skillQ = AddSkill(classSkillData.skillQ);
         // skillF = AddSkill(classSkillData.skillF);
-        SkillV = CreateSkill(classSkillData.skillV);
-        SkillQ = CreateSkill(classSkillData.skillQ);
-        SkillF = CreateSkill(classSkillData.skillF);
+        if(classSkillData.skillV != null)
+        {
+            SkillV = CreateSkill(classSkillData.skillV);
+        }
+        if(classSkillData.skillQ != null)
+        {
+            SkillQ = CreateSkill(classSkillData.skillQ);
+        }
+        if(classSkillData.skillF != null)
+        {
+            SkillF = CreateSkill(classSkillData.skillF);
+        }
         UIManager.Instance.SetUpSkill(gameObject);
     }
     SkillLogic CreateSkill(SkillDefinition def)
     {
-        //switch back to use database
-        switch(def.skillType)
+        return def.skillType switch
         {
-            case SkillBehaviourType.Dash:
-                return new DashSkillLogic(this, def);
-            case SkillBehaviourType.ExampleProjectile:
-                return new ProjectileSkillLogic(this, def);
-            case SkillBehaviourType.DinenDash:
-                return new DineAndDashSkillLogic(this, def);
-            case SkillBehaviourType.HolyLight:
-                return new HolyLightSkillLogic(this,def);
-            case SkillBehaviourType.HealAndCure:
-                return new HealAndCure(this,def);
-        }
-        return null;
+            SkillBehaviourType.Dash => new DashSkillLogic(this, def),
+            SkillBehaviourType.ExampleProjectile => new ProjectileSkillLogic(this, def),
+            SkillBehaviourType.DinenDash => new DineAndDashSkillLogic(this, def),
+            SkillBehaviourType.HolyLight => new HolyLightSkillLogic(this, def),
+            SkillBehaviourType.HealAndCure => new HealAndCure(this, def),
+            SkillBehaviourType.LockedIn => new LockedInSkillLogic(this, def),
+            SkillBehaviourType.BoltDart => new BoltDartSkillLogic(this, def),
+            _ => null,
+        };
     }
     public override void OnDestroy()
     {
@@ -77,29 +82,30 @@ public class PlayerSkillController : NetworkBehaviour
         if (!IsOwner) return;
         if (canCooldown)
         {
-            SkillV.Tick(Time.deltaTime);
-            SkillQ.Tick(Time.deltaTime);
-            SkillF.Tick(Time.deltaTime);
+            SkillV?.Tick(Time.deltaTime);
+            SkillQ?.Tick(Time.deltaTime);
+            SkillF?.Tick(Time.deltaTime);
         }
     }
     void OnSkillUse(int skillIndex)
     {
         if (!IsOwner) return;
 
+
         switch (skillIndex)
         {
             case 0:
                 // TryUseSkill(skillV);
-                SkillV.TryActivate(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
+                SkillV?.TryActivate(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 // skillV.ActivateSkill(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 break;
             case 1:
-                SkillQ.TryActivate(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
+                SkillQ?.TryActivate(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 // skillQ.ActivateSkill(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 break;
             case 2:
                 // TryUseSkill(skillF);
-                SkillF.TryActivate(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
+                SkillF?.TryActivate(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 // skillF.ActivateSkill(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 break;
         }

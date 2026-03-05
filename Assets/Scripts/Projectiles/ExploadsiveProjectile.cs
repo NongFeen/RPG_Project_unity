@@ -47,26 +47,26 @@ public class ExploadsiveProjectile : ServerProjectile
             pierce -= 1;
         }
     }
-    public override void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!IsServer) return;
-        // print("Hit target");
-        if (canHitPlayer && !isFriendly && collision.gameObject.CompareTag("Player"))
-        {
-            collision.gameObject.TryGetComponent<PlayerStats>(out var player);
-            player.TakeDamage(this.damage);
-            pierce -= 1;
-        }
-        if (isFriendly && collision.gameObject.TryGetComponent<BaseNPC>(out var npc))
-        {
-            print($"{name} is hitting");
-            this.OnProjectileHit(npc);
-            npc.OnHit(damage,isCrit);
-            pierce -= 1;
-        }
-        if (pierce < 1 || collision.gameObject.CompareTag("Wall"))
-            DestroySelf();
-    }
+    // public override void OnCollisionEnter2D(Collision2D collision)
+    // {
+    //     if (!IsServer) return;
+    //     // print("Hit target");
+    //     if (canHitPlayer && !isFriendly && collision.gameObject.CompareTag("Player"))
+    //     {
+    //         collision.gameObject.TryGetComponent<PlayerStats>(out var player);
+    //         player.TakeDamage(this.damage);
+    //         pierce -= 1;
+    //     }
+    //     if (isFriendly && collision.gameObject.TryGetComponent<BaseNPC>(out var npc))
+    //     {
+    //         print($"{name} is hitting");
+    //         this.OnProjectileHit(npc);
+    //         npc.OnHit(damage,isCrit);
+    //         pierce -= 1;
+    //     }
+    //     if (pierce < 1 || collision.gameObject.CompareTag("Wall"))
+    //         DestroySelf();
+    // }
     public override void DestroySelf()
     {
         if (IsServer && TryGetComponent<NetworkObject>(out var netObj))
