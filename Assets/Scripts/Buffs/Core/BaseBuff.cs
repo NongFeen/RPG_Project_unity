@@ -36,6 +36,19 @@ public abstract class BaseBuff
 
     public virtual Stats ModifyStats(Stats baseStats)
     {
+        baseStats += new Stats
+        {
+            health = data.flatHealth,
+            defense = data.flatDefense,
+            critRate = data.flatCritRate,
+            critDamage = data.flatCritDamage,
+            extraDamage = data.flatExtraDamage
+        };
+        baseStats.health += Mathf.RoundToInt(baseStats.health * data.percentHealth);
+        baseStats.defense += Mathf.RoundToInt(baseStats.defense * data.percentDefense); 
+        baseStats.critRate += baseStats.critRate * data.percentCritRate;
+        baseStats.critDamage += baseStats.critDamage * data.percentCritDamage;
+        baseStats.extraDamage += baseStats.extraDamage * data.percentExtraDamage;
         return baseStats; // default no stat change
     }
 }

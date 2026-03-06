@@ -59,7 +59,7 @@ public class PlayerStats : NetworkBehaviour
 
     public void Update()
     {
-        if (!IsServer) return;
+        // if (!IsServer) return;
         List<BuffType> toRemove = new();
 
         foreach (var buff in activeBuffs)
@@ -183,6 +183,7 @@ public class PlayerStats : NetworkBehaviour
         calStats.critDamage =
             data.GetCritDamage(lvl) + bonusStats.Value.bonusCritDamage;
         calStats.extraDamage = bonusStats.Value.bonusDamage;
+        calStats +=bonusStats.Value;
 
         stableStats.Value = calStats;   
         
@@ -201,9 +202,13 @@ public class PlayerStats : NetworkBehaviour
     {
         Stats newStats = stableStats.Value;
         newStats += bonusStats.Value;
-        
+
+        foreach (var buff in activeBuffs.Values)
+        {
+            newStats = buff.ModifyStats(newStats);
+        }
+
         activeStats.Value = newStats;
-        //TODO 
     }
     [ServerRpc]
     public void AddBuffServerRpc(BuffType type, float duration)
@@ -234,6 +239,11 @@ public class PlayerStats : NetworkBehaviour
     }
     private BaseBuff CreateBuffInstance(BuffDefinition def,float duration = 0)
     {
+        if (def == null)
+        {
+            Debug.LogError("BuffDefinition is null");
+            return null;
+        }
         switch (def.buffType)
         {
             case BuffType.LockedIn:
@@ -245,7 +255,7 @@ public class PlayerStats : NetworkBehaviour
             // default:
                 // return new BaseBuff(this, def);
                 default:
-                return null;
+                    return null;
         }
     }
     public Dictionary<BuffType, BaseBuff> GetActiveBuffs()

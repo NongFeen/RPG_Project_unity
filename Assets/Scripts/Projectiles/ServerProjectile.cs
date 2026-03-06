@@ -56,7 +56,6 @@ public class ServerProjectile : NetworkBehaviour
         }
         if(pierce < 1)
             DestroySelf();
-        // print("Player Take Damage"+ this.damage);
     }
     // public virtual void OnCollisionEnter2D(Collision2D collision)
     // {
@@ -80,9 +79,14 @@ public class ServerProjectile : NetworkBehaviour
     // }
     public virtual void DestroySelf()
     {
-        if (IsServer && TryGetComponent<NetworkObject>(out var netObj))
+        if (!IsServer) return;
+
+        if (TryGetComponent<NetworkObject>(out var netObj))
         {
-            netObj.Despawn();
+            if (netObj.IsSpawned)
+                netObj.Despawn();
+            else
+                Destroy(gameObject);
         }
     }
     public virtual void MovePosition()

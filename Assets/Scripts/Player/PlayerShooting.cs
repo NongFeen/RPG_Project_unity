@@ -7,7 +7,12 @@ public class PlayerShooting : NetworkBehaviour
     [SerializeField] private InputReader inputReader;
     [SerializeField] private Transform playerPos;
     [SerializeField] private PlayerEquipedItem playerEquipedItem;
+    [SerializeField] private PlayerStats playerStats;
     private bool isFiring;
+    public void Awake()
+    {
+        playerStats = GetComponent<PlayerStats>();
+    }
     private void Start()
     {
         if (!IsOwner) return;
@@ -48,10 +53,30 @@ public class PlayerShooting : NetworkBehaviour
     private void ShootWeapon(WeaponBehaviour weapon, Vector2 dir)
     {
         weapon.OnShoot(playerPos,dir);
-        ShootProjectileServerRpc(playerPos.position, dir, weapon.bonusStat.critRate, weapon.bonusStat.critDamage);
+        Stats stats = playerStats.activeStats.Value;
+
+        float critChance =
+            stats.critRate + weapon.bonusStat.critRate;
+
+        float critDamage =
+            stats.critDamage + weapon.bonusStat.critDamage;
+
+        float extraDamage =
+            stats.extraDamage;
+
+        weapon.OnShoot(playerPos, dir);
+
+        ShootProjectileServerRpc(
+            playerPos.position,
+            dir,
+            critChance,
+            critDamage,
+            extraDamage
+        );
+        // ShootProjectileServerRpc(playerPos.position, dir, weapon.bonusStat.critRate, weapon.bonusStat.critDamage);
     }
     [ServerRpc]
-    private void ShootProjectileServerRpc(Vector3 firePointPosition, Vector2 dir,float critChance, float critDamageMultiplier)
+    private void ShootProjectileServerRpc(Vector3 firePointPosition, Vector2 dir,float critChance, float critDamageMultiplier, float extraDamage)
     {
         WeaponBehaviour weapon = playerEquipedItem.activeWeapon;
         bool isCrit = false;

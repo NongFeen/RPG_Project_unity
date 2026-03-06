@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cb909c10d1643e41932277c64fd7598, type: 3}
-  m_Name: ExampleBuff
+  m_Name: LockedInBuff
   m_EditorClassIdentifier: 
   buffType: 1
   duration: 30
   flatHealth: 100
   flatDefense: 100
-  flatCritRate: 100
-  flatCritDamage: 100
+  flatCritRate: 0.3
+  flatCritDamage: 0.3
   flatExtraDamage: 10
   percentHealth: 0
   percentDefense: 0

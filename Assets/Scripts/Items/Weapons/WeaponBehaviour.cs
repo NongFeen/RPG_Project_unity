@@ -99,9 +99,8 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
         // The NetworkManager automatically uses the custom pool handler we registered
         // in the NetworkObjectPool script's OnNetworkSpawn() method.
         NetworkObject netObj = NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(netObjToUse, NetworkManager.Singleton.LocalClientId,false,false,false,firePointPosition,rot);
-
         GameObject proj = netObj.gameObject;
-
+        
         if (proj.TryGetComponent<ServerProjectile>(out ServerProjectile serverProjectile))
         {
             // Pass the direction and damage to the projectile's logic
