@@ -82,7 +82,7 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
             ConsumeAmmo();
         }
     }
-    public void SpawnProjectileServer(Vector3 firePointPosition, Vector2 direction, bool isCrit, float critDamageMultiplier)
+    public void SpawnProjectileServer(Vector3 firePointPosition, Vector2 direction, bool isCrit, float critDamageMultiplier, float extraDamage)
     {
         // This check is the authoritative gate to ensure this is only done on the server.
         if (!NetworkManager.Singleton.IsServer) return;
@@ -104,7 +104,7 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
         if (proj.TryGetComponent<ServerProjectile>(out ServerProjectile serverProjectile))
         {
             // Pass the direction and damage to the projectile's logic
-            serverProjectile.OnSpawn(direction, weaponInstance.weaponData.baseDamage + this.bonusStat.bonusDamage,isCrit, critDamageMultiplier);
+            serverProjectile.OnSpawn(direction, (weaponInstance.weaponData.baseDamage + bonusStat.bonusDamage)*extraDamage, isCrit, critDamageMultiplier);
         }
     }
     public bool CanShoot()

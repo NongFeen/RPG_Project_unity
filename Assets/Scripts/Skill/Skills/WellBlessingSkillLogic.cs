@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class HealAndCure : SkillLogic
+public class WellBlessingSkillLogic : SkillLogic
 {
-    public HealAndCure(PlayerSkillController controller, SkillDefinition def): base(controller, def) { }
+    public WellBlessingSkillLogic(PlayerSkillController controller, SkillDefinition def): base(controller, def) { }
 
     public override bool Activate(Vector3 targetPos)
     {

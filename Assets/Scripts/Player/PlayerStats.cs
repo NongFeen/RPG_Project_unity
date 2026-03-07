@@ -56,7 +56,6 @@ public class PlayerStats : NetworkBehaviour
             UIManager.Instance.ActivePlayerHUD(gameObject);
         }
     }
-
     public void Update()
     {
         // if (!IsServer) return;
@@ -102,7 +101,6 @@ public class PlayerStats : NetworkBehaviour
 
         Debug.Log($"Loaded save for {clientId}");
     }
-
     public void TakeDamage(float amount)
     {
         if (!IsServer) return;
@@ -136,7 +134,6 @@ public class PlayerStats : NetworkBehaviour
 
         return defPow / (defPow + kPow);
     }
-
     public void Heal(float amount)
     {
         if (!IsServer) return;
@@ -151,7 +148,6 @@ public class PlayerStats : NetworkBehaviour
     {
         Debug.Log($"{OwnerClientId} HP: {oldValue} -> {newValue}");
     }
-
     private void OnDeath()
     {
         Debug.Log($"{OwnerClientId} has died");
@@ -182,9 +178,8 @@ public class PlayerStats : NetworkBehaviour
             data.GetCritRate(lvl) + bonusStats.Value.bonusCritChance;
         calStats.critDamage =
             data.GetCritDamage(lvl) + bonusStats.Value.bonusCritDamage;
-        calStats.extraDamage = bonusStats.Value.bonusDamage;
+        calStats.extraDamage = 1.0f +bonusStats.Value.bonusDamage;
         calStats +=bonusStats.Value;
-
         stableStats.Value = calStats;   
         
         //display server stats for debugging
@@ -214,6 +209,11 @@ public class PlayerStats : NetworkBehaviour
     public void AddBuffServerRpc(BuffType type, float duration)
     {
         BuffDefinition buff = GameDatabase.Instance.GetBuffDatabase().GetBuffDefinition(type);
+        if(buff == null)
+        {
+            Debug.LogError("BuffDefinition not found for type: " + type);
+            return;
+        }
         AddBuff(buff, duration);
         AddBuffClientRpc(type, duration);
     }
@@ -225,6 +225,11 @@ public class PlayerStats : NetworkBehaviour
             return;
 
         BaseBuff buff = CreateBuffInstance(data, duration);
+         if (buff == null)
+        {
+            Debug.LogError($"Buff type {data.buffType} not implemented!");
+            return;
+        }
         activeBuffs.Add(data.buffType, buff);
 
         if(!IsServer) return;
@@ -248,9 +253,12 @@ public class PlayerStats : NetworkBehaviour
         {
             case BuffType.LockedIn:
                 return new LockedInBuff(this, def, duration);
-
+            case BuffType.SteelStrong:
+                return new SteelStrongBuff(this, def, duration);
+            case BuffType.WellofBlessing:
+                return new WellofBlessing(this, def, duration);
             // case BuffType.ChadAura:
-                // return new AuraBuff(this, data);
+            //     return new AuraBuff(this, data);
 
             // default:
                 // return new BaseBuff(this, def);
@@ -261,5 +269,28 @@ public class PlayerStats : NetworkBehaviour
     public Dictionary<BuffType, BaseBuff> GetActiveBuffs()
     {
         return activeBuffs;
+    }
+
+    [ServerRpc]
+    public void RemoveBuffServerRpc(BuffType type)
+    {
+        if (!IsServer) return;
+        RemoveBuff(type);
+        RemoveBuffClientRpc(type);
+    }
+    public void RemoveBuff(BuffType type)
+    {
+        if (!activeBuffs.ContainsKey(type))
+            return;
+
+        activeBuffs[type].Remove();
+        activeBuffs.Remove(type);
+        RecalculateActiveStats();
+    }
+    [ClientRpc]
+    public void RemoveBuffClientRpc(BuffType type)
+    {
+        if(IsServer) return;
+        RemoveBuff(type);
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7627c2f7ebde8e46a67ad35cb551417, type: 3}
   m_Name: HealAndCure
   m_EditorClassIdentifier: 
-  skillType: 4
+  skillType: 5
   displayName: Heal And Cure
   cooldown: 20
   icon: {fileID: -2440154996815429970, guid: 3e7d314f22e84b34bb83d8ed73b62944, type: 3}

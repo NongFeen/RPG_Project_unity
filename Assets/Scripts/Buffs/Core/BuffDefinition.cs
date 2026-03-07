@@ -7,13 +7,13 @@ public class BuffDefinition : ScriptableObject
 
     [Header("Duration")]
     public float duration = 5f;
+    public bool isDebuff = false;
 
     [Header("Flat Modifiers")]
     public int flatHealth;
     public int flatDefense;
     public float flatCritRate;
     public float flatCritDamage;
-    public float flatExtraDamage;
 
     [Header("Percent Modifiers (0.2 = +20%)")]
     public float percentHealth;
@@ -24,4 +24,5 @@ public class BuffDefinition : ScriptableObject
 
     [Header("Visual")]
     public GameObject particlePrefab;
+    public Sprite buffIcon;
 }

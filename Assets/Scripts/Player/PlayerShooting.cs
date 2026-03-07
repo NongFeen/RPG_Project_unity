@@ -84,7 +84,7 @@ public class PlayerShooting : NetworkBehaviour
         // print($"Roll {rollvalue:F2} < CritChance {critChance:F2}");
         if (rollvalue < critChance)
             isCrit = true;
-        weapon.SpawnProjectileServer(firePointPosition, dir, isCrit, critDamageMultiplier);
+        weapon.SpawnProjectileServer(firePointPosition, dir, isCrit, critDamageMultiplier, extraDamage);
     }
     public Vector2 AimDirection()
     {

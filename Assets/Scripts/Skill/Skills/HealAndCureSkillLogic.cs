@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class WellBlessing : SkillLogic
+public class HealAndCure : SkillLogic
 {
-    public WellBlessing(PlayerSkillController controller, SkillDefinition def): base(controller, def) { }
+    public HealAndCure(PlayerSkillController controller, SkillDefinition def): base(controller, def) { }
 
     public override bool Activate(Vector3 targetPos)
     {
@@ -31,6 +32,21 @@ public class WellBlessing : SkillLogic
         if (player == null)
             return false;
         player.HealServerRpc(definition.magicNumber1);
+        
+        List<BuffType> toRemove = new List<BuffType>();
+        foreach (BaseBuff buff in player.GetActiveBuffs().Values)
+        {
+            if (buff.isDebuff)
+            {
+                Debug.Log("Removing debuff: " + buff.data.buffType);
+                toRemove.Add(buff.data.buffType);
+            }
+        }
+
+        foreach (BuffType type in toRemove)
+        {
+            player.RemoveBuffServerRpc(type);
+        }
         return true;
     }
 }

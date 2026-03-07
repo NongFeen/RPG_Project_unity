@@ -7,7 +7,8 @@ public class SteelStrongSkillLogic : SkillLogic
     public override bool Activate(Vector3 targetPos)
     {
         controller.GetComponent<PlayerStats>().HealServerRpc(definition.magicNumber1);
-        // controller.GetComponent<PlayerStats>().AddBuff(BuffType.SteelStrong, definition.magicNumber2);
+        controller.GetComponent<PlayerStats>().AddBuffServerRpc(BuffType.SteelStrong,definition.magicNumber2);
+        controller.GetComponent<PlayerStats>().AddBuffServerRpc(BuffType.WellofBlessing,definition.magicNumber2);
         return true;
     }
 }

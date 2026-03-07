@@ -14,7 +14,7 @@ public abstract class SkillLogic
 
     public void TryActivate(Vector3 targetPos)
     {
-        Debug.Log(definition.displayName + " CooldownTimer: "+ CooldownRemaining());
+        // Debug.Log(definition.displayName + " CooldownTimer: "+ CooldownRemaining());
         if (!IsReady()) return;
         bool success = Activate(targetPos);
         if (success)

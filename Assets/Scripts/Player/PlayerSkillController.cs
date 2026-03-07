@@ -68,6 +68,7 @@ public class PlayerSkillController : NetworkBehaviour
             SkillBehaviourType.HealAndCure => new HealAndCure(this, def),
             SkillBehaviourType.LockedIn => new LockedInSkillLogic(this, def),
             SkillBehaviourType.BoltDart => new BoltDartSkillLogic(this, def),
+            SkillBehaviourType.SteelStrong => new SteelStrongSkillLogic(this, def),
             _ => null,
         };
     }

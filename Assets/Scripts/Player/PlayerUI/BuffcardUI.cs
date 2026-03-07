@@ -8,7 +8,9 @@ public class BuffCardUI : MonoBehaviour
 
     public void SetBuff(BaseBuff buff)
     {
-        // icon.sprite = buff.icon;
-        durationText.text = buff.duration.ToString("F1");
+        icon.sprite = buff.data.buffIcon;
+        string buffTextDisplay = $"{buff.duration:F1} {buff.data.name}";
+
+        durationText.text = buffTextDisplay;
     }
 }

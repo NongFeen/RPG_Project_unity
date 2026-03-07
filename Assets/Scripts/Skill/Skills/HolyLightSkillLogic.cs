@@ -30,7 +30,7 @@ public class HolyLightSkillLogic : SkillLogic
         var netObj = closestEnemy.GetComponent<Unity.Netcode.NetworkObject>();
         if (netObj == null)
             return false;
-
+        
         controller.SpawnProjectileServerRpc(
             definition.magicNumber1,
             netObj.transform.position,

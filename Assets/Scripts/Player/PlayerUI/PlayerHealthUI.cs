@@ -22,11 +22,11 @@ public class PlayerHealthUI : MonoBehaviour,IPlayerStatUI
     }
     private void UpdateHp(float oldValue, float newValue)
     {
-        hpNumberText.text = $"{newValue:F2} / {playerStats.activeStats.Value.health:F2}";
+        hpNumberText.text = $"{newValue:F0} / {playerStats.activeStats.Value.health:F0}";
         HPbar.value = newValue / playerStats.activeStats.Value.health;
     }
     private void UpdateMaxHp(Stats oldValue, Stats newValue)
     {
-        hpNumberText.text = $"{playerStats.currentHP.Value:F2} / {newValue.health:F2}";
+        hpNumberText.text = $"{playerStats.currentHP.Value:F0} / {newValue.health:F0}";
     }
 }
