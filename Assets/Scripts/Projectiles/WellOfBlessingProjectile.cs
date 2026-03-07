@@ -2,7 +2,7 @@ using NUnit.Framework;
 using Unity.Netcode;
 using UnityEngine;
 
-public class ExploadsiveProjectile : ServerProjectile
+public class WellOfBlessingProjectile : ServerProjectile
 {
     public override void OnSpawn(Vector2 direction, float damage,bool isCrit, float critDamageMultiplier)
     {
@@ -17,7 +17,7 @@ public class ExploadsiveProjectile : ServerProjectile
     {
         if (IsServer)
         {
-            MovePosition();
+            // MovePosition();
             lifeTimer -= Time.deltaTime;
             if (lifeTimer <= 0f)
             {
@@ -28,23 +28,19 @@ public class ExploadsiveProjectile : ServerProjectile
     public override void OnTriggerEnter2D(Collider2D collision)
     {
         if(!IsServer)return;
-        if(collision.gameObject.CompareTag("Wall"))
-        {
-            DestroySelf();
+        //only hit player and apply buff equal to duration
+        if (canHitPlayer && isFriendly && collision.gameObject.CompareTag("Player"))
+        {   
+            collision.gameObject.TryGetComponent<PlayerStats>(out var player);
+            player.AddBuffServer(BuffType.WellOfBlessing, lifeTimer);
         }
-        if (canHitPlayer && !isFriendly && collision.gameObject.CompareTag("Player"))
+    }
+    public override void OnTriggerExit2D(Collider2D collision)
+    {
+        if (canHitPlayer && isFriendly && collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.TryGetComponent<PlayerStats>(out var player);
-            player.TakeDamage(this.damage);
-            pierce -= 1;
-        }
-        // print("Player Take Damage"+ this.damage);
-        if (isFriendly && collision.gameObject.TryGetComponent<BaseNPC>(out var npc))
-        {
-            print($"{name} is hitting");
-            this.OnProjectileHit(npc);
-            npc.OnHit(damage,isCrit);
-            pierce -= 1;
+            player.RemoveBuffServer(BuffType.WellOfBlessing);
         }
     }
     public override void DestroySelf()

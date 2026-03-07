@@ -7,7 +7,7 @@ public class LockedInSkillLogic : SkillLogic
     private readonly float duration = 15f;
     public override bool Activate(Vector3 targetPos)
     {
-        controller.GetComponent<PlayerStats>().AddBuffServerRpc(BuffType.LockedIn, duration);
+        controller.GetComponent<PlayerStats>().AddBuffServer(BuffType.LockedIn, duration);
         return true;
     }
 }

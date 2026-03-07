@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7627c2f7ebde8e46a67ad35cb551417, type: 3}
   m_Name: Well Blessing
   m_EditorClassIdentifier: 
-  skillType: 6
+  skillType: 7
   displayName: Well Blessing
-  cooldown: 120
+  cooldown: 5
   icon: {fileID: 2955286255927101427, guid: 4bb90817cacf8b74ca99dbd9c73d03b4, type: 3}
-  projectilePrefab: {fileID: 0}
-  magicNumber1: 15
+  projectilePrefab: {fileID: 2636463631664538298, guid: 87a4520755a51ab4684ed60b86c57750, type: 3}
+  magicNumber1: 50
   magicNumber2: 0
   magicNumber3: 0

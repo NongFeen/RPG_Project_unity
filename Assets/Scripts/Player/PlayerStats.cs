@@ -205,8 +205,7 @@ public class PlayerStats : NetworkBehaviour
 
         activeStats.Value = newStats;
     }
-    [ServerRpc]
-    public void AddBuffServerRpc(BuffType type, float duration)
+    public void AddBuffServer(BuffType type, float duration)
     {
         BuffDefinition buff = GameDatabase.Instance.GetBuffDatabase().GetBuffDefinition(type);
         if(buff == null)
@@ -255,11 +254,16 @@ public class PlayerStats : NetworkBehaviour
                 return new LockedInBuff(this, def, duration);
             case BuffType.SteelStrong:
                 return new SteelStrongBuff(this, def, duration);
-            case BuffType.WellofBlessing:
+            case BuffType.WellOfBlessing:
                 return new WellofBlessing(this, def, duration);
-            // case BuffType.ChadAura:
-            //     return new AuraBuff(this, data);
-
+            case BuffType.ABigGuy:
+                return new ABigGuy(this, def, duration);
+            case BuffType.Along:
+                return new Along(this, def, duration);
+            case BuffType.Arise:
+                return new Arise(this, def, duration);
+            case BuffType.ChadAura:
+                return new ChadAuraBuff(this, def, duration);
             // default:
                 // return new BaseBuff(this, def);
                 default:
@@ -271,8 +275,8 @@ public class PlayerStats : NetworkBehaviour
         return activeBuffs;
     }
 
-    [ServerRpc]
-    public void RemoveBuffServerRpc(BuffType type)
+ 
+    public void RemoveBuffServer(BuffType type)
     {
         if (!IsServer) return;
         RemoveBuff(type);
@@ -291,6 +295,7 @@ public class PlayerStats : NetworkBehaviour
     public void RemoveBuffClientRpc(BuffType type)
     {
         if(IsServer) return;
-        RemoveBuff(type);
+        if (activeBuffs.ContainsKey(type))
+            activeBuffs.Remove(type);
     }
 }

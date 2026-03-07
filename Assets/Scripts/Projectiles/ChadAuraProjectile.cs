@@ -2,8 +2,17 @@ using NUnit.Framework;
 using Unity.Netcode;
 using UnityEngine;
 
-public class ExploadsiveProjectile : ServerProjectile
+public class ChadAuraProjectile : ServerProjectile
 {
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        if(owner != null)
+        {
+            transform.SetParent(owner.transform);
+            transform.localPosition = Vector3.zero;
+        }
+    }
     public override void OnSpawn(Vector2 direction, float damage,bool isCrit, float critDamageMultiplier)
     {
         this.direction = direction.normalized;
@@ -11,40 +20,26 @@ public class ExploadsiveProjectile : ServerProjectile
         this.damage = isCrit ? damage * critDamageMultiplier : damage;
         this.isCrit = isCrit;
         lifeTimer = lifeTime;
+        transform.localPosition = Vector3.zero;
         // Debug.Log($"Projectile damage {damage} by {weaponOwner.weaponData.name}");
     }
-    public override void Update()
-    {
-        if (IsServer)
-        {
-            MovePosition();
-            lifeTimer -= Time.deltaTime;
-            if (lifeTimer <= 0f)
-            {
-                DestroySelf();
-            }
-        }
-    }
+    
     public override void OnTriggerEnter2D(Collider2D collision)
     {
         if(!IsServer)return;
-        if(collision.gameObject.CompareTag("Wall"))
-        {
-            DestroySelf();
-        }
-        if (canHitPlayer && !isFriendly && collision.gameObject.CompareTag("Player"))
+        //only hit player and apply buff equal to duration
+        if (canHitPlayer && isFriendly && collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.TryGetComponent<PlayerStats>(out var player);
-            player.TakeDamage(this.damage);
-            pierce -= 1;
+            player.AddBuffServer(BuffType.ChadAura, lifeTimer);
         }
-        // print("Player Take Damage"+ this.damage);
-        if (isFriendly && collision.gameObject.TryGetComponent<BaseNPC>(out var npc))
+    }
+    public override void OnTriggerExit2D(Collider2D collision)
+    {
+        if (canHitPlayer && isFriendly && collision.gameObject.CompareTag("Player"))
         {
-            print($"{name} is hitting");
-            this.OnProjectileHit(npc);
-            npc.OnHit(damage,isCrit);
-            pierce -= 1;
+            collision.gameObject.TryGetComponent<PlayerStats>(out var player);
+            player.RemoveBuffServer(BuffType.ChadAura);
         }
     }
     public override void DestroySelf()
@@ -53,5 +48,9 @@ public class ExploadsiveProjectile : ServerProjectile
         {
             netObj.Despawn();
         }
+    }
+    public override void MovePosition()
+    {   
+        transform.position = owner.transform.position;
     }
 }

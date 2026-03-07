@@ -69,6 +69,8 @@ public class PlayerSkillController : NetworkBehaviour
             SkillBehaviourType.LockedIn => new LockedInSkillLogic(this, def),
             SkillBehaviourType.BoltDart => new BoltDartSkillLogic(this, def),
             SkillBehaviourType.SteelStrong => new SteelStrongSkillLogic(this, def),
+            SkillBehaviourType.WellOfBlessing => new WellBlessingSkillLogic(this, def),
+            SkillBehaviourType.ChadAura => new ChadAuraSkillLogic(this, def),
             _ => null,
         };
     }
@@ -113,7 +115,7 @@ public class PlayerSkillController : NetworkBehaviour
     }
         // controller.SpawnProjectileServerRpc(dir, definition.magicNumber1);
     [ServerRpc]
-    public void SpawnProjectileServerRpc(float damage,Vector2 position, Vector2 direction, SkillBehaviourType skillId)
+    public void SpawnProjectileServerRpc(float damage,Vector2 position, Vector2 direction, SkillBehaviourType skillId, ServerRpcParams rpcParams = default)
     {
         if (!IsServer) return;
         SkillDefinition def = classSkillDataBase.GetSkillDefinition(skillId);
@@ -125,7 +127,8 @@ public class PlayerSkillController : NetworkBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion rot = Quaternion.Euler(0, 0, angle);
 
-        NetworkObject netObj = NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(netObjToUse, NetworkManager.Singleton.LocalClientId,false,false,false,position,rot);
+        ulong senderId = rpcParams.Receive.SenderClientId;
+        NetworkObject netObj = NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(netObjToUse, senderId,false,false,false,position,rot);
 
         GameObject proj = netObj.gameObject;
 

@@ -82,11 +82,11 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
             ConsumeAmmo();
         }
     }
-    public void SpawnProjectileServer(Vector3 firePointPosition, Vector2 direction, bool isCrit, float critDamageMultiplier, float extraDamage)
+    public void SpawnProjectileServer(Vector3 firePointPosition, Vector2 direction, bool isCrit, float critDamageMultiplier, float extraDamage, ServerRpcParams rpcParams = default)
     {
         // This check is the authoritative gate to ensure this is only done on the server.
         if (!NetworkManager.Singleton.IsServer) return;
-
+        ulong senderId = rpcParams.Receive.SenderClientId;
         GameObject prefabToUse = weaponInstance.weaponData.serverProjectilePrefab;
         prefabToUse.TryGetComponent<NetworkObject>(out NetworkObject netObjToUse);
         if (prefabToUse == null) return;
@@ -98,7 +98,7 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
         // Instead of UnityEngine.Object.Instantiate(), use the NetworkManager's instantiation method.
         // The NetworkManager automatically uses the custom pool handler we registered
         // in the NetworkObjectPool script's OnNetworkSpawn() method.
-        NetworkObject netObj = NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(netObjToUse, NetworkManager.Singleton.LocalClientId,false,false,false,firePointPosition,rot);
+        NetworkObject netObj = NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(netObjToUse, senderId,false,false,false,firePointPosition,rot);
         GameObject proj = netObj.gameObject;
         
         if (proj.TryGetComponent<ServerProjectile>(out ServerProjectile serverProjectile))

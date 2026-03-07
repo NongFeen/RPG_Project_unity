@@ -45,7 +45,7 @@ public class HealAndCure : SkillLogic
 
         foreach (BuffType type in toRemove)
         {
-            player.RemoveBuffServerRpc(type);
+            player.RemoveBuffServer(type);
         }
         return true;
     }

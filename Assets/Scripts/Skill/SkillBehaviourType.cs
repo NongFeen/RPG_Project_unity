@@ -7,7 +7,7 @@ public enum SkillBehaviourType
     LockedIn,
     HealAndCure,
     HolyLight,
-    WellBlessing,
+    WellOfBlessing,
     SteelStrong,
     QucikDraw,
     ChadAura,

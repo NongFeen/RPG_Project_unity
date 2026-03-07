@@ -2,7 +2,7 @@ public enum BuffType
 {
     None,
     LockedIn,
-    WellofBlessing,
+    WellOfBlessing,
     SteelStrong,
     ChadAura,
     Arise,

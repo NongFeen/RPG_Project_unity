@@ -6,7 +6,7 @@ public class ChadAuraSkillLogic : SkillLogic
 
     public override bool Activate(Vector3 targetPos)
     {
-        // controller.GetComponent<PlayerStats>().AddBuff(BuffType.ChadAura, definition.magicNumber1);
+        controller.SpawnProjectileServerRpc(0,controller.transform.position,Vector3.zero,definition.skillType);
         return true;
     }
 }

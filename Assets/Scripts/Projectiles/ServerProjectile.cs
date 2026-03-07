@@ -12,6 +12,8 @@ public class ServerProjectile : NetworkBehaviour
     [SerializeField] public Vector2 direction;
     [SerializeField] public float damage;
     [SerializeField] public bool isCrit=false;
+    [SerializeField] public Player owner;
+
     public float lifeTimer = 0;
     public virtual void OnSpawn(Vector2 direction, float damage,bool isCrit, float critDamageMultiplier)
     {
@@ -21,6 +23,13 @@ public class ServerProjectile : NetworkBehaviour
         this.isCrit = isCrit;
         lifeTimer = lifeTime;
         // Debug.Log($"Projectile damage {damage} by {weaponOwner.weaponData.name}");
+    }
+    public override void OnNetworkSpawn()
+    {
+        if (NetworkManager.Singleton.ConnectedClients.TryGetValue(OwnerClientId, out var client))
+        {
+            owner = client.PlayerObject.GetComponent<Player>();
+        }
     }
     public virtual void Update()
     {
@@ -56,6 +65,9 @@ public class ServerProjectile : NetworkBehaviour
         }
         if(pierce < 1)
             DestroySelf();
+    }
+    public virtual void OnTriggerExit2D(Collider2D collision)
+    {
     }
     // public virtual void OnCollisionEnter2D(Collision2D collision)
     // {

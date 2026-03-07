@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7627c2f7ebde8e46a67ad35cb551417, type: 3}
   m_Name: ChadAura
   m_EditorClassIdentifier: 
-  skillType: 9
+  skillType: 10
   displayName: Chad Aura
   cooldown: 7
   icon: {fileID: 0}
-  projectilePrefab: {fileID: 0}
-  magicNumber1: 10
+  projectilePrefab: {fileID: 2636463631664538298, guid: 87a0c607e121b1d43bac8655a484ca60, type: 3}
+  magicNumber1: 0
   magicNumber2: 0
   magicNumber3: 0
