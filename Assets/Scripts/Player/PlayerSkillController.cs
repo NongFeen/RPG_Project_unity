@@ -71,6 +71,7 @@ public class PlayerSkillController : NetworkBehaviour
             SkillBehaviourType.SteelStrong => new SteelStrongSkillLogic(this, def),
             SkillBehaviourType.WellOfBlessing => new WellBlessingSkillLogic(this, def),
             SkillBehaviourType.ChadAura => new ChadAuraSkillLogic(this, def),
+            SkillBehaviourType.QucikDraw => new QuickDrawSkillLogic(this, def),
             _ => null,
         };
     }

@@ -15,4 +15,4 @@ MonoBehaviour:
   characterClass: 0
   skillV: {fileID: 11400000, guid: a404ade557bd82a45a9b231c667c66ec, type: 2}
   skillQ: {fileID: 11400000, guid: 4281da41e0f3a5344af74462820f546b, type: 2}
-  skillF: {fileID: 11400000, guid: e4b64f007c9778d4a98a1890a48bd894, type: 2}
+  skillF: {fileID: 11400000, guid: ef7ed2724682c7f48b690ea798252df7, type: 2}
