@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7627c2f7ebde8e46a67ad35cb551417, type: 3}
   m_Name: Arise
   m_EditorClassIdentifier: 
-  skillType: 10
-  displayName: Quick Draw
+  skillType: 11
+  displayName: Arise
   cooldown: 7
   icon: {fileID: 0}
   projectilePrefab: {fileID: 0}

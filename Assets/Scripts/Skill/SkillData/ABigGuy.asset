@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7627c2f7ebde8e46a67ad35cb551417, type: 3}
   m_Name: ABigGuy
   m_EditorClassIdentifier: 
-  skillType: 12
+  skillType: 13
   displayName: A Big Guy
   cooldown: 7
   icon: {fileID: 0}

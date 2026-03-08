@@ -2,6 +2,7 @@
     using Unity.Netcode;
 using System.Collections;
 using System;
+using UnityEngine.XR;
 public class PlayerShooting : NetworkBehaviour
 {
     [SerializeField] private InputReader inputReader;
@@ -48,43 +49,24 @@ public class PlayerShooting : NetworkBehaviour
             {
                 ShootWeapon(weapon, dir);
             }
+            else
+            {
+                if(!weapon.CanShoot() && weapon.currentAmmo ==  0)
+                HandleReload(true);
+            }
         }
     }
-    private void ShootWeapon(WeaponBehaviour weapon, Vector2 dir)
+    private void ShootWeapon(WeaponBehaviour weapon, Vector2 dir, ServerRpcParams rpcParams = default)
     {
-        weapon.OnShoot(playerPos,dir);
-        Stats stats = playerStats.activeStats.Value;
-
-        float critChance =
-            stats.critRate + weapon.bonusStat.critRate;
-
-        float critDamage =
-            stats.critDamage + weapon.bonusStat.critDamage;
-
-        float extraDamage =
-            stats.extraDamage;
-
-        weapon.OnShoot(playerPos, dir);
-
-        ShootProjectileServerRpc(
-            playerPos.position,
-            dir,
-            critChance,
-            critDamage,
-            extraDamage
-        );
-        // ShootProjectileServerRpc(playerPos.position, dir, weapon.bonusStat.critRate, weapon.bonusStat.critDamage);
+        print("ShootWeapon");
+        weapon.OnShoot(dir);
+        ShootWeaponServerRPC(dir, rpcParams);
     }
     [ServerRpc]
-    private void ShootProjectileServerRpc(Vector3 firePointPosition, Vector2 dir,float critChance, float critDamageMultiplier, float extraDamage)
+    private void ShootWeaponServerRPC(Vector2 direction,ServerRpcParams rpcParams = default)
     {
         WeaponBehaviour weapon = playerEquipedItem.activeWeapon;
-        bool isCrit = false;
-        float rollvalue = UnityEngine.Random.Range(0f, 1f);
-        // print($"Roll {rollvalue:F2} < CritChance {critChance:F2}");
-        if (rollvalue < critChance)
-            isCrit = true;
-        weapon.SpawnProjectileServer(firePointPosition, dir, isCrit, critDamageMultiplier, extraDamage);
+        weapon.Shoot(direction, playerStats,rpcParams);
     }
     public Vector2 AimDirection()
     {

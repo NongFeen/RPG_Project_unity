@@ -67,7 +67,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2722307789887907519}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
   m_Name: 
@@ -120,23 +120,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   weaponInstance:
-    itemData: {fileID: 0}
-    stackCount: 0
-    weaponData: {fileID: 0}
-    bonusDamage: 0
-    critRate: 0
-    critDamage: 0
-    maxAmmo: 0
-    fireRate: 0
+    itemID: 
+    bonusStat:
+      bonusDamage: 0
+      critRate: 0
+      critDamage: 0
   visualRoot: {fileID: 7971074042446543761}
-  bonusDamage: 1
-  critRate: 1
-  critDamage: 1
   currentAmmo: 36
   maxAmmo: 36
   fireRate: 360
-  isReloading:
-    m_InternalValue: 0
+  lastShootTime: 0
+  isReloading: 0
+  bonusStat:
+    bonusDamage: 0
+    critRate: 0
+    critDamage: 0
 --- !u!1 &7971074042446543761
 GameObject:
   m_ObjectHideFlags: 0

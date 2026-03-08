@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7627c2f7ebde8e46a67ad35cb551417, type: 3}
   m_Name: HolyLight
   m_EditorClassIdentifier: 
-  skillType: 5
+  skillType: 6
   displayName: Holy Light
   cooldown: 10
   icon: {fileID: -3448573314377300975, guid: 835ec2f39443ea54794fa2c3210028fd, type: 3}

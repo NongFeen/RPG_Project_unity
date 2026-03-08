@@ -13,13 +13,13 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
     public int maxAmmo;
     public float fireRate;
     public event Action<int, int> OnAmmoChange;
-    private float lastShootTime = 0;
+    public float lastShootTime = 0;
     // public bool isReloading = false;
     [SerializeField] public bool isReloading = false;
     private float reloadTime;
     private float reloadTimer;
     public WeaponStat bonusStat;
-    public void SetDefault(WeaponInstance weapon)
+    public virtual void SetDefault(WeaponInstance weapon)
     {
         this.weaponInstance = weapon;
         this.bonusStat = weapon.bonusStat;
@@ -29,7 +29,7 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
         visualRoot.TryGetComponent<SpriteRenderer>(out var sprite);
         sprite.sprite = weapon.weaponData.image;
     }
-    void Update()
+    public virtual void Update()
     {
         if (isReloading)
         {
@@ -44,11 +44,28 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
                 FinishReload();
         }
     }
-    public void OnDrawWeapon()
+    public virtual void OnDrawWeapon()
     {
         Show();
     }
-    public void OnReload()
+    public virtual void OnStowWeapon()
+    {
+        if (isReloading)
+        {
+            float progress = reloadTimer / reloadTime;
+            //hiting quick reload
+            if (progress >= 0.7f)
+            {
+                FinishReload();
+            }
+            else //cancel reload
+            {
+                isReloading = false;
+            }
+        }
+        Hide();
+    }
+    public virtual void OnReload()
     {
         print("try Reload");
         if (isReloading || currentAmmo == maxAmmo) return;
@@ -65,25 +82,44 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
         currentAmmo = maxAmmo;
         OnAmmoChange?.Invoke(oldValue, currentAmmo);
     }
-    public void ConsumeAmmo()
+    private void ConsumeAmmo()
     {
         // print("use ammo");
         int oldValue = currentAmmo;
         currentAmmo = Mathf.Clamp(currentAmmo - 1, 0, maxAmmo);
         OnAmmoChange?.Invoke(oldValue, currentAmmo);
     }
-    public void OnShoot(Transform firePoint, Vector2 direction)
+    public virtual void OnShoot(Vector2 direction)
     {
+        print("Onshoot");
         if (!CanShoot()) return;
         lastShootTime = Time.time;
         if (weaponInstance == null) return;
-        if (weaponInstance.weaponData.serverProjectilePrefab != null && firePoint != null)
+        if (weaponInstance.weaponData.serverProjectilePrefab != null )
         {
             ConsumeAmmo();
         }
     }
-    public void SpawnProjectileServer(Vector3 firePointPosition, Vector2 direction, bool isCrit, float critDamageMultiplier, float extraDamage, ServerRpcParams rpcParams = default)
+    public virtual void Shoot(Vector2 direction,PlayerStats playerStats, ServerRpcParams rpcParams)
     {
+        //This is only do in server
+        OnShoot(direction);
+        //calcuilate crit and damage to and send to server
+        print("Shoot");
+        float critChance =
+            playerStats.activeStats.Value.critRate + weaponInstance.bonusStat.critRate;
+
+        float critDamage =
+            playerStats.activeStats.Value.critDamage + weaponInstance.bonusStat.critDamage;
+
+        float percentExtraDamage = playerStats.activeStats.Value.extraDamage;
+        float flatExtraDamage = weaponInstance.bonusStat.bonusDamage;
+        SpawnProjectileServer(playerStats.transform.position,direction,UnityEngine.Random.value < critChance,critDamage, percentExtraDamage, flatExtraDamage, rpcParams);
+    }
+    public virtual void SpawnProjectileServer(Vector3 firePointPosition, Vector2 direction, bool isCrit, float critDamageMultiplier, 
+        float damageMultiplier, float flatExtraDamage, ServerRpcParams rpcParams)
+    {
+        print("SpawnProjectileServer");
         // This check is the authoritative gate to ensure this is only done on the server.
         if (!NetworkManager.Singleton.IsServer) return;
         ulong senderId = rpcParams.Receive.SenderClientId;
@@ -104,10 +140,10 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
         if (proj.TryGetComponent<ServerProjectile>(out ServerProjectile serverProjectile))
         {
             // Pass the direction and damage to the projectile's logic
-            serverProjectile.OnSpawn(direction, (weaponInstance.weaponData.baseDamage + bonusStat.bonusDamage)*extraDamage, isCrit, critDamageMultiplier);
+            serverProjectile.OnSpawn(direction, (weaponInstance.weaponData.baseDamage + flatExtraDamage)*damageMultiplier, isCrit, critDamageMultiplier);
         }
     }
-    public bool CanShoot()
+    public virtual bool CanShoot()
     {
         if (currentAmmo <= 0 || isReloading) return false;
         return Time.time >= lastShootTime + RpmToSecondsPerShot();
@@ -116,34 +152,17 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
     {
         return 60f / this.fireRate;
     }
-    public void OnSpecialReload()
+    public virtual void OnSpecialReload()
     {
         throw new System.NotImplementedException();
     }
 
-    public void OnSpecialShoot()
+    public virtual void OnSpecialShoot()
     {
         throw new System.NotImplementedException();
     }
 
-    public void OnStowWeapon()
-    {
-
-        if (isReloading)
-        {
-            float progress = reloadTimer / reloadTime;
-            //hiting quick reload
-            if (progress >= 0.7f)
-            {
-                FinishReload();
-            }
-            else //cancel reload
-            {
-                isReloading = false;
-            }
-        }
-        Hide();
-    }
+    
     public void Show()
     {
         visualRoot.SetActive(true);

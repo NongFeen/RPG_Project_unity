@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface IWeapon
 {
-    void OnShoot(Transform firePoint,Vector2 Direction);
+    void OnShoot(Vector2 Direction);
     void OnReload();
     void OnDrawWeapon();
     void OnStowWeapon();
