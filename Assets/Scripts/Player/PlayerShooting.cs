@@ -1,8 +1,5 @@
-    using UnityEngine;
-    using Unity.Netcode;
-using System.Collections;
-using System;
-using UnityEngine.XR;
+using UnityEngine;
+using Unity.Netcode;
 public class PlayerShooting : NetworkBehaviour
 {
     [SerializeField] private InputReader inputReader;

@@ -82,7 +82,7 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
         currentAmmo = maxAmmo;
         OnAmmoChange?.Invoke(oldValue, currentAmmo);
     }
-    private void ConsumeAmmo()
+    public virtual void ConsumeAmmo()
     {
         // print("use ammo");
         int oldValue = currentAmmo;
@@ -148,7 +148,7 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
         if (currentAmmo <= 0 || isReloading) return false;
         return Time.time >= lastShootTime + RpmToSecondsPerShot();
     }
-    private float RpmToSecondsPerShot()
+    public float RpmToSecondsPerShot()
     {
         return 60f / this.fireRate;
     }
