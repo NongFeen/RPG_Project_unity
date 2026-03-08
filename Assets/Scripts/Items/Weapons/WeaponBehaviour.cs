@@ -37,7 +37,7 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
 
             // if (progress >= 0.7f)
             // {
-                print($"{progress} -> {reloadTimer}/{reloadTime} " );
+                // print($"{progress} -> {reloadTimer}/{reloadTime} " );
             // }
             reloadTimer += Time.deltaTime;
             if (reloadTimer >= reloadTime)
@@ -105,7 +105,6 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
         //This is only do in server
         OnShoot(direction);
         //calcuilate crit and damage to and send to server
-        print("Shoot");
         float critChance =
             playerStats.activeStats.Value.critRate + weaponInstance.bonusStat.critRate;
 
@@ -119,7 +118,6 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
     public virtual void SpawnProjectileServer(Vector3 firePointPosition, Vector2 direction, bool isCrit, float critDamageMultiplier, 
         float damageMultiplier, float flatExtraDamage, ServerRpcParams rpcParams)
     {
-        print("SpawnProjectileServer");
         // This check is the authoritative gate to ensure this is only done on the server.
         if (!NetworkManager.Singleton.IsServer) return;
         ulong senderId = rpcParams.Receive.SenderClientId;

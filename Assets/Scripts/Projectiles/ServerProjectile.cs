@@ -58,9 +58,9 @@ public class ServerProjectile : NetworkBehaviour
         }
         if (isFriendly && collision.gameObject.TryGetComponent<BaseNPC>(out var npc))
         {
-            print($"{name} is hitting");
+            // print($"{name} is hitting");
             this.OnProjectileHit(npc);
-            npc.OnHit(damage,isCrit);
+            
             pierce -= 1;
         }
         if(pierce < 1)
@@ -109,5 +109,6 @@ public class ServerProjectile : NetworkBehaviour
     }
     public virtual void OnProjectileHit(BaseNPC npc){
         print("Hit target");
+        npc.OnHit(damage,isCrit);
     }
 }

@@ -213,4 +213,8 @@ public abstract class BaseNPC : NetworkBehaviour
 
         return hit.collider == null;
     }
+    public string GetNPCName()
+    {
+        return npcName;
+    }
 }

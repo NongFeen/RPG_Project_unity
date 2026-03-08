@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  npcName: baseNPC
+  npcName: Alien
   maxHealth: 700
   moveSpeed: 3
   detectionRange: 50

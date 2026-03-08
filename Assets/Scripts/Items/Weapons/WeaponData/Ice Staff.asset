@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e8e53993701f3441a99a7208f1e61fe, type: 3}
+  m_Name: Ice Staff
+  m_EditorClassIdentifier: 
+  id: 5
+  itemName: Ice Staff
+  description: definitely not a gun
+  image: {fileID: -8774827867185692175, guid: e2ad661681248314786b2fb24289665e, type: 3}
+  itemPrefab: {fileID: 5646012898124733676, guid: a7454ba340b132042b869a5745315a00, type: 3}
+  itemType: 1
+  clientProjectilePrefab: {fileID: 4091576519318105471, guid: de6cad3707aaca245964ff65aa88d749, type: 3}
+  serverProjectilePrefab: {fileID: 3661950033510355805, guid: ec44aa4af325bcd4099ff4d30a6aa4b5, type: 3}
+  baseDamage: 50
+  baseFirerate: 90
+  baseMaxammo: 6
+  baseReloadSpeed: 3
+  animator: {fileID: 0}
+  animationClip: {fileID: 7400000, guid: ca1be0bfbb57073438e0829f4b9ac46c, type: 2}
+  weaponPrefab: {fileID: 2722307789887907519, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
+  weaponExtraStat:
+    bonusDamage: 0
+    critRate: 0
+    critDamage: 0

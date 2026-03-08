@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2112443282148237623
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 544540590459997346, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 544540590459997346, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 544540590459997346, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 544540590459997346, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 544540590459997346, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 544540590459997346, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 544540590459997346, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 544540590459997346, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 544540590459997346, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 544540590459997346, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722307789887907519, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
+      propertyPath: m_Name
+      value: ASaltRifle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4630622854810873113, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 2877123387358749873, guid: 52f4f1a462a64164982d360cb6391c9b, type: 3}
+    - target: {fileID: 5625846844760338606, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4089415158
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3881168431985582074, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2722307789887907519, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5807817822285700364}
+  m_SourcePrefab: {fileID: 100100000, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
+--- !u!1 &4077854963501827976 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2722307789887907519, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
+  m_PrefabInstance: {fileID: 2112443282148237623}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-5807817822285700364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4077854963501827976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a4322dcff82c9543afbe46c8acee230, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  weaponInstance:
+    itemID: 
+    bonusStat:
+      bonusDamage: 0
+      critRate: 0
+      critDamage: 0
+  visualRoot: {fileID: 8344631773934115494}
+  currentAmmo: 0
+  maxAmmo: 0
+  fireRate: 0
+  lastShootTime: 0
+  isReloading: 0
+  bonusStat:
+    bonusDamage: 0
+    critRate: 0
+    critDamage: 0
+--- !u!1 &8344631773934115494 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7971074042446543761, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
+  m_PrefabInstance: {fileID: 2112443282148237623}
+  m_PrefabAsset: {fileID: 0}

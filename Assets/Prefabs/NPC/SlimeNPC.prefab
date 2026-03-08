@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  npcName: baseNPC
+  npcName: Slime
   maxHealth: 100
   moveSpeed: 1
   detectionRange: 30
