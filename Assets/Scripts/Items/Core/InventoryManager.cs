@@ -22,6 +22,7 @@ public class InventoryManager : MonoBehaviour
         }
         Instance = this;
     }
+    #region Weapon Methods
     public void AddItem(Item item, int qty = 1)
     {
         weaponInventoryItems.Add(WeaponInstance.CreateWeaponInstance(item, qty));
@@ -79,6 +80,7 @@ public class InventoryManager : MonoBehaviour
         AddItem(GameDatabase.Instance.GetItemDatabase().GetItemByID(1));
         AddItem(GameDatabase.Instance.GetItemDatabase().GetItemByID(0));
     }
+    #endregion 
     #region Relic Methods
     public void TestAddRelicItems()
     {

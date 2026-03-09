@@ -22,5 +22,9 @@ public class ItemInstance
         else
             return new ItemInstance(itemData, stackCount);
     }
+    public static ItemInstance CreateInstance()
+    {
+        return new ItemInstance(null);
+    }
     
 }

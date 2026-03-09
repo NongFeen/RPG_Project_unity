@@ -9,7 +9,9 @@ public class ItemDetailPanel : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI itemNameText;
     [SerializeField] private TextMeshProUGUI itemDescText;
-    [SerializeField] private GameObject panelObject;
+    [SerializeField] private GameObject itemDetailPanelObject;
+    [SerializeField] private GameObject weaponStatsPanel;
+    
     private ItemInstance currentShowItem;
     public static ItemDetailPanel Instance { get; private set; }
     //stats
@@ -30,26 +32,12 @@ public class ItemDetailPanel : MonoBehaviour
             return;
         }
         Instance = this;
-        panelObject.SetActive(false); // hide on start
+        itemDetailPanelObject.SetActive(false); // hide on start
         statDict = new Dictionary<string, TextMeshProUGUI>();
         foreach (var entry in statTextEntries)
         statDict.Add(entry.statId, entry.text);
     }
 
-    // public void Show(string itemName, string itemDesc)
-    // {
-    //     itemNameText.text = itemName;
-    //     itemDescText.text = itemDesc;
-    //     panelObject.SetActive(true);
-    // }
-    // public void Show(ItemInstance item)
-    // {
-    //     currentShowItem = item;
-    //     panelObject.SetActive(true);
-    //     itemNameText.text = item.itemData.itemName;
-    //     itemDescText.text = item.itemData.description;
-    //     print(item.itemData.name);
-    // }
     public void Show(WeaponInstance item)
     {
         currentShowItem = item;
@@ -62,7 +50,8 @@ public class ItemDetailPanel : MonoBehaviour
         statDict["BonusDamage"].text = item.bonusStat.bonusDamage.ToString();
         statDict["CritRate"].text = (item.bonusStat.critRate * 100).ToString("F2") + "%";
         statDict["CritDamage"].text = (item.bonusStat.critDamage * 100).ToString("F2") + "%";
-        panelObject.SetActive(true);
+        itemDetailPanelObject.SetActive(true);
+        weaponStatsPanel.SetActive(true);
     }
     public void Show(ItemInstance item)
     {
@@ -76,12 +65,29 @@ public class ItemDetailPanel : MonoBehaviour
         // statDict["BonusDamage"].text = item.bonusDamage.ToString();
         // statDict["CritRate"].text = item.critRate.ToString() + "%";
         // statDict["CritDamage"].text = item.critDamage.ToString() + "%";
-        panelObject.SetActive(true);
+        itemDetailPanelObject.SetActive(true);
+        weaponStatsPanel.SetActive(true);
+    }
+    public void Show(RelicInstance relic)
+    {
+        //hide weapon stats
+        // item name -> rarity
+        //Item description -> relic attributes
+        currentShowItem = relic;
+        itemNameText.text = relic.rarity.ToString() + " Relic";
+        string attrString = "";
+        foreach (RelicAttribute attr in relic.attributes)
+        {
+            attrString += $"{attr}\n";
+        }
+        itemDescText.text = attrString;
+        itemDetailPanelObject.SetActive(true);
+        weaponStatsPanel.SetActive(false);
     }
     public void Hide()
     {
         // print("hiding panel");
-        this.panelObject.SetActive(false);
+        this.itemDetailPanelObject.SetActive(false);
     }
     public void EqiupItem(int slot)
     {

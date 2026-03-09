@@ -229,6 +229,7 @@ GameObject:
   - component: {fileID: 6705377245788247302}
   - component: {fileID: 5398342000953638206}
   - component: {fileID: 1224984727553751069}
+  - component: {fileID: 6468361984560777898}
   m_Layer: 5
   m_Name: RelicInventoryUI
   m_TagString: Untagged
@@ -330,6 +331,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotPrefab: {fileID: 923068476494433326, guid: 087de2169f393694bb778eda7a29399d, type: 3}
+  invSlotParent: {fileID: 5650883265379547649}
+  equipedSlotParent: {fileID: 7762383289331422531}
+--- !u!114 &6468361984560777898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144330914237481593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d553b0439e7d4674f9ea529ab216c9a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotPrefab: {fileID: 923068476494433326, guid: e25b2914c62512445b7d5c41a89bc361, type: 3}
   invSlotParent: {fileID: 5650883265379547649}
   equipedSlotParent: {fileID: 7762383289331422531}
 --- !u!1 &2195130751919452263
@@ -1719,6 +1735,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3671541726080920062, guid: dfb8f3a39f7e2e2419fc06743b7f05ed, type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 3671541726080920062, guid: dfb8f3a39f7e2e2419fc06743b7f05ed, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 5401467434866971500, guid: dfb8f3a39f7e2e2419fc06743b7f05ed, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1766,6 +1790,14 @@ PrefabInstance:
     - target: {fileID: 5595958269372041379, guid: dfb8f3a39f7e2e2419fc06743b7f05ed, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6243867299627221042, guid: dfb8f3a39f7e2e2419fc06743b7f05ed, type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 6243867299627221042, guid: dfb8f3a39f7e2e2419fc06743b7f05ed, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 6352334751051422530, guid: dfb8f3a39f7e2e2419fc06743b7f05ed, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1851,6 +1883,14 @@ PrefabInstance:
       propertyPath: itemNameText
       value: 
       objectReference: {fileID: 1599854287417701792}
+    - target: {fileID: 9125585896019037295, guid: dfb8f3a39f7e2e2419fc06743b7f05ed, type: 3}
+      propertyPath: weaponStatsPanel
+      value: 
+      objectReference: {fileID: 4050898679834737023}
+    - target: {fileID: 9125585896019037295, guid: dfb8f3a39f7e2e2419fc06743b7f05ed, type: 3}
+      propertyPath: itemDetailPanelObject
+      value: 
+      objectReference: {fileID: 5296610466176572265}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1867,6 +1907,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4050898679834737023 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8692739093474987245, guid: dfb8f3a39f7e2e2419fc06743b7f05ed, type: 3}
+  m_PrefabInstance: {fileID: 4653765175589975442}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4907205615196359606 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 327807592783642148, guid: dfb8f3a39f7e2e2419fc06743b7f05ed, type: 3}
