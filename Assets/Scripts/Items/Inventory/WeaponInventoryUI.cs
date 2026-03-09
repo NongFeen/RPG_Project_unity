@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class InventoryUI : MonoBehaviour
+public class WeaponInventoryUI : MonoBehaviour
 {
     [SerializeField] private GameObject slotPrefab;
     [SerializeField] private Transform invSlotParent;
@@ -12,7 +12,7 @@ public class InventoryUI : MonoBehaviour
         if (InventoryManager.Instance != null)
         {
             InventoryManager.Instance.OnInventoryChanged += RefreshUI;
-            Debug.Log("InventoryUI subscribed");
+            Debug.Log("WeaponInventoryUI subscribed");
             RefreshUI();
         }
         else
@@ -22,7 +22,7 @@ public class InventoryUI : MonoBehaviour
     }
     private void OnDisable()
     {
-        Debug.Log("InventoryUI unsubscribed");
+        Debug.Log("WeaponInventoryUI unsubscribed");
         if (InventoryManager.Instance != null)
             InventoryManager.Instance.OnInventoryChanged -= RefreshUI;
     }
@@ -32,7 +32,7 @@ public class InventoryUI : MonoBehaviour
         //inv
         foreach (Transform child in invSlotParent)
             Destroy(child.gameObject);
-        foreach (WeaponInstance item in InventoryManager.Instance.inventoryItems)
+        foreach (WeaponInstance item in InventoryManager.Instance.weaponInventoryItems)
         {
             // print("test");
             // InventorySlotNew slot = Instantiate(slotPrefab, invSlotParent);
@@ -44,7 +44,7 @@ public class InventoryUI : MonoBehaviour
         foreach (Transform child in equipedSlotParent)
             Destroy(child.gameObject);
         // print(InventoryManager.Instance.equippedItems.Count);
-        foreach (var item in InventoryManager.Instance.equippedItems)
+        foreach (var item in InventoryManager.Instance.equippedWeapons)
         {
             GameObject obj = Instantiate(slotPrefab, equipedSlotParent.transform);
             InventorySlotNew slot = obj.GetComponent<InventorySlotNew>();

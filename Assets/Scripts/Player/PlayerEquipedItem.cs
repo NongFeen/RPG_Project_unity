@@ -116,7 +116,7 @@ public class PlayerEquipedItem : NetworkBehaviour
         // Initialize new weapon prefabs
         for (int i = 0; i < equipSlots.Count; i++)
         {
-            WeaponInstance instance = InventoryManager.Instance.equippedItems[i];
+            WeaponInstance instance = InventoryManager.Instance.equippedWeapons[i];
             if (instance == null || instance.weaponData == null) continue;
 
             WeaponBehaviour behaviour = CreateWeaponObject(instance);

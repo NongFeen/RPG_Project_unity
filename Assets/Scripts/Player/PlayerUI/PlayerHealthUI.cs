@@ -15,10 +15,20 @@ public class PlayerHealthUI : MonoBehaviour,IPlayerStatUI
         playerStats.currentHP.OnValueChanged += UpdateHp;
         playerStats.activeStats.OnValueChanged += UpdateMaxHp;
     }
+    public void SetPlayerData(PlayerStats player)
+    {
+        playerStats = player;
+        UpdateHp(0, playerStats.currentHP.Value);
+        playerStats.currentHP.OnValueChanged += UpdateHp;
+        playerStats.activeStats.OnValueChanged += UpdateMaxHp;
+    }
     private void OnDestroy()
     {
         if (playerStats != null)
+        {
             playerStats.currentHP.OnValueChanged -= UpdateHp;
+            playerStats.activeStats.OnValueChanged -= UpdateMaxHp;
+        }
     }
     private void UpdateHp(float oldValue, float newValue)
     {

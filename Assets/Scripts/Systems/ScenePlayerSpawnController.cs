@@ -14,7 +14,7 @@ public class ScenePlayerSpawnController : NetworkBehaviour
     }
     private IEnumerator SpawnNextFrame()
     {
-        yield return null; // wait 1 frame (Start done)
+        yield return null; 
 
         foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
         {
@@ -34,7 +34,6 @@ public class ScenePlayerSpawnController : NetworkBehaviour
             spawnPoint.rotation
         );
         // player.setUp();
-        player.GetComponent<NetworkObject>()
-              .SpawnAsPlayerObject(clientId, true);
+        player.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
     }
 }

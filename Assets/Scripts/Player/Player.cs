@@ -24,10 +24,6 @@ public class Player : NetworkBehaviour
         Load(GameManager.Instance.getCurrentSaveProfileData().playerSaveData);
     }
 
-    // private void ChangeEquipItem()
-    // {
-    //     // InventoryManager.Instance.equippedItems
-    // }
     public void AddExperience(int experienceGained)
     {
         playerExperience.AddExperience(experienceGained);

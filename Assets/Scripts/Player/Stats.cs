@@ -4,11 +4,12 @@ using UnityEngine;
 [System.Serializable]
 public struct Stats : INetworkSerializable, IEquatable<Stats>
 {
-    public int health;
-    public int defense;
+    public float health;
+    public float defense;
     public float critRate;
     public float critDamage;
     public float extraDamage;
+
 
     public bool Equals(Stats other)
     {

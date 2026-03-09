@@ -2,19 +2,26 @@ using NUnit.Framework;
 using Unity.Netcode;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class ServerProjectile : NetworkBehaviour
 {
     [SerializeField] public float speed = 3f;
     [SerializeField] public float lifeTime = 3f;
-    [SerializeField] public int pierce = 1;
+    [SerializeField] public int basePierce = 1;
     [SerializeField] public bool canHitPlayer = false; //cannot damage player but can hit player
     [SerializeField] public bool isFriendly = true;//cannot hit player but hit enemy
     [SerializeField] public Vector2 direction;
     [SerializeField] public float damage;
     [SerializeField] public bool isCrit=false;
     [SerializeField] public Player owner;
+    [SerializeField] public int pierce = 1;
 
+    private Rigidbody2D rb;
     public float lifeTimer = 0;
+    public void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
     public virtual void OnSpawn(Vector2 direction, float damage,bool isCrit, float critDamageMultiplier)
     {
         this.direction = direction.normalized;
@@ -22,6 +29,7 @@ public class ServerProjectile : NetworkBehaviour
         this.damage = isCrit ? damage * critDamageMultiplier : damage;
         this.isCrit = isCrit;
         lifeTimer = lifeTime;
+        pierce = basePierce;
         // Debug.Log($"Projectile damage {damage} by {weaponOwner.weaponData.name}");
     }
     public override void OnNetworkSpawn()
@@ -69,26 +77,6 @@ public class ServerProjectile : NetworkBehaviour
     public virtual void OnTriggerExit2D(Collider2D collision)
     {
     }
-    // public virtual void OnCollisionEnter2D(Collision2D collision)
-    // {
-    //     if (!IsServer) return;
-    //     // print("Hit target");
-    //     if (canHitPlayer && !isFriendly && collision.gameObject.CompareTag("Player"))
-    //     {
-    //         collision.gameObject.TryGetComponent<PlayerStats>(out var player);
-    //         player.TakeDamage(this.damage);
-    //         pierce -= 1;
-    //     }
-    //     if (isFriendly && collision.gameObject.TryGetComponent<BaseNPC>(out var npc))
-    //     {
-    //         print($"{name} is hitting");
-    //         OnProjectileHit(npc);
-    //         npc.OnHit(damage,isCrit);
-    //         pierce -= 1;
-    //     }
-    //     if (pierce < 1 || collision.gameObject.CompareTag("Wall"))
-    //         DestroySelf();
-    // }
     public virtual void DestroySelf()
     {
         if (!IsServer) return;
@@ -104,7 +92,6 @@ public class ServerProjectile : NetworkBehaviour
     public virtual void MovePosition()
     {
         // transform.position += (Vector3)(speed * Time.deltaTime * direction);
-        TryGetComponent<Rigidbody2D>(out var rb);
         rb.linearVelocity = direction * speed;
     }
     public virtual void OnProjectileHit(BaseNPC npc){

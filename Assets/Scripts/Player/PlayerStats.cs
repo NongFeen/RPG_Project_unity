@@ -44,6 +44,7 @@ public class PlayerStats : NetworkBehaviour
     [SerializeField] GameObject uiPrefab;
     public override void OnNetworkSpawn()
     {
+        PlayerManager.Instance.RegisterPlayer(this);
         if (IsServer)
         {
             LoadFromLobby();
@@ -54,6 +55,15 @@ public class PlayerStats : NetworkBehaviour
         {
             currentHP.OnValueChanged += OnHPChanged;
             UIManager.Instance.ActivePlayerHUD(gameObject);
+        }
+    }
+    public override void OnNetworkDespawn()
+    {
+        PlayerManager.Instance.UnregisterPlayer(this);
+        if (IsOwner)
+        {
+            currentHP.OnValueChanged -= OnHPChanged;
+            UIManager.Instance.DeactivePlayerHUD();
         }
     }
     public void Update()
@@ -274,8 +284,6 @@ public class PlayerStats : NetworkBehaviour
     {
         return activeBuffs;
     }
-
- 
     public void RemoveBuffServer(BuffType type)
     {
         if (!IsServer) return;
