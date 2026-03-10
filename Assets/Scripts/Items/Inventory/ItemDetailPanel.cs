@@ -100,8 +100,13 @@ public class ItemDetailPanel : MonoBehaviour
         {
             InventoryManager.Instance.EquipItem(weapon, slot);
         }else
+        if(currentShowItem is RelicInstance relic)
         {
-            Debug.LogWarning("Current item is not a weapon instance.");
+            InventoryManager.Instance.EquipRelic(relic, slot);
+        }
+        else
+        {
+            Debug.LogWarning("Current item is not a weapon or relic instance.");
             return;
         }
 

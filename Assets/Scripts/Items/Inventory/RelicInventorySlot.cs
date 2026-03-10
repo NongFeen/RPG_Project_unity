@@ -29,10 +29,17 @@ public class RelicInventorySlot : MonoBehaviour, IPointerClickHandler
 
     public void ShowRelic()
     {
-        if (IsEmpty) return;
-        relicImage.sprite = relicSpriteByRarity[StoredRelic.rarity];
-        // GameObject obj = Instantiate(StoredRelic.itemData.itemPrefab, this.transform);
-        // obj.GetComponent<UnityEngine.UI.Image>().sprite = StoredRelic.itemData.image;
+        if(IsEmpty) return;
+        if(StoredRelic.IsEmpty){
+            relicImage.sprite = null;
+            relicImage.color = new Color(1, 1, 1, 0);
+            return;
+        }
+        else
+        {
+            relicImage.sprite = relicSpriteByRarity[StoredRelic.rarity];
+            relicImage.color = new Color(1, 1, 1, 1);
+        }
     }
     public void ClearSlot()
     {

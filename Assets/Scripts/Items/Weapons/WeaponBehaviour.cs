@@ -91,7 +91,7 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
     }
     public virtual void OnShoot(Vector2 direction)
     {
-        print("Onshoot");
+        // print("Onshoot");
         if (!CanShoot()) return;
         lastShootTime = Time.time;
         if (weaponInstance == null) return;

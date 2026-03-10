@@ -75,7 +75,7 @@ public class InputReader : ScriptableObject, IPlayerActions
     {
         if (context.performed)
         {
-            Debug.Log("InputReader: OpenInventory performed");
+            // Debug.Log("InputReader: OpenInventory performed");
             OpenInventoryEvents?.Invoke(true);
         }
         else if (context.canceled)

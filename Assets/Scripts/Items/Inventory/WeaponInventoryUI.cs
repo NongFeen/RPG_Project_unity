@@ -12,7 +12,7 @@ public class WeaponInventoryUI : MonoBehaviour
         if (InventoryManager.Instance != null)
         {
             InventoryManager.Instance.OnInventoryChanged += RefreshUI;
-            Debug.Log("WeaponInventoryUI subscribed");
+            // Debug.Log("WeaponInventoryUI subscribed");
             RefreshUI();
         }
         else
@@ -22,7 +22,7 @@ public class WeaponInventoryUI : MonoBehaviour
     }
     private void OnDisable()
     {
-        Debug.Log("WeaponInventoryUI unsubscribed");
+        // Debug.Log("WeaponInventoryUI unsubscribed");
         if (InventoryManager.Instance != null)
             InventoryManager.Instance.OnInventoryChanged -= RefreshUI;
     }

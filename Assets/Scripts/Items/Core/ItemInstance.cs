@@ -5,12 +5,19 @@ using UnityEngine;
 public class ItemInstance 
 {
     public string itemID;
-   [NonSerialized]
+    [NonSerialized]
     public Item itemData;
     // public int stackCount;
-    public bool IsEmpty => string.IsNullOrEmpty(itemID);
+    public virtual bool IsEmpty => string.IsNullOrEmpty(itemID);
     public ItemInstance(Item itemData, int stackCount = 1)
     {
+        if(itemData == null)
+        {
+            this.itemID = "";
+            this.itemData = null;
+            // this.stackCount = 0;
+            return;
+        }
         this.itemID = itemData.id.ToString();
         this.itemData = itemData;
         // this.stackCount = stackCount;

@@ -6,6 +6,7 @@ public class RelicInstance : ItemInstance
     public RelicRarity rarity;
 
     public List<RelicAttribute> attributes = new List<RelicAttribute>();
+    public override bool IsEmpty => attributes.Count == 0;
 
     public RelicInstance(Item itemData, int stackCount = 1) : base(itemData, stackCount)
     {

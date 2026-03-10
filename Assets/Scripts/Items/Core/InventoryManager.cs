@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance { get; private set; }
     public List<WeaponInstance> weaponInventoryItems = new List<WeaponInstance>();
-    public List<WeaponInstance> equippedWeapons = new List<WeaponInstance>();
+    public List<WeaponInstance> equippedWeapons = new List<WeaponInstance>(MAX_EQUIPPED_SLOTS);
     public List<RelicInstance> relicInventoryItems = new List<RelicInstance>();
-    public List<RelicInstance> equippedRelics = new List<RelicInstance>();
-    private int MAX_EQUIPPED_SLOTS = 3;
+    public List<RelicInstance> equippedRelics = new List<RelicInstance>(MAX_EQUIPPED_SLOTS);
+    private static int MAX_EQUIPPED_SLOTS = 3;
     public event Action OnInventoryChanged;
     public event Action OnEquipmentChanged;
 
@@ -180,7 +181,11 @@ public class InventoryManager : MonoBehaviour
         weaponInventoryItems.Clear();
         equippedWeapons = new List<WeaponInstance>(new WeaponInstance[MAX_EQUIPPED_SLOTS]);
         relicInventoryItems.Clear();
-        equippedRelics = new List<RelicInstance>(new RelicInstance[MAX_EQUIPPED_SLOTS]);
+        // equippedRelics = new List<RelicInstance>(new RelicInstance[MAX_EQUIPPED_SLOTS]);
+        for (int i = 0; i < MAX_EQUIPPED_SLOTS; i++)
+        {
+            equippedRelics.Add(null);
+        }
         // ---- LOAD INVENTORY ----
         foreach (var saved in data.itemList)
         {
@@ -213,8 +218,19 @@ public class InventoryManager : MonoBehaviour
 
             equippedWeapons[i] = instance;
         }
+
+        //relic
         relicInventoryItems = data.relicList;
         equippedRelics = data.relicEquipped;
+        
+        if(equippedRelics.Count < MAX_EQUIPPED_SLOTS)
+        {
+            int toAdd = MAX_EQUIPPED_SLOTS - equippedRelics.Count;
+            for(int i = 0; i < toAdd; i++)
+            {
+                equippedRelics.Add(null);
+            }
+        }
         
         OnInventoryChanged?.Invoke();
         OnEquipmentChanged?.Invoke();

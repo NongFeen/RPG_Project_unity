@@ -55,7 +55,7 @@ public class PlayerShooting : NetworkBehaviour
     }
     private void ShootWeapon(WeaponBehaviour weapon, Vector2 dir, ServerRpcParams rpcParams = default)
     {
-        print("ShootWeapon");
+        // print("ShootWeapon");
         weapon.OnShoot(dir);
         ShootWeaponServerRPC(dir, rpcParams);
     }

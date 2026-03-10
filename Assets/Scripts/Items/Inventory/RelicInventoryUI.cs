@@ -13,7 +13,7 @@ public class RelicInventoryUI : MonoBehaviour
         if (InventoryManager.Instance != null)
         {
             InventoryManager.Instance.OnInventoryChanged += RefreshUI;
-            Debug.Log("RelicInventoryUI subscribed");
+            // Debug.Log("RelicInventoryUI subscribed");
             RefreshUI();
         }
         else
@@ -23,13 +23,13 @@ public class RelicInventoryUI : MonoBehaviour
     }
     private void OnDisable()
     {
-        Debug.Log("RelicInventoryUI unsubscribed");
+        // Debug.Log("RelicInventoryUI unsubscribed");
         if (InventoryManager.Instance != null)
             InventoryManager.Instance.OnInventoryChanged -= RefreshUI;
     }
     public void RefreshUI()
     {
-        print("Refresing UI");
+        // print("Refresing UI");
         //inv
         foreach (Transform child in invSlotParent)
             Destroy(child.gameObject);
