@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using static SaveSystem;
 
 public class CharacterSelect : MonoBehaviour
@@ -7,6 +8,8 @@ public class CharacterSelect : MonoBehaviour
     [SerializeField]GameObject selectCharacterCardPrefab;
     [SerializeField]GameObject createCharacterCardPrefab;
     [SerializeField]GameObject characterList;
+    [SerializeField]GameObject createCharacterMenu;
+
     // [SerializeField] GameObject lobbyMenu;
     public void OnEnable()
     {
@@ -19,12 +22,22 @@ public class CharacterSelect : MonoBehaviour
         {
             CreateCharacterCard(i, allProfiles[i]);
         }
+        CreateNewCharacterCard();
     }
     void CreateCharacterCard(int index, SaveProfileData saveProfileData)
     {
         var card = Instantiate(selectCharacterCardPrefab,characterList.transform);
         card.GetComponent<CharacterCardUI>().SetUp(index,saveProfileData);
     }
+    void CreateNewCharacterCard()
+    {
+        var card = Instantiate(createCharacterCardPrefab,characterList.transform);
+        card.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            createCharacterMenu.gameObject.SetActive(true);
+        }); 
+    }
+     
     public void CloseSelectedMenu()
     {
         this.gameObject.SetActive(false);

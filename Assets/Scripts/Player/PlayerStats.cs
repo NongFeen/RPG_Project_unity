@@ -193,9 +193,9 @@ public class PlayerStats : NetworkBehaviour
         stableStats.Value = calStats;   
         
         //display server stats for debugging
-        print($"Base Stat : {data.GetHealth(lvl)}, {data.GetDefense(lvl)}, {data.GetCritRate(lvl)}, {data.GetCritDamage(lvl)}");
-        print($"Bonus Stat: {bonusStats.Value}");
-        print($"Active Stat Level {lvl}: {stableStats.Value}");
+        // print($"Base Stat : {data.GetHealth(lvl)}, {data.GetDefense(lvl)}, {data.GetCritRate(lvl)}, {data.GetCritDamage(lvl)}");
+        // print($"Bonus Stat: {bonusStats.Value}");
+        // print($"Active Stat Level {lvl}: {stableStats.Value}");
     }
     private void SetStartStat()
     {

@@ -12,7 +12,7 @@ public class CharacterCardUI : MonoBehaviour
     public void SetUp(int index,SaveProfileData SaveProfileData)
     {
         saveProfileData = SaveProfileData;
-        print(SaveProfileData.playerSaveData.characterName.ToString());
+        // print(SaveProfileData.playerSaveData.characterName.ToString());
         charNameText.GetComponent<TextMeshProUGUI>().text = SaveProfileData.playerSaveData.characterName.ToString();
         charLevelText.GetComponent<TextMeshProUGUI>().text = SaveProfileData.playerSaveData.level.ToString();
         charClassText.GetComponent<TextMeshProUGUI>().text = SaveProfileData.playerSaveData.characterClass.ToString();

@@ -12,7 +12,6 @@ public class WeaponInventoryUI : MonoBehaviour
         if (InventoryManager.Instance != null)
         {
             InventoryManager.Instance.OnInventoryChanged += RefreshUI;
-            // Debug.Log("WeaponInventoryUI subscribed");
             RefreshUI();
         }
         else
@@ -28,27 +27,26 @@ public class WeaponInventoryUI : MonoBehaviour
     }
     public void RefreshUI()
     {
-        print("Refresing UI");
+        print("Refresing Weapon UI");
         //inv
         foreach (Transform child in invSlotParent)
             Destroy(child.gameObject);
+        
         foreach (WeaponInstance item in InventoryManager.Instance.weaponInventoryItems)
         {
-            // print("test");
-            // InventorySlotNew slot = Instantiate(slotPrefab, invSlotParent);
             GameObject obj = Instantiate(slotPrefab, invSlotParent.transform);
-            InventorySlotNew slot = obj.GetComponent<InventorySlotNew>();
-            slot.SetItem(item);
+            WeaponInventorySlot slot = obj.GetComponent<WeaponInventorySlot>();
+            slot.SetWeapon(item);
         }
         //equip
         foreach (Transform child in equipedSlotParent)
             Destroy(child.gameObject);
         // print(InventoryManager.Instance.equippedItems.Count);
-        foreach (var item in InventoryManager.Instance.equippedWeapons)
+        foreach (WeaponInstance item in InventoryManager.Instance.equippedWeapons)
         {
             GameObject obj = Instantiate(slotPrefab, equipedSlotParent.transform);
-            InventorySlotNew slot = obj.GetComponent<InventorySlotNew>();
-            slot.SetItem(item);
+            WeaponInventorySlot slot = obj.GetComponent<WeaponInventorySlot>();
+            slot.SetWeapon(item);
         }
     }
     private IEnumerator WaitForInventoryManager()

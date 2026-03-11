@@ -30,4 +30,15 @@ public class ItemDatabase : ScriptableObject
         Debug.LogWarning($"Item ID '{id}' not found!");
         return null;
     }
+    public Weapon GetWeaponByID(int id)
+    {
+        if (itemDictionary == null)
+            Initialize();
+        itemDictionary.TryGetValue(id, out Item foundItem);
+        if(foundItem is Weapon weapon)
+            return weapon;
+        if (id == -1) return null;
+        Debug.LogWarning($"Item ID '{id}' not found!");
+        return null;
+    }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Weapon", menuName = "Scriptable Objects/Weapon")]
 public class Weapon : Item
 {
+    [Header("Basic Information")]
     [SerializeField] public GameObject clientProjectilePrefab;
     [SerializeField] public GameObject serverProjectilePrefab;
     [SerializeField] public float baseDamage;
@@ -12,9 +13,10 @@ public class Weapon : Item
     [SerializeField] public Animator animator;
     [SerializeField] public AnimationClip animationClip;
     [SerializeField] public GameObject weaponPrefab;
+    [SerializeField] public WeaponStat weaponExtraStat;
 
-    [SerializeField]public WeaponStat weaponExtraStat;
-
+    [Header("Random Stats Range on Drop (1.0 => 100%)")]
+    [SerializeField] public RandomStatsRange randomStatsRange;
     public override ItemInstance CreateInstance()
     {
         return ItemInstance.CreateInstance(this);

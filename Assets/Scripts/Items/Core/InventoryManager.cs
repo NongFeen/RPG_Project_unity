@@ -58,9 +58,14 @@ public class InventoryManager : MonoBehaviour
             if (inventoryIndex >= 0)
                 weaponInventoryItems.RemoveAt(inventoryIndex);
 
+            if(equippedWeapons[slotIndex] == null)
+            {
+                equippedWeapons[slotIndex] = item;
+            }
             if (!equippedWeapons[slotIndex].IsEmpty)
+            {
                 UnEquipItem(slotIndex);
-
+            }
             equippedWeapons[slotIndex] = item;
         }
 
@@ -179,14 +184,11 @@ public class InventoryManager : MonoBehaviour
     public void LoadInventoryFromSaveData(ItemSaveData data)
     {
         weaponInventoryItems.Clear();
-        equippedWeapons = new List<WeaponInstance>(new WeaponInstance[MAX_EQUIPPED_SLOTS]);
+        equippedWeapons.Clear();
         relicInventoryItems.Clear();
-        // equippedRelics = new List<RelicInstance>(new RelicInstance[MAX_EQUIPPED_SLOTS]);
-        for (int i = 0; i < MAX_EQUIPPED_SLOTS; i++)
-        {
-            equippedRelics.Add(null);
-        }
-        // ---- LOAD INVENTORY ----
+        equippedRelics.Clear();
+
+        // ---- LOAD WEAPON INVENTORY ----
         foreach (var saved in data.itemList)
         {
             Weapon baseWeapon = GameDatabase.Instance.GetItemDatabase().GetItemByID(int.Parse(saved.itemID)) as Weapon;
@@ -210,15 +212,22 @@ public class InventoryManager : MonoBehaviour
                 continue;
 
             Weapon baseWeapon = GameDatabase.Instance.GetItemDatabase().GetItemByID(int.Parse(saved.itemID)) as Weapon;
-
             WeaponInstance instance = new WeaponInstance(baseWeapon);
             instance.bonusStat.bonusDamage = saved.bonusStat.bonusDamage;
             instance.bonusStat.critRate = saved.bonusStat.critRate;
             instance.bonusStat.critDamage = saved.bonusStat.critDamage;
-
-            equippedWeapons[i] = instance;
+            equippedWeapons.Add(instance);
         }
-
+        if (equippedWeapons.Count < MAX_EQUIPPED_SLOTS)
+        {
+            int toAdd = MAX_EQUIPPED_SLOTS - equippedWeapons.Count;
+            for (int i = 0; i < toAdd; i++)
+                equippedWeapons.Add(null);
+        }
+        //weapon
+        // equippedWeapons = data.equipList;
+        // weaponInventoryItems = data.itemList;
+        
         //relic
         relicInventoryItems = data.relicList;
         equippedRelics = data.relicEquipped;
@@ -231,17 +240,8 @@ public class InventoryManager : MonoBehaviour
                 equippedRelics.Add(null);
             }
         }
-        
         OnInventoryChanged?.Invoke();
         OnEquipmentChanged?.Invoke();
     }
     #endregion
-}
-[System.Serializable]
-public struct ItemSaveData
-{
-    public List<WeaponInstance> equipList;
-    public List<WeaponInstance> itemList;
-    public List<RelicInstance> relicList;
-    public List<RelicInstance> relicEquipped;
 }

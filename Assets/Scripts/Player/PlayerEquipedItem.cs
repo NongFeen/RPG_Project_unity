@@ -9,7 +9,7 @@ public class PlayerEquipedItem : NetworkBehaviour
     [Header("Equip Item")]
     [SerializeField] public List<WeaponBehaviour> equipSlots;
     [SerializeField] public NetworkVariable<int> activeSlot = new NetworkVariable<int>(0,
-        NetworkVariableReadPermission.Everyone
+        NetworkVariableReadPermission.Everyone  
     );
     public NetworkList<NetworkWeaponData> equippedWeapons = new NetworkList<NetworkWeaponData>(null,
     NetworkVariableReadPermission.Everyone);
@@ -38,6 +38,7 @@ public class PlayerEquipedItem : NetworkBehaviour
         if(!IsOwner) return;
         GameManager.Instance.SetLocalPlayer(GetComponent<Player>());
         RefreshEquipItem();
+        SetActiveWeapon(activeSlot.Value);
     }
     public override void OnDestroy()
     {

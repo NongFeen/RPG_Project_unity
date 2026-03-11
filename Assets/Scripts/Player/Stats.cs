@@ -9,7 +9,14 @@ public struct Stats : INetworkSerializable, IEquatable<Stats>
     public float critRate;
     public float critDamage;
     public float extraDamage;
-
+    public Stats(float health,float defense,float critRate,float critDamage,float extraDamage)
+    {
+        this.health = health;
+        this.defense = defense;
+        this.critRate = critRate;
+        this.critDamage = critDamage;
+        this.extraDamage = extraDamage;
+    }
 
     public bool Equals(Stats other)
     {

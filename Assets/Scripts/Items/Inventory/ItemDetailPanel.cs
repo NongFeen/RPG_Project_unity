@@ -73,6 +73,7 @@ public class ItemDetailPanel : MonoBehaviour
         //hide weapon stats
         // item name -> rarity
         //Item description -> relic attributes
+        if(relic.IsEmpty) return;
         currentShowItem = relic;
         itemNameText.text = relic.rarity.ToString() + " Relic";
         string attrString = "";

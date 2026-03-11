@@ -20,8 +20,8 @@ public class GameSummary : MonoBehaviour
             GameObject slot = Instantiate(slotPrefab, dropItemContainer.transform);
             slot.TryGetComponent<GridLayoutGroup>(out var gridLayoutGroup);
             gridLayoutGroup.cellSize = cellSize;
-            slot.TryGetComponent<InventorySlotNew>(out var inventorySlot);
-            inventorySlot.SetItem(item);
+            slot.TryGetComponent<WeaponInventorySlot>(out var inventorySlot);
+            inventorySlot.SetWeapon(item);
         }
     }
     public void ReturnToMainMenu()

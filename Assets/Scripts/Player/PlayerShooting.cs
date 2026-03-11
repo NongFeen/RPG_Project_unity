@@ -42,14 +42,18 @@ public class PlayerShooting : NetworkBehaviour
         {
             Vector2 dir = AimDirection();
             WeaponBehaviour weapon = playerEquipedItem.activeWeapon;
+            
             if (weapon != null && weapon.CanShoot())
             {
                 ShootWeapon(weapon, dir);
             }
             else
             {
-                if(!weapon.CanShoot() && weapon.currentAmmo ==  0)
-                HandleReload(true);
+                if(!weapon.CanShoot() && weapon.currentAmmo == 0)
+                {
+                    HandleReload(true);
+                }
+                else return; //no weapon equip
             }
         }
     }

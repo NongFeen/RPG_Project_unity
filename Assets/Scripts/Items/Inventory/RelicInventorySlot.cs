@@ -9,6 +9,7 @@ public class RelicInventorySlot : MonoBehaviour, IPointerClickHandler
     [SerializeField] List<Sprite> relicSprites;
     [SerializeField] private Dictionary<RelicRarity, Sprite> relicSpriteByRarity;
     [SerializeField] private Image relicImage;
+    public bool IsEmpty => StoredRelic == null;
 
     private void Awake()
     {
@@ -19,7 +20,6 @@ public class RelicInventorySlot : MonoBehaviour, IPointerClickHandler
             relicSpriteByRarity[rarity] = relicSprites[i];
         }
     }
-    public bool IsEmpty => StoredRelic == null;
 
     public void SetRelic(RelicInstance instance)
     {
