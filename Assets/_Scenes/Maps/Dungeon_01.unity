@@ -450,6 +450,13 @@ MonoBehaviour:
   allDeadResetDelay: 5
   mapItemDrop: {fileID: 11400000, guid: 4603e6ae0f0aabb4396dec3fbd394501, type: 2}
   mapExperienceReward: 20
+  relicRollChance:
+  - relicRarity: 0
+    weight: 50
+  - relicRarity: 0
+    weight: 35
+  - relicRarity: 0
+    weight: 15
   mapTimer: 0
   currentWave:
     m_InternalValue: 0

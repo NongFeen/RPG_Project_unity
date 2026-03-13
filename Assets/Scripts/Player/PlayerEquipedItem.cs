@@ -44,6 +44,7 @@ public class PlayerEquipedItem : NetworkBehaviour
         GameManager.Instance.SetLocalPlayer(GetComponent<Player>());
         RefreshEquipItem();
         SetActiveWeapon(activeSlot.Value);
+        ApplyActiveWeaponVisuals();
     }
     public override void OnDestroy()
     {
@@ -134,6 +135,7 @@ public class PlayerEquipedItem : NetworkBehaviour
             UpdateEquipWeaponServerRPC(GetEquipedWeaponNetworkList());
             SetActiveWeapon(activeSlot.Value);
             SyncRelicStatsToServer();
+            ApplyActiveWeaponVisuals();
         }
     }
     private WeaponBehaviour CreateWeaponObject(WeaponInstance weaponInstance)
@@ -246,6 +248,23 @@ public class PlayerEquipedItem : NetworkBehaviour
             equipSlots[i] = behaviour;
         }
         SetActiveWeapon(activeSlot.Value);
+        ApplyActiveWeaponVisuals();
+    }
+    private void ApplyActiveWeaponVisuals()
+    {
+        StowAllWeapons();
+        OnDrawWeapon();
+    }
+    private void StowAllWeapons()
+    {
+        if (equipSlots == null) return;
+        for (int i = 0; i < equipSlots.Count; i++)
+        {
+            WeaponBehaviour weapon = equipSlots[i];
+            if (weapon == null) continue;
+            if (weapon.weaponInstance == null || weapon.weaponInstance.weaponData == null) continue;
+            weapon.OnStowWeapon();
+        }
     }
     private void SyncRelicStatsToServer()
     {
@@ -259,6 +278,7 @@ public class PlayerEquipedItem : NetworkBehaviour
     //doing weapon stuff
     public void OnStowWeapon()
     {
+        if (activeWeapon == null) return;
         if (activeWeapon.weaponInstance.weaponData != null)
         {
             activeWeapon.OnStowWeapon();
@@ -266,6 +286,7 @@ public class PlayerEquipedItem : NetworkBehaviour
     }
     public void OnDrawWeapon()
     {
+        if (activeWeapon == null) return;
         if (activeWeapon.weaponInstance.weaponData != null)
         {
             activeWeapon.OnDrawWeapon();
