@@ -290,7 +290,7 @@ MonoBehaviour:
   weaponDrop: {fileID: 0}
   weaponDropChance: 0
   relicDropChance: 1
-  relicDropRarity: 0
+  relicDropRarity: 2
   displayHealth: 0
   lastAttackTime: 0
   target: {fileID: 0}

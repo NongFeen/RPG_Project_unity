@@ -42,16 +42,16 @@ public static class RelicGenerator
         switch (type)
         {
             case RelicAttributeType.CritRate:
-                return Random.Range(1f, 5f);
+                return Random.Range(0.01f, 0.05f);
 
             case RelicAttributeType.CritDamage:
-                return Random.Range(2f, 10f);
+                return Random.Range(0.02f, 0.1f);
 
             case RelicAttributeType.Health:
-                return Random.Range(1f, 5f);
+                return Random.Range(0.01f, 0.1f);
 
             case RelicAttributeType.BonusDamage:
-                return Random.Range(1f, 5f);
+                return Random.Range(0.01f, 0.05f);
         }
 
         return 0;

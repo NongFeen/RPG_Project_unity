@@ -4,6 +4,6 @@ public struct RelicAttribute
     public RelicAttributeType type;
     public float value;
     public override string ToString()    {
-        return $"{type}: {value:F2}%";
+        return $"{type}: {value*100:F2}%";
     }
 }

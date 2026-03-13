@@ -879,7 +879,7 @@ GameObject:
   - component: {fileID: 6705377245788247302}
   - component: {fileID: 5398342000953638206}
   - component: {fileID: 1224984727553751069}
-  - component: {fileID: 6468361984560777898}
+  - component: {fileID: 3349120030511461569}
   m_Layer: 5
   m_Name: RelicInventoryUI
   m_TagString: Untagged
@@ -983,7 +983,7 @@ MonoBehaviour:
   slotPrefab: {fileID: 923068476494433326, guid: 087de2169f393694bb778eda7a29399d, type: 3}
   invSlotParent: {fileID: 5650883265379547649}
   equipedSlotParent: {fileID: 7762383289331422531}
---- !u!114 &6468361984560777898
+--- !u!114 &3349120030511461569
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -992,7 +992,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1144330914237481593}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d553b0439e7d4674f9ea529ab216c9a1, type: 3}
+  m_Script: {fileID: 11500000, guid: e1357ccd4a74f734c86b58055293fcf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slotPrefab: {fileID: 923068476494433326, guid: e25b2914c62512445b7d5c41a89bc361, type: 3}

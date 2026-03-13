@@ -33,6 +33,11 @@ public class PlayerStats : NetworkBehaviour
         new NetworkVariable<BonusStats>(new BonusStats(),
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Server);
+
+    public NetworkVariable<Stats> relicStats =
+        new NetworkVariable<Stats>(new Stats(),
+            NetworkVariableReadPermission.Everyone,
+            NetworkVariableWritePermission.Server);
     
     // completed stats base + bonus stats without anyactive buffs
     public NetworkVariable<Stats> stableStats =
@@ -207,7 +212,15 @@ public class PlayerStats : NetworkBehaviour
         calStats.critRate = data.GetCritRate(lvl);
         calStats.critDamage = data.GetCritDamage(lvl);
         calStats.extraDamage = 1.0f;
+        //bonus stats is flat hp
         calStats += bonusStats.Value;
+
+        // because of case HP% cannot do flat plus
+        calStats.health *= 1+relicStats.Value.health;
+        calStats.critRate += relicStats.Value.critRate;
+        calStats.critDamage += relicStats.Value.critDamage;
+        calStats.defense += relicStats.Value.defense;
+        // calStats += relicStats.Value;
         stableStats.Value = calStats;   
         
         //display server stats for debugging
@@ -357,5 +370,16 @@ public class PlayerStats : NetworkBehaviour
         RecalculateActiveStats();
         currentHP.Value = hpPercent * activeStats.Value.health;
         
+    }
+
+    [ServerRpc]
+    public void SetRelicStatsServerRpc(Stats newRelicStats)
+    {
+        relicStats.Value = newRelicStats;
+
+        float hpPercent = currentHP.Value / activeStats.Value.health;
+        RecalculateStableStats();
+        RecalculateActiveStats();
+        currentHP.Value = hpPercent * activeStats.Value.health;
     }
 }

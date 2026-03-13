@@ -17,10 +17,15 @@ public class PlayerEquipedItem : NetworkBehaviour
     [Header("other script")]
     [SerializeField] private InputReader inputReader;
     [SerializeField] private PlayerAiming playerAiming;
+    [SerializeField] private PlayerStats playerStats;
     public GameObject weaponParent;
 
     private void Start()
     {
+        if (playerStats == null)
+        {
+            playerStats = GetComponent<PlayerStats>();
+        }
         if (InventoryManager.Instance != null)
         {
             if (IsOwner)
@@ -123,10 +128,12 @@ public class PlayerEquipedItem : NetworkBehaviour
             WeaponBehaviour behaviour = CreateWeaponObject(instance);
             equipSlots[i] = behaviour;
         }
+
         if (IsOwner)
         {
             UpdateEquipWeaponServerRPC(GetEquipedWeaponNetworkList());
             SetActiveWeapon(activeSlot.Value);
+            SyncRelicStatsToServer();
         }
     }
     private WeaponBehaviour CreateWeaponObject(WeaponInstance weaponInstance)
@@ -239,6 +246,15 @@ public class PlayerEquipedItem : NetworkBehaviour
             equipSlots[i] = behaviour;
         }
         SetActiveWeapon(activeSlot.Value);
+    }
+    private void SyncRelicStatsToServer()
+    {
+        if (!IsOwner) return;
+        if (InventoryManager.Instance == null) return;
+        if (playerStats == null) return;
+
+        Stats relicStats = InventoryManager.Instance.GetRelicStats();
+        playerStats.SetRelicStatsServerRpc(relicStats);
     }
     //doing weapon stuff
     public void OnStowWeapon()

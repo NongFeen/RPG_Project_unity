@@ -125,6 +125,7 @@ public class InventoryManager : MonoBehaviour
 
         OnInventoryChanged?.Invoke();
         OnEquipmentChanged?.Invoke();
+        print("Change Relic");
     }
     public void UnEquipRelic(int slot)
     {
