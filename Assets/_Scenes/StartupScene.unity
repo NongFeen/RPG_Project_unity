@@ -481,6 +481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerHUDUI: {fileID: 464960433}
+  inputReader: {fileID: 11400000, guid: 1103830ac2ad5e24f9122dbb95b609de, type: 2}
 --- !u!1 &464960433 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 947318832750015143, guid: 1e345b738b387f54881ddd181f3f7433, type: 3}

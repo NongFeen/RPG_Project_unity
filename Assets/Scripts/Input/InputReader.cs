@@ -13,6 +13,8 @@ public class InputReader : ScriptableObject, IPlayerActions
     public event Action<int> SelectActiveItemEvents;
     public event Action<int> SkillUseEvents;
     public event Action<Vector2> MoveEvents;
+    public event Action<bool> EscapeKey;
+
     public InputAction OpenInventoryAction => controls.Player.OpenInventory;
     public Vector2 AimPosition { get; private set; }
     public event Action<bool> SpawnEnemyEvents;
@@ -129,4 +131,10 @@ public class InputReader : ScriptableObject, IPlayerActions
     {
         if (context.performed) SkillUseEvents?.Invoke(2);
     }
+
+    public void OnEscape(InputAction.CallbackContext context)
+    {
+        if(context.performed) EscapeKey?.Invoke(true);
+        else if (context.canceled) EscapeKey?.Invoke(false); 
+    } 
 }

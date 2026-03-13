@@ -33,14 +33,6 @@ public class LobbyManager : MonoBehaviour
 
         transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
     }
-    public void ShowLobbyMenu()
-    {
-        lobbyMenu.SetActive(true);
-    }
-    public void CloseLobbyMenu()
-    {
-        lobbyMenu.SetActive(false);
-    }
     // ------------------------------
     // HOST LOBBY
     // ------------------------------
