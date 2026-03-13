@@ -265,7 +265,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5182799461273017903}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!114 &8854148179759701800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -590,6 +590,8 @@ MonoBehaviour:
     m_InternalValue: 1
   currentHP:
     m_InternalValue: 100
+  isGhost:
+    m_InternalValue: 0
   bonusStats:
     m_InternalValue:
       bonusHealth: 0

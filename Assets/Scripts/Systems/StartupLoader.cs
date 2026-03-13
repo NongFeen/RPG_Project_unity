@@ -51,11 +51,11 @@ public class StartupLoader : MonoBehaviour
             "InventoryManager",
             () => InventoryManager.Instance != null
         );
-
         yield return WaitFor(
-            "UIManager",
-            () => UIManager.Instance != null
+            "SoundManager",
+            () => SoundManager.Instance != null
         );
+            
     }
     private IEnumerator WaitFor(string name, System.Func<bool> condition)
     {

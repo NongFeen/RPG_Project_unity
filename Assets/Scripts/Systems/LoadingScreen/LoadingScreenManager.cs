@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,12 +11,19 @@ public class LoadingScreenManager : MonoBehaviour
 {
     public static LoadingScreenManager Instance;
 
-    [SerializeField] private GameObject loadingRoot;
-    [SerializeField] private Slider progressBar;
+    [SerializeField] private GameObject loadingCanvas;
+    [SerializeField] private CanvasGroup loadingCanvasGroup;
+    [SerializeField] private TextMeshProUGUI loadingText;
+    [SerializeField] private TextMeshProUGUI tipsText;
+    [SerializeField] private Image tipsImage;
+    [SerializeField] private float fadeInDuration = 0.15f;
+    [SerializeField] private float fadeOutDuration = 0.2f;
+
 
     private NetworkSceneManager NetworkSceneManager => NetworkManager.Singleton.SceneManager;
 
     private Coroutine delayedShowRoutine;
+    private Coroutine fadeRoutine;
     private bool isLoading;
     private float delayTime = 5;
     private bool isBinded = false;
@@ -29,7 +37,8 @@ public class LoadingScreenManager : MonoBehaviour
         }
         Instance = this;
         // DontDestroyOnLoad(gameObject);
-        Hide();
+        EnsureCanvasGroup();
+        HideImmediate();
     }
 
     private void OnDisable()
@@ -72,13 +81,25 @@ public class LoadingScreenManager : MonoBehaviour
     }
     private IEnumerator TrackProgress(AsyncOperation op)
     {
+        if (loadingText == null)
+        {
+            yield break;
+        }
+        if (op == null)
+        {
+            loadingText.text = "Loading...";
+            yield break;
+        }
+
         while (!op.isDone)
         {
-            if (loadingRoot.activeSelf)
-                progressBar.value = Mathf.Clamp01(op.progress / 0.9f);
-
+            float progress = Mathf.Clamp01(op.progress / 0.9f);
+            int pct = Mathf.FloorToInt(progress * 100f);
+            if (pct >= 100) pct = 99;
+            loadingText.text = $"Loading... {pct}%";
             yield return null; 
         }
+        loadingText.text = "Loading... 100%";
     }
 
     private IEnumerator DelayedShow()
@@ -91,21 +112,83 @@ public class LoadingScreenManager : MonoBehaviour
 
     private void Show()
     {
-        loadingRoot.SetActive(true);
-        progressBar.value = 0f;
+        EnsureCanvasGroup();
+        if (fadeRoutine != null) StopCoroutine(fadeRoutine);
+        loadingCanvas.SetActive(true);
+        if (loadingText != null)
+        {
+            loadingText.text = "Loading... 0%";
+        }
+        loadingCanvasGroup.alpha = 0f;
+        fadeRoutine = StartCoroutine(FadeCanvas(1f, fadeInDuration));
     }
 
     private void Hide()
     {
-        loadingRoot.SetActive(false);
+        EnsureCanvasGroup();
+        if (fadeRoutine != null) StopCoroutine(fadeRoutine);
+        fadeRoutine = StartCoroutine(FadeOutAndDisable());
     }
 
-    private void Complete()
+    private void HideImmediate()
     {
-        progressBar.value = 1f;
+        if (loadingCanvas == null) return;
+        loadingCanvas.SetActive(false);
+        if (loadingCanvasGroup != null)
+        {
+            loadingCanvasGroup.alpha = 0f;
+            loadingCanvasGroup.blocksRaycasts = false;
+            loadingCanvasGroup.interactable = false;
+        }
     }
+    private void EnsureCanvasGroup()
+    {
+        if (loadingCanvasGroup != null || loadingCanvas == null) return;
+        loadingCanvasGroup = loadingCanvas.GetComponent<CanvasGroup>();
+        if (loadingCanvasGroup == null)
+        {
+            loadingCanvasGroup = loadingCanvas.AddComponent<CanvasGroup>();
+        }
+    }
+    private IEnumerator FadeOutAndDisable()
+    {
+        yield return FadeCanvas(0f, fadeOutDuration);
+        if (loadingCanvas != null)
+        {
+            loadingCanvas.SetActive(false);
+        }
+    }
+    private IEnumerator FadeCanvas(float targetAlpha, float duration)
+    {
+        if (loadingCanvasGroup == null)
+            yield break;
 
-    // ---------- API ----------
+        float startAlpha = loadingCanvasGroup.alpha;
+        float t = 0f;
+        loadingCanvasGroup.blocksRaycasts = true;
+        loadingCanvasGroup.interactable = false;
+
+        if (duration <= 0f)
+        {
+            loadingCanvasGroup.alpha = targetAlpha;
+            loadingCanvasGroup.blocksRaycasts = targetAlpha > 0.01f;
+            loadingCanvasGroup.interactable = false;
+            yield break;
+        }
+
+        while (t < duration)
+        {
+            t += Time.unscaledDeltaTime;
+            float lerp = Mathf.Clamp01(t / duration);
+            loadingCanvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, lerp);
+            yield return null;
+        }
+
+        loadingCanvasGroup.alpha = targetAlpha;
+        bool visible = targetAlpha > 0.01f;
+        loadingCanvasGroup.blocksRaycasts = visible;
+        loadingCanvasGroup.interactable = false;
+    }
 
     public void LoadScene(string sceneName)
     {
@@ -135,9 +218,17 @@ public class LoadingScreenManager : MonoBehaviour
         while (!op.isDone)
         {
             float progress = Mathf.Clamp01(op.progress / 0.9f);
-            // UpdateProgress(progress);
-            // print(progress);
+            if (loadingText != null)
+            {
+                int pct = Mathf.FloorToInt(progress * 100f);
+                if (pct >= 100) pct = 99;
+                loadingText.text = $"Loading... {pct}%";
+            }
             yield return null;
+        }
+        if (loadingText != null)
+        {
+            loadingText.text = "Loading... 100%";
         }
 
         Hide();
