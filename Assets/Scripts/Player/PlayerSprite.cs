@@ -1,5 +1,6 @@
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.U2D.Animation;
 public class PlayerSprite : NetworkBehaviour
 {
     [SerializeField] private Animator animator;
@@ -9,7 +10,6 @@ public class PlayerSprite : NetworkBehaviour
     [SerializeField] public Transform weaponHolder;
     public bool IsWalking => isWalking.Value;
     public bool IsFacingRight => isFacingRight.Value;
-    [SerializeField] public bool flag;
 
     void Start()
     {

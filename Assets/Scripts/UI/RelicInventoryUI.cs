@@ -30,7 +30,7 @@ public class RelicInventoryUI : MonoBehaviour
     public void RefreshUI()
     {
         // print("Refresing UI");
-        //inv
+        //invW
         foreach (Transform child in invSlotParent)
             Destroy(child.gameObject);
         foreach (RelicInstance relic in InventoryManager.Instance.relicInventoryItems)

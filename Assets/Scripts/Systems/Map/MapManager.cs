@@ -41,6 +41,9 @@ public class MapManager : NetworkBehaviour
 
     [SerializeField] public MapItemDrop mapItemDrop;
     [SerializeField] public int mapExperienceReward = 20;
+    private int pendingExperienceReward = 0;
+    private List<WeaponInstance> pendingWeaponDrops = new List<WeaponInstance>();
+    private List<RelicInstance> pendingRelicDrops = new List<RelicInstance>();
 
 
     private void Awake()
@@ -158,8 +161,12 @@ public class MapManager : NetworkBehaviour
         currenState.Value = MapState.Completed;
 
         Debug.Log("Map Completed!");
+        int totalExperienceReward = mapExperienceReward + pendingExperienceReward;
         List<WeaponInstance> droppedItems = GenerateItemDrop();
-        GameManager.Instance.OnGameComplete(mapExperienceReward, droppedItems);
+        droppedItems.AddRange(pendingWeaponDrops);
+        List<RelicInstance> relicDrops = new List<RelicInstance>(pendingRelicDrops);
+        GameManager.Instance.OnGameComplete(totalExperienceReward, droppedItems, relicDrops);
+        ClearPendingRewards();
     }
 
     public List<WeaponInstance> GenerateItemDrop()
@@ -222,6 +229,67 @@ public class MapManager : NetworkBehaviour
     public virtual void CheckFriendshipCondition(int value)
     {
         
+    }
+    public void RegisterEnemyReward(BaseNPC npc)
+    {
+        if (!IsServer || npc == null) return;
+
+        // add exp
+        pendingExperienceReward += npc.expReward;
+
+        //weapon drop
+        bool weaponDropped = false;
+        int weaponItemId = -1;
+        if (npc.weaponDrop != null && npc.weaponDropChance > 0f)
+        {
+            float roll = Random.Range(0f, 1f);
+            if (roll <= npc.weaponDropChance)
+            {
+                weaponDropped = true;
+                weaponItemId = npc.weaponDrop.id;
+                pendingWeaponDrops.Add(WeaponInstance.CreateWeaponInstance(npc.weaponDrop, 1));
+            }
+        }
+        //relic drop
+        bool relicDropped = false;
+        RelicRarity relicRarity = npc.RelicDropRarity;
+        if (npc.relicDropChance > 0f)
+        {
+            float roll = Random.Range(0f, 1f);
+            if (roll <= npc.relicDropChance)
+            {
+                relicDropped = true;
+                pendingRelicDrops.Add(RelicGenerator.GenerateRelic(relicRarity));
+            }
+        }
+        // let player know if it drop all not(1 drop from enemy = everyone get)
+        NotifyEnemyRewardClientRpc(npc.expReward, weaponDropped, weaponItemId, relicDropped, relicRarity);
+    }
+    [ClientRpc]
+    private void NotifyEnemyRewardClientRpc(int expReward, bool weaponDropped, int weaponItemId, bool relicDropped, RelicRarity relicRarity)
+    {
+        if (IsServer) return;
+
+        pendingExperienceReward += Mathf.Max(0, expReward);
+
+        if (weaponDropped && weaponItemId >= 0)
+        {
+            if (GameDatabase.Instance != null)
+            {
+                Weapon weapon = GameDatabase.Instance.GetItemDatabase().GetItemByID(weaponItemId) as Weapon;
+                if (weapon != null)
+                    pendingWeaponDrops.Add(WeaponInstance.CreateWeaponInstance(weapon, 1));
+            }
+        }
+
+        if (relicDropped)
+            pendingRelicDrops.Add(RelicGenerator.GenerateRelic(relicRarity));
+    }
+    private void ClearPendingRewards()
+    {
+        pendingExperienceReward = 0;
+        pendingWeaponDrops.Clear();
+        pendingRelicDrops.Clear();
     }
     private void CheckAllPlayersDeadAndReset()
     {

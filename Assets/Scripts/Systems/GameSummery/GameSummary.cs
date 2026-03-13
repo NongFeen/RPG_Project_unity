@@ -11,10 +11,16 @@ public class GameSummary : MonoBehaviour
     [SerializeField] public GameObject dropItemContainer;
     [SerializeField] private GameObject slotPrefab;
     [SerializeField] public Vector2 cellSize;
+    [SerializeField] private GameObject relicSlotPrefab;
     public void ShowSummary(int experienceGained, List<WeaponInstance> items)
+    {
+        ShowSummary(experienceGained, items, null);
+    }
+    public void ShowSummary(int experienceGained, List<WeaponInstance> items, List<RelicInstance> relics)
     {
         expText.text = "Experience Gained: " + experienceGained;
         // show drop items in the container
+        //weapon
         foreach (var item in items)
         {
             GameObject slot = Instantiate(slotPrefab, dropItemContainer.transform);
@@ -22,6 +28,18 @@ public class GameSummary : MonoBehaviour
             gridLayoutGroup.cellSize = cellSize;
             slot.TryGetComponent<WeaponInventorySlot>(out var inventorySlot);
             inventorySlot.SetWeapon(item);
+        }
+        //relic
+        if (relics != null && relicSlotPrefab != null && dropItemContainer != null)
+        {
+            foreach (var relic in relics)
+            {
+                GameObject slot = Instantiate(relicSlotPrefab, dropItemContainer.transform);
+                slot.TryGetComponent<GridLayoutGroup>(out var gridLayoutGroup);
+                gridLayoutGroup.cellSize = cellSize;
+                slot.TryGetComponent<RelicInventorySlot>(out var inventorySlot);
+                inventorySlot.SetRelic(relic);
+            }
         }
     }
     public void ReturnToMainMenu()

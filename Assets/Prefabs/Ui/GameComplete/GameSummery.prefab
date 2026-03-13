@@ -319,6 +319,8 @@ MonoBehaviour:
   dropItemContainer: {fileID: 1226816326669283122}
   slotPrefab: {fileID: 923068476494433326, guid: 087de2169f393694bb778eda7a29399d, type: 3}
   cellSize: {x: 100, y: 100}
+  relicSlotPrefab: {fileID: 923068476494433326, guid: e25b2914c62512445b7d5c41a89bc361, type: 3}
+  relicCellSize: {x: 100, y: 100}
 --- !u!1 &1462305379590033829
 GameObject:
   m_ObjectHideFlags: 0

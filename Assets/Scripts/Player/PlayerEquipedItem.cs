@@ -254,8 +254,6 @@ public class PlayerEquipedItem : NetworkBehaviour
         {
             activeWeapon.OnDrawWeapon();
             Debug.Log($"Drawing {activeWeapon.weaponInstance.weaponData.name}");
-            // 🔹 Play draw animation
-            // 🔹 Enable weapon model
         }
     }
     public void OnReload()

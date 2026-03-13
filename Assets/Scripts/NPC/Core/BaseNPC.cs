@@ -4,16 +4,24 @@ using Unity.Netcode;
 public abstract class BaseNPC : NetworkBehaviour
 {
     [Header("Base Enemy Settings")]
-    [SerializeField] protected string npcName = "baseNPC";
-    [SerializeField] protected float maxHealth = 100f;
-    [SerializeField] protected float moveSpeed = 2f;
-    [SerializeField] protected float detectionRange = 5f;
-    [SerializeField] protected float attackRange = 1f;
-    [SerializeField] protected float attackCooldown = 1.5f;
-    [SerializeField] protected float contactDamage= 1f;
+    [SerializeField] public string npcName = "baseNPC";
+    [SerializeField] public float maxHealth = 100f;
+    [SerializeField] public float moveSpeed = 2f;
+    [SerializeField] public float detectionRange = 5f;
+    [SerializeField] public float attackRange = 1f;
+    [SerializeField] public float attackCooldown = 1.5f;
+    [SerializeField] public float contactDamage= 1f;
     [SerializeField] public bool isBoss = false;
     [SerializeField] public bool isFinalRoomEnemy = false;
-    [SerializeField] private GameObject damagePopupPrefab;
+    [SerializeField] public GameObject damagePopupPrefab;
+    [Header("Rewards")]
+    [SerializeField] public int expReward = 5;
+    [SerializeField] public Weapon weaponDrop;
+    [SerializeField][Range(0f, 1f)] public float weaponDropChance = 0.1f;
+    [SerializeField][Range(0f, 1f)] public float relicDropChance = 0.05f;
+    [SerializeField] public RelicRarity relicDropRarity = RelicRarity.Common;
+
+    public RelicRarity RelicDropRarity => relicDropRarity;
     [Header("NPC Current data")]
     [SerializeField] protected float displayHealth;
     [SerializeField] protected float lastAttackTime;
@@ -141,6 +149,7 @@ public abstract class BaseNPC : NetworkBehaviour
         if (!IsServer) return;
         if(MapManager.Instance != null)
         {
+            MapManager.Instance.RegisterEnemyReward(this);
             if (isBoss)
             {
                 MapManager.Instance.RegisterEnemyDied();

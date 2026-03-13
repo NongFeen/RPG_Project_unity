@@ -19,8 +19,8 @@ public class LobbyUI : MonoBehaviour
     {
         LobbyNetwork.Instance.playersProfileData.OnListChanged -= RefreshPlayerList;
         LobbyNetwork.Instance.MapName.OnValueChanged -= RefreshMapSelected;
-        NetworkManager.Singleton.Shutdown(false);
-        print("ShutDown server");
+        // NetworkManager.Singleton.Shutdown(false);
+        // print("ShutDown server");
     }
     private void RefreshMapSelected(MapName previousValue, MapName newValue)
     {

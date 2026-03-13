@@ -93,15 +93,19 @@ public class GameManager : NetworkBehaviour
     {
         this.localPlayer = localPlayer;
     }
-    public void OnGameComplete(int experienceGained, List<WeaponInstance> dropsItems){
-
+    public void OnGameComplete(int experienceGained, List<WeaponInstance> dropsItems, List<RelicInstance> relicDrops)
+    {
         //add exp and item to player
         localPlayer.AddExperience(experienceGained);
         dropsItems.ForEach((dropsItems) => InventoryManager.Instance.AddItemInstance(dropsItems));
+        if (relicDrops != null)
+        {
+            relicDrops.ForEach((relic) => InventoryManager.Instance.AddRelicInstance(relic));
+        }
         //show what added
         GameObject ui = Instantiate(gameCompleteUIPrefab);
         ui.TryGetComponent<GameSummary>(out var gameSummary);
-        gameSummary.ShowSummary(experienceGained,dropsItems);
+        gameSummary.ShowSummary(experienceGained, dropsItems, relicDrops);
         Save();
     }
 

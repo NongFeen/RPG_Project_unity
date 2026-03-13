@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 2171bb27aa9f848498a7f5b39f2c809e
+guid: bd495bbf993a5824b9a587259734e97f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5787339918154189523
-    second: Human_Class_Sprite_0
+      213: -7744115289829805025
+    second: Necro_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Human_Class_Sprite_0
+      name: Necro_0
       rect:
         serializedVersion: 2
-        x: 84
-        y: 108
-        width: 1744
-        height: 1742
+        x: 239
+        y: 60
+        width: 1760
+        height: 1709
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3dac4003ef2c05050800000000000000
-      internalID: 5787339918154189523
+      spriteID: f14f50a8c20678490800000000000000
+      internalID: -7744115289829805025
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Human_Class_Sprite_0: 5787339918154189523
+      Necro_0: -7744115289829805025
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
