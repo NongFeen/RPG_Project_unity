@@ -155,8 +155,8 @@ public class MapManager : NetworkBehaviour
     }
     public virtual void CompleteMap()
     {
-        if (currenState.Value == MapState.Completed)
-        return;
+        if (!IsServer) return;
+        if (currenState.Value == MapState.Completed) return;
 
         currenState.Value = MapState.Completed;
 
@@ -167,6 +167,8 @@ public class MapManager : NetworkBehaviour
         List<RelicInstance> relicDrops = new List<RelicInstance>(pendingRelicDrops);
         GameManager.Instance.OnGameComplete(totalExperienceReward, droppedItems, relicDrops);
         ClearPendingRewards();
+
+        NotifyMapCompletedClientRpc();
     }
 
     public List<WeaponInstance> GenerateItemDrop()
@@ -192,14 +194,26 @@ public class MapManager : NetworkBehaviour
     {
         if (!IsServer) return;
         Debug.Log("Boss defeated!");
-        //only server send boss complete to clients
-        NotifyMapCompletedClientRpc();
+        CompleteMap();
     }
     [ClientRpc]
     public void NotifyMapCompletedClientRpc()
     {
-        Debug.Log("Map Completed! (Client RPC)");
-        CompleteMap();
+        if (IsServer) return; // host already handled completion
+        CompleteMapClient();
+    }
+    private void CompleteMapClient()
+    {
+        if (currenState.Value == MapState.Completed) return;
+        currenState.Value = MapState.Completed;
+
+        Debug.Log("Map Completed! (Client)");
+        int totalExperienceReward = mapExperienceReward + pendingExperienceReward;
+        List<WeaponInstance> droppedItems = GenerateItemDrop();
+        droppedItems.AddRange(pendingWeaponDrops);
+        List<RelicInstance> relicDrops = new List<RelicInstance>(pendingRelicDrops);
+        GameManager.Instance.OnGameComplete(totalExperienceReward, droppedItems, relicDrops);
+        ClearPendingRewards();
     }
     public void RegisterFinalRoomEnemySpawned()
     {
