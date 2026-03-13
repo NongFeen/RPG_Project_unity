@@ -121,7 +121,7 @@ public class GameManager : NetworkBehaviour
         UIManager.Instance.DeactivePlayerHUD();
         // UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
         LoadingScreenManager.Instance.LoadScene("MainMenu");
-        GameManager.Instance.gameState = GameState.Lobby;
         NetworkManager.Singleton.Shutdown();
+        GameManager.Instance.gameState = GameState.Lobby;
     }
 }

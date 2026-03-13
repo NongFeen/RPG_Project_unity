@@ -589,10 +589,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55c5b3be68e65f4479a4e3349157f13b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpText: {fileID: 0}
+  playerIcon: {fileID: 3637969754064341075}
   hpNumberText: {fileID: 8576482060122584040}
   playerStats: {fileID: 0}
   HPbar: {fileID: 2524910271135897979}
+  defaultIconSprite: {fileID: -7796864351666666146, guid: 49f61281e78157f41a8cb14917e9d1db, type: 3}
+  classIconSprites:
+  - classType: 0
+    sprite: {fileID: -7796864351666666146, guid: 49f61281e78157f41a8cb14917e9d1db, type: 3}
+  - classType: 1
+    sprite: {fileID: -8714895145469876210, guid: dd8a2b03732c90b4d9c5ad693e3e06d6, type: 3}
+  - classType: 2
+    sprite: {fileID: -8315900833005914860, guid: 511490b2017890b4bab5d4e8bf38180a, type: 3}
+  - classType: 3
+    sprite: {fileID: 4251322295465668248, guid: e05f5e695eb06bb42ad79f7959dba695, type: 3}
+  - classType: 4
+    sprite: {fileID: -7744115289829805025, guid: bd495bbf993a5824b9a587259734e97f, type: 3}
 --- !u!1 &7209722683753201060
 GameObject:
   m_ObjectHideFlags: 0

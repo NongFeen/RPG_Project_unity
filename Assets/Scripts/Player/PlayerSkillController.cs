@@ -59,7 +59,10 @@ public class PlayerSkillController : NetworkBehaviour
         {
             SkillF = CreateSkill(classSkillData.skillF);
         }
-        UIManager.Instance.SetUpSkill(gameObject);
+        if (IsOwner && UIManager.Instance != null)
+        {
+            UIManager.Instance.SetUpSkill(gameObject);
+        }
     }
     SkillLogic CreateSkill(SkillDefinition def)
     {

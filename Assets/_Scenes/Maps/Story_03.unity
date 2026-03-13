@@ -513,6 +513,7 @@ MonoBehaviour:
     m_InternalValue: 0
   finalRoomEnemyCount:
     m_InternalValue: 0
+  allDeadResetDelay: 5
   mapItemDrop: {fileID: 11400000, guid: 4603e6ae0f0aabb4396dec3fbd394501, type: 2}
   mapExperienceReward: 20
 --- !u!4 &528956166
@@ -4191,6 +4192,51 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!1 &1164723801
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1164723803}
+  - component: {fileID: 1164723802}
+  m_Layer: 0
+  m_Name: PlayerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1164723802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164723801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4983f6a4cd67e6b42be53afb05ac4353, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Players: []
+--- !u!4 &1164723803
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164723801}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1165260219
 GameObject:
   m_ObjectHideFlags: 0
@@ -13012,6 +13058,9 @@ MonoBehaviour:
     spawnOnStart: 0
     isSpawned: 0
     isLastRoom: 0
+    isRepeat: 0
+    repeatTimer: 5
+    currentTimer: 0
   - id: 2
     enemyPrefab: {fileID: 163114654936336683, guid: aa0551179abbc0b478cbe9c300531b64, type: 3}
     spawnPoint: {fileID: 593205316}
@@ -13019,6 +13068,9 @@ MonoBehaviour:
     spawnOnStart: 0
     isSpawned: 0
     isLastRoom: 0
+    isRepeat: 0
+    repeatTimer: 5
+    currentTimer: 0
   - id: 3
     enemyPrefab: {fileID: 163114654936336683, guid: aa0551179abbc0b478cbe9c300531b64, type: 3}
     spawnPoint: {fileID: 892406837}
@@ -13026,6 +13078,9 @@ MonoBehaviour:
     spawnOnStart: 0
     isSpawned: 0
     isLastRoom: 0
+    isRepeat: 0
+    repeatTimer: 5
+    currentTimer: 0
   - id: 4
     enemyPrefab: {fileID: 163114654936336683, guid: aa0551179abbc0b478cbe9c300531b64, type: 3}
     spawnPoint: {fileID: 97069714}
@@ -13033,6 +13088,9 @@ MonoBehaviour:
     spawnOnStart: 0
     isSpawned: 0
     isLastRoom: 0
+    isRepeat: 0
+    repeatTimer: 5
+    currentTimer: 0
   - id: 5
     enemyPrefab: {fileID: 163114654936336683, guid: 1f187686d1d67b247be36c00313e6553, type: 3}
     spawnPoint: {fileID: 739387582}
@@ -13040,6 +13098,9 @@ MonoBehaviour:
     spawnOnStart: 0
     isSpawned: 0
     isLastRoom: 0
+    isRepeat: 0
+    repeatTimer: 5
+    currentTimer: 0
   - id: 6
     enemyPrefab: {fileID: 163114654936336683, guid: aa0551179abbc0b478cbe9c300531b64, type: 3}
     spawnPoint: {fileID: 546720262}
@@ -13047,6 +13108,9 @@ MonoBehaviour:
     spawnOnStart: 0
     isSpawned: 0
     isLastRoom: 1
+    isRepeat: 0
+    repeatTimer: 5
+    currentTimer: 0
   - id: 7
     enemyPrefab: {fileID: 163114654936336683, guid: aa0551179abbc0b478cbe9c300531b64, type: 3}
     spawnPoint: {fileID: 1874591347}
@@ -13054,6 +13118,9 @@ MonoBehaviour:
     spawnOnStart: 0
     isSpawned: 0
     isLastRoom: 1
+    isRepeat: 0
+    repeatTimer: 5
+    currentTimer: 0
   - id: 8
     enemyPrefab: {fileID: 163114654936336683, guid: aa0551179abbc0b478cbe9c300531b64, type: 3}
     spawnPoint: {fileID: 1218198988}
@@ -13061,6 +13128,9 @@ MonoBehaviour:
     spawnOnStart: 0
     isSpawned: 0
     isLastRoom: 1
+    isRepeat: 0
+    repeatTimer: 5
+    currentTimer: 0
   - id: 9
     enemyPrefab: {fileID: 163114654936336683, guid: 1f187686d1d67b247be36c00313e6553, type: 3}
     spawnPoint: {fileID: 2122206917}
@@ -13068,6 +13138,9 @@ MonoBehaviour:
     spawnOnStart: 0
     isSpawned: 0
     isLastRoom: 1
+    isRepeat: 0
+    repeatTimer: 5
+    currentTimer: 0
   - id: 10
     enemyPrefab: {fileID: 163114654936336683, guid: 1f187686d1d67b247be36c00313e6553, type: 3}
     spawnPoint: {fileID: 259523420}
@@ -13075,6 +13148,9 @@ MonoBehaviour:
     spawnOnStart: 0
     isSpawned: 0
     isLastRoom: 1
+    isRepeat: 0
+    repeatTimer: 5
+    currentTimer: 0
   - id: 11
     enemyPrefab: {fileID: 2527012313577723167, guid: 8e76ab8ecb1a0e94fbccaced81f99685, type: 3}
     spawnPoint: {fileID: 961792609}
@@ -13082,6 +13158,9 @@ MonoBehaviour:
     spawnOnStart: 0
     isSpawned: 0
     isLastRoom: 1
+    isRepeat: 0
+    repeatTimer: 5
+    currentTimer: 0
 --- !u!1 &1681360364
 GameObject:
   m_ObjectHideFlags: 0
@@ -13588,3 +13667,4 @@ SceneRoots:
   - {fileID: 283221444}
   - {fileID: 1749011224}
   - {fileID: 1666968909}
+  - {fileID: 1164723803}

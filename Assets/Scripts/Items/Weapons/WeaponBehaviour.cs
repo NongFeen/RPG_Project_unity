@@ -67,7 +67,7 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
     }
     public virtual void OnReload()
     {
-        print("try Reload");
+        // print("try Reload");
         if (isReloading || currentAmmo == maxAmmo) return;
         // if(IsOwner)
         isReloading = true;
