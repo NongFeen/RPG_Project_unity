@@ -193,6 +193,11 @@ public class LoadingScreenManager : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         BindSceneEvents();
+        if (UIManager.Instance != null)
+        {
+            //close all menu before it's unloaded
+            UIManager.Instance.CloseAllMenus();
+        }
         Show();
         if (!NetworkManager.Singleton.IsServer)
         {
@@ -204,6 +209,10 @@ public class LoadingScreenManager : MonoBehaviour
     }
     public void LoadClientScene(string sceneName)
     {
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.CloseAllMenus();
+        }
         StartCoroutine(LoadClientSceneAsync(sceneName));
     }
 

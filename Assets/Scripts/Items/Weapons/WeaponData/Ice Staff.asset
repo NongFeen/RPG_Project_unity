@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 5
   itemName: Ice Staff
   description: definitely not a gun
-  image: {fileID: -8774827867185692175, guid: e2ad661681248314786b2fb24289665e, type: 3}
+  image: {fileID: -1550070246163368040, guid: ad0f77bd0eb125744b3714e06d88a266, type: 3}
   itemPrefab: {fileID: 5646012898124733676, guid: a7454ba340b132042b869a5745315a00, type: 3}
   itemType: 1
   clientProjectilePrefab: {fileID: 4091576519318105471, guid: de6cad3707aaca245964ff65aa88d749, type: 3}
@@ -31,3 +31,10 @@ MonoBehaviour:
     bonusDamage: 0
     critRate: 0
     critDamage: 0
+  randomStatsRange:
+    minBonusDamage: 0
+    maxBonusDamage: 0
+    minCritRate: 0
+    maxCritRate: 0
+    minCritDamage: 0
+    maxCritDamage: 0

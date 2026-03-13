@@ -13,6 +13,7 @@ public class PulseRifleBehaviour : WeaponBehaviour
     private float burstFlatExtraDamage;
     private float CurrentCritChance;
     private ServerRpcParams burstRpc;
+    private Vector2 burstDirection;
 
     public override void Update()
     {
@@ -29,7 +30,7 @@ public class PulseRifleBehaviour : WeaponBehaviour
                 burstTimer = 0;
                 bulletsLeft--;
 
-                Vector2 dir = shooter.AimDirection();
+                Vector2 dir = burstDirection;
 
                 base.SpawnProjectileServer(
                     shooter.weaponPos.transform.position,
@@ -76,6 +77,7 @@ public class PulseRifleBehaviour : WeaponBehaviour
         burstDamageMultiplier = damageMultiplier;
         burstFlatExtraDamage = flatExtraDamage;
         burstRpc = rpcParams;
+        burstDirection = direction.normalized;
 
         burstTimer = 0;
         bulletsLeft = bulletPerBurst - 1;

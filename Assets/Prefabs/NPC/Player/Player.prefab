@@ -142,7 +142,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 4251322295465668248, guid: e05f5e695eb06bb42ad79f7959dba695, type: 3}
+  m_Sprite: {fileID: 2105066423160934046, guid: ecfe5a70cf1fbc44a8b91b67e6982170, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library: []
-  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 3a7b2470e2a9309429f27f3c45ca9ba0, type: 3}
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: e72ebfde3b6cb3b418e2725699f98a27, type: 3}
 --- !u!114 &2717643626945973036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -762,7 +762,20 @@ MonoBehaviour:
     m_InternalValue: 1
   weaponRotation:
     m_InternalValue: {x: 0, y: 0, z: 0, w: 1}
+  spriteLibrary: {fileID: 3952210676258545930}
   weaponHolder: {fileID: 5256679747011165651}
+  defaultSpriteLibraryAsset: {fileID: 0}
+  classSpriteLibraries:
+  - classType: 0
+    spriteLibraryAsset: {fileID: 7108339969198208228, guid: e72ebfde3b6cb3b418e2725699f98a27, type: 3}
+  - classType: 1
+    spriteLibraryAsset: {fileID: 7108339969198208228, guid: 1e3395a5ab9731146bd89444ce7e770e, type: 3}
+  - classType: 2
+    spriteLibraryAsset: {fileID: 7108339969198208228, guid: 354a0b5fc97e936408b46ab679eb5642, type: 3}
+  - classType: 3
+    spriteLibraryAsset: {fileID: 7108339969198208228, guid: 3a7b2470e2a9309429f27f3c45ca9ba0, type: 3}
+  - classType: 4
+    spriteLibraryAsset: {fileID: 7108339969198208228, guid: 81219964343ab884085ad6eebaca3f5d, type: 3}
 --- !u!1 &7400113154753930220
 GameObject:
   m_ObjectHideFlags: 0
