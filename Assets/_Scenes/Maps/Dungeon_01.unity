@@ -119,93 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &2781972
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2781973}
-  - component: {fileID: 2781974}
-  m_Layer: 0
-  m_Name: Path
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2781973
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2781972}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1681360366}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2781974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2781972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  data:
-    dataString: UEsDBBQAAAgIAAA4Iez0IrWkWwIAABUFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VMmS2jAQ/RVK55CyzYQltwQYJgcGapjUXHwRUhurkCWXJLNN8e9pyTYmpHKiee/13vInEcqWwJw2CyP4UnMg33vE2+RLryNf4ER3Wm3EBVrNh+Au9yIaNG/UCY147N2sLsAZwX6onfTiCMFKiUybYs53MNXWWYQzKi0gZbTz3gqhzx454U9/4l3OaCUjb13QmkS9K5oMlAPTSeNGGDeyWlUpJmlRAvcld+Jh0qiHSZApbKZReIZpKYVtKiHuXIZO3+jZ98kFxa5C6ujrBIEcxC53j66rLLPgmqYNPc+EwfHUMclPXc+soHZfV3WgsvJZ4mQcKqqDLv/h+3GgM6OLlzZvHPkcLhdsjzUyat3dUO/hWVd6HIZzpHJPtxI+clCvemF0pTiSzlTetbKQzLq/t9amObB9h9eltmCbtyq7cbdLbFfom7iG9k9TKYptGOVTDWykDuOuATC4mV9YcjgM28RA1Nfx28I73d1fUEM8C2MdUk2fyhe41ZXxUjIPU/P9VG6qjQJzH6EERaU7rzGOe9ziA/d/r2fqH0uTveHaN/DgEuBOH0UP1Fofb/uyuT4uwearykmh7oN55hUnNdVK1VdmH1jvt6lMRtm9364S/O/7ItmYR/FwwJ6yb+NRwqJ+ltGIJgM+mGzHkMQjEg5QKOyUynVdajMg3Jzq7kLhsbVfkd7C0DKcPDf0uBCXQttOKVSmN8wAqFUd4VY5GEyCD5PPucARbcA5ocLKyWdKpGZ74OktUBpanZ+coWkXJSWlOGjnkZRMw2cjJR6+HfTawEHA0Sdvg13J9Q9QSwMEFAAACAgAADgh7Mqju+dtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tFKaRYqBoZlxskmaqYW5UbKBblpaokGikXGKsWWSRaqRoblSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAADgh7PQitaRbAgAAFQUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAADgh7Mqju+dtAAAAeAAAAAkAJAAAAAAAAAAAAAAAqAIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABgAwAAAAA=
-    upgradeData: 
-    file_cachedStartup: {fileID: 4900000, guid: 3227dc8b8a374d442b9e43df7d464e61, type: 3}
-    data_cachedStartup: 
-    cacheStartup: 0
-  showNavGraphs: 1
-  showUnwalkableNodes: 1
-  debugMode: 0
-  debugFloor: 0
-  debugRoof: 1
-  manualDebugFloorRoof: 0
-  showSearchTree: 0
-  unwalkableNodeDebugSize: 0.3
-  logPathResults: 0
-  maxNearestNodeDistance: 100
-  scanOnStartup: 1
-  fullGetNearestSearch: 0
-  prioritizeGraphs: 0
-  prioritizeGraphsLimit: 1
-  colorSettings:
-    _SolidColor: {r: 0.11764706, g: 0.4, b: 0.7882353, a: 0.9}
-    _UnwalkableNode: {r: 1, g: 0, b: 0, a: 0.5}
-    _BoundsHandles: {r: 0.29, g: 0.454, b: 0.741, a: 0.9}
-    _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: 0.5}
-    _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: 0.5}
-    _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
-    _AreaColors:
-    - {r: 0, g: 0, b: 0, a: 0}
-  tagNames: []
-  heuristic: 2
-  heuristicScale: 1
-  threadCount: 1
-  maxFrameTime: 10
-  batchGraphUpdates: 0
-  graphUpdateBatchingInterval: 0.2
-  euclideanEmbedding:
-    mode: 0
-    seed: 0
-    pivotPointRoot: {fileID: 0}
-    spreadOutCount: 1
-  showGraphs: 1
 --- !u!1 &149967589
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,6 +370,11 @@ MonoBehaviour:
     weight: 35
   - relicRarity: 2
     weight: 15
+  aStarSetting:
+    center: {x: 1, y: 1, z: 0}
+    width: 31
+    depth: 31
+    nodeSize: 2
   mapTimer: 0
   currentWave:
     m_InternalValue: 0
@@ -10865,7 +10783,6 @@ Transform:
   - {fileID: 1205553112}
   - {fileID: 1501997183}
   - {fileID: 1100917248}
-  - {fileID: 2781973}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1749011223

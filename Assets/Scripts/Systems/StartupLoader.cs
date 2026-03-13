@@ -55,7 +55,7 @@ public class StartupLoader : MonoBehaviour
             "SoundManager",
             () => SoundManager.Instance != null
         );
-            
+        
     }
     private IEnumerator WaitFor(string name, System.Func<bool> condition)
     {

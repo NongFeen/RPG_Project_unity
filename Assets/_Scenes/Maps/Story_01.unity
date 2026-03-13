@@ -119,93 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &2781972
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2781973}
-  - component: {fileID: 2781974}
-  m_Layer: 0
-  m_Name: Path
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2781973
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2781972}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1681360366}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2781974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2781972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  data:
-    dataString: UEsDBBQAAAgIAAA4Iewey7kAaQIAACMFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMziVjG8JHby0Q0gOBCenk4ouw1liDLHkkma8M/70r2cYunZ4Qb/ft7nta+YtwaQpIrNJLzdlKMSDfe8SdybdeG3yFM90rueVXaHI+ObOZS6I+551arhAPHc2oHKzmyQ+5Fy45QLCUPFU6X7A9zJSxBuGUCgMY0so6tkToq0fO+NOfOsoFT9HYna54mga9Gx4TkBZ0mzpqMvvh03AQPIfhcLzoB6OaVZFKmQiaF8CcgpYbBQ15VOVJFFenRK6XEoKbejJiL4VX/k4vTjfjFFX6UYKnKQIZ8H1mH6nrNDVgaxM0vcy5RruqmuSnqjzMqTlUYx2pKF2XMJr4iaqiq3/i/dCHU63y16Zv6OXYjCcHnDGhxnZM7sLzdvTQu3Oi4kB3Aj4zkG9qqVUpGQatLh21NBDN2793abMMkkOLV6M2YNO3LFq/G7ebK3Uibl7+eSZ4vvNWDitgK5S3uwJA4838wpH9opi6BqJujt8GPui+u1F14IVrYzFU65RuwJ0qtUslC++a01PamdISdLdCAZIKe9lgHft4iw+x/7NeqHs8dfc61ryJB4qH2/wgeAht1Ol+XyZTpxWYbF1awSW0N+ACb2jUTElZLVlXUkPbljqlSYe2Lzn7e7tIOmFBOBokw/R5Mo6SoJ+mNKDRgA2muwlE4Zj49eMSdVKxqQat7cF7k21xiavWfFN6S00Lv/BM09OSX3Nl2kwuU7VNNIBcVxXug4PGJvgs2YJxNGgL1nLpL5x8xUSo5AAsvheKvdLF2Woat1ViUvCjsg6Jycx/RGLi4Ps6bzQcOZxc86bYjdz+AFBLAwQUAAAICAAAOCHsyqO7520AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0UppFioGhmXGySZqphblRsoFuWlqiQaKRcYqxZZJFqpGhuVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAOCHsHsu5AGkCAAAjBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAOCHsyqO7520AAAB4AAAACQAkAAAAAAAAAAAAAAC2AgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAG4DAAAAAA==
-    upgradeData: 
-    file_cachedStartup: {fileID: 4900000, guid: 3227dc8b8a374d442b9e43df7d464e61, type: 3}
-    data_cachedStartup: 
-    cacheStartup: 0
-  showNavGraphs: 1
-  showUnwalkableNodes: 1
-  debugMode: 0
-  debugFloor: 0
-  debugRoof: 1
-  manualDebugFloorRoof: 0
-  showSearchTree: 0
-  unwalkableNodeDebugSize: 0.3
-  logPathResults: 0
-  maxNearestNodeDistance: 100
-  scanOnStartup: 1
-  fullGetNearestSearch: 0
-  prioritizeGraphs: 0
-  prioritizeGraphsLimit: 1
-  colorSettings:
-    _SolidColor: {r: 0.11764706, g: 0.4, b: 0.7882353, a: 0.9}
-    _UnwalkableNode: {r: 1, g: 0, b: 0, a: 0.5}
-    _BoundsHandles: {r: 0.29, g: 0.454, b: 0.741, a: 0.9}
-    _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: 0.5}
-    _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: 0.5}
-    _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
-    _AreaColors:
-    - {r: 0, g: 0, b: 0, a: 0}
-  tagNames: []
-  heuristic: 2
-  heuristicScale: 1
-  threadCount: 1
-  maxFrameTime: 10
-  batchGraphUpdates: 0
-  graphUpdateBatchingInterval: 0.2
-  euclideanEmbedding:
-    mode: 0
-    seed: 0
-    pivotPointRoot: {fileID: 0}
-    spreadOutCount: 1
-  showGraphs: 1
 --- !u!1 &283221441
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +274,11 @@ MonoBehaviour:
     weight: 9
   - relicRarity: 0
     weight: 1
+  aStarSetting:
+    center: {x: 60, y: 0, z: 0}
+    width: 100
+    depth: 30
+    nodeSize: 2
 --- !u!4 &528956166
 Transform:
   m_ObjectHideFlags: 0
@@ -6992,7 +6910,6 @@ Transform:
   m_Children:
   - {fileID: 1205553112}
   - {fileID: 1100917248}
-  - {fileID: 2781973}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1749011223

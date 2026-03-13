@@ -59,8 +59,6 @@ public class SlimeEnemy : BaseNPC
 
     AIPath aiPath;
     AIDestinationSetter destSetter;
-    Rigidbody2D rb;
-
     float nextRoamTime;
     float nextJumpTime;
     float recoverEndTime;

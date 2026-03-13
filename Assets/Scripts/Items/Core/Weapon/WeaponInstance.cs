@@ -8,7 +8,7 @@
         [NonSerialized] public Weapon weaponData;
         [NonSerialized] public int maxAmmo;
         [NonSerialized] public float fireRate;
-        public event Action<int, int> OnAmmoChange;
+        // public event Action<int, int> OnAmmoChange;//maybe use ifneed to do something with ammo
         public Weapon WeaponData => (Weapon)itemData;
         public WeaponStat bonusStat;
         public WeaponInstance(Weapon weaponData) : base(weaponData)

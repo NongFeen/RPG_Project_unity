@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cb909c10d1643e41932277c64fd7598, type: 3}
   m_Name: A Big Guy
   m_EditorClassIdentifier: 
-  buffType: 0
+  buffType: 7
   duration: 5
   isDebuff: 0
   flatHealth: 0

@@ -119,93 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &2781972
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2781973}
-  - component: {fileID: 2781974}
-  m_Layer: 0
-  m_Name: Path
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2781973
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2781972}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1681360366}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2781974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2781972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  data:
-    dataString: UEsDBBQAAAgIAAA4Iezl31KEXQIAABYFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE2P2jAQ/SvI51IlYbdAb21g2R5Y0LLVXnIx8YRYOHZkO3yK/96xk5CUqieGN28+3sw4V8KlKSG1Si80Z0vFgHwfEGeTL4PO+QonulNywy/Qcj45s7kjUc95p5YrxEMXZlQBVvP0h9wJRw4QrCTPlC7mbAexMtYgnFFhAF1aWRctEboOyAl/hlMXckYrGjvrgtY0GNzQTEFa0B01fG6Zk4ZY8yqZClqUwFzTHX3cJg6DmidRT0OJXHolBDdNM8SeSy/2nZ6dVMYpCvPVg69TBHLgu9w+hq6yzIBtdGt6nnGNE6pzkp+qHltBzb5u60BF5aqE0cR3VCdd/uMfht6daVW8tnVRBUI25+kee0ypsb259uFZ13rop3OkYk+3Aj5zkG9qoVUlGTqtrlxoZSCadX/v0uIc0n2H1622YFu3Krt5t+Nut+hE3Lz8Uyx4sfWjfKqBjVB+3DUAGjfzC1v2t2GaHIi6Pn4b+KC7/hE1jheujUVXo1O6Breq0o5K5n5qTk9lY6Ul6H6GEiQV9rzGPPZxiw++/0e9UPdemuqNr30GDyEe7vhB8OBaq+N9XyZXxyWYfFVZwSV0G3CONxxUrKSsj6wvqQ3bVDqjaS9sV3H293WRbMKC8NsofcqeJ+MoDYZZRgMajdhoup1AFI6JPz8uUScV67rRZjy4N9kll3hq7WdksNC09AfPND0u+KVQpmNymalNqgHkqs5wbxw0FsFnyeaM44A2YC2XfuHkmhCh0j2w5J4o8UrnJ6tp0mVJSMkPyjokIbH/biTEwfdzXms4cDi64m2yG7n9AVBLAwQUAAAICAAAOCHsyqO7520AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0UppFioGhmXGySZqphblRsoFuWlqiQaKRcYqxZZJFqpGhuVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAOCHs5d9ShF0CAAAWBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAOCHsyqO7520AAAB4AAAACQAkAAAAAAAAAAAAAACqAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAGIDAAAAAA==
-    upgradeData: 
-    file_cachedStartup: {fileID: 4900000, guid: 3227dc8b8a374d442b9e43df7d464e61, type: 3}
-    data_cachedStartup: 
-    cacheStartup: 0
-  showNavGraphs: 1
-  showUnwalkableNodes: 1
-  debugMode: 0
-  debugFloor: 0
-  debugRoof: 1
-  manualDebugFloorRoof: 0
-  showSearchTree: 0
-  unwalkableNodeDebugSize: 0.3
-  logPathResults: 0
-  maxNearestNodeDistance: 100
-  scanOnStartup: 1
-  fullGetNearestSearch: 0
-  prioritizeGraphs: 0
-  prioritizeGraphsLimit: 1
-  colorSettings:
-    _SolidColor: {r: 0.11764706, g: 0.4, b: 0.7882353, a: 0.9}
-    _UnwalkableNode: {r: 1, g: 0, b: 0, a: 0.5}
-    _BoundsHandles: {r: 0.29, g: 0.454, b: 0.741, a: 0.9}
-    _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: 0.5}
-    _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: 0.5}
-    _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
-    _AreaColors:
-    - {r: 0, g: 0, b: 0, a: 0}
-  tagNames: []
-  heuristic: 2
-  heuristicScale: 1
-  threadCount: 1
-  maxFrameTime: 10
-  batchGraphUpdates: 0
-  graphUpdateBatchingInterval: 0.2
-  euclideanEmbedding:
-    mode: 0
-    seed: 0
-    pivotPointRoot: {fileID: 0}
-    spreadOutCount: 1
-  showGraphs: 1
 --- !u!1001 &18305735
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -847,6 +760,11 @@ MonoBehaviour:
     weight: 24
   - relicRarity: 2
     weight: 1
+  aStarSetting:
+    center: {x: 15, y: 28, z: 0}
+    width: 35
+    depth: 50
+    nodeSize: 2
 --- !u!4 &528956166
 Transform:
   m_ObjectHideFlags: 0
@@ -12499,7 +12417,6 @@ Transform:
   m_Children:
   - {fileID: 1205553112}
   - {fileID: 1100917248}
-  - {fileID: 2781973}
   - {fileID: 18305736}
   - {fileID: 854295656}
   - {fileID: 999495428}

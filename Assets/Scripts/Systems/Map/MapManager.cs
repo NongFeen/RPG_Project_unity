@@ -12,6 +12,14 @@ public class MapManager : NetworkBehaviour
         public RelicRarity relicRarity;
         public float weight;
     }
+    [Serializable]
+    public struct AStarPathSetting
+    {
+        public Vector3 center;
+        public int width;
+        public int depth;
+        public float nodeSize;
+    }
     public static MapManager Instance;
     [SerializeField] private bool mapHasBoss = false;
     [SerializeField] private HashSet<int> triggeredTiles = new HashSet<int>();
@@ -54,7 +62,8 @@ public class MapManager : NetworkBehaviour
     private List<WeaponInstance> pendingWeaponDrops = new List<WeaponInstance>();
     private List<RelicInstance> pendingRelicDrops = new List<RelicInstance>();
 
-
+    [Header("AstarSetting")]
+    [SerializeField] AStarPathSetting aStarSetting;
 
     private void Awake()
     {
@@ -62,8 +71,11 @@ public class MapManager : NetworkBehaviour
     }
     private void Start()
     {
-        mapItemDrop = GameDatabase.Instance.GetMapDatabase().GetMapData(GameManager.Instance.selectMapName).mapItemDrop;
+        GridGraph grid = AstarPath.active.data.gridGraph;
+        grid.center = aStarSetting.center;
+        grid.SetDimensions(aStarSetting.width,aStarSetting.depth,aStarSetting.nodeSize);
         AstarPath.active.Scan();
+        mapItemDrop = GameDatabase.Instance.GetMapDatabase().GetMapData(GameManager.Instance.selectMapName).mapItemDrop;
     }
     private void Update()
     {

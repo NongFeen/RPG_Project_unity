@@ -99,7 +99,7 @@ public class LoadingScreenManager : MonoBehaviour
         Debug.Log("subscribed to SceneManager events");
     }
 
-    private async void HandleOnSceneEvent(SceneEvent sceneEvent)
+    private void HandleOnSceneEvent(SceneEvent sceneEvent)
     {
         if(NetworkManager.Singleton.LocalClientId != sceneEvent.ClientId)
             return;
@@ -263,10 +263,8 @@ public class LoadingScreenManager : MonoBehaviour
 
     private IEnumerator LoadClientSceneAsync(string sceneName)
     {
-        Show(); // show UI first
-
-        yield return null; // ✅ wait 1 frame so UI renders
-
+        Show(); 
+        yield return null; 
         AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
 
         while (!op.isDone)

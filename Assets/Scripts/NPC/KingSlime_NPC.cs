@@ -12,14 +12,12 @@ public class KingSlime_NPC : BaseNPC
     [Header("Jump Settings")]
     [SerializeField] float jumpUpDuration = 0.3f;
     [SerializeField] float moveMinDuration = 0.2f;
-    [SerializeField] float slamDuration = 1f;
     [SerializeField] float attackCooldownTime = 2f;
     [SerializeField] LayerMask NPCLayerMask;
     [SerializeField] int NPCLayer;
     [SerializeField] LayerMask ignoreProjectileLayerMask;
     [SerializeField] int ignoreProjectileLayer;
     [SerializeField] float magicProjectileOffset;
-    Vector3 jumpTargetPosition;
     float stateTimer;
     bool inCombat =false;
     AIPath aiPath;
@@ -108,7 +106,6 @@ public class KingSlime_NPC : BaseNPC
                 stateTimer = 0;
                 aiPath.canMove = true;
                 destSetter.target = null;
-                jumpTargetPosition = target.position;
                 break;
             case KingSlimeState.Slam:
                 stateTimer = 0;
@@ -179,7 +176,6 @@ public class KingSlime_NPC : BaseNPC
             return;
         }
         //move toward target pos
-        // aiPath.destination = jumpTargetPosition;
         destSetter.target = target;
         float dist = Vector2.Distance(transform.position, target.position);
         if (dist <= attackRange && stateTimer > moveMinDuration)

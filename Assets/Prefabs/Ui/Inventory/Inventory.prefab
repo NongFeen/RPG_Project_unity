@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4682618592162183305}
   - component: {fileID: 2675537599920076553}
   - component: {fileID: 2501043607041075719}
-  - component: {fileID: 8873437819873181565}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -102,22 +101,6 @@ MonoBehaviour:
   m_Spacing: {x: 6.5, y: 6.5}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &8873437819873181565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1858415628083924925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45c32c8a926c37a4b8a4709afcb3efb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventorySlotPrefab: {fileID: 923068476494433326, guid: 087de2169f393694bb778eda7a29399d, type: 3}
-  inventorySlots: []
-  itemDatabase: {fileID: 11400000, guid: d203ddf62c4e24647b2223c222752341, type: 2}
-  slotCount: 16
 --- !u!1001 &6298708465983576471
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -212,6 +195,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 952380206832171492, guid: 087de2169f393694bb778eda7a29399d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581927697537966092, guid: 087de2169f393694bb778eda7a29399d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581927697537966092, guid: 087de2169f393694bb778eda7a29399d, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581927697537966092, guid: 087de2169f393694bb778eda7a29399d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581927697537966092, guid: 087de2169f393694bb778eda7a29399d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581927697537966092, guid: 087de2169f393694bb778eda7a29399d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581927697537966092, guid: 087de2169f393694bb778eda7a29399d, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

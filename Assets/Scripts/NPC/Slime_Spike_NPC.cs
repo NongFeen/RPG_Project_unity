@@ -10,7 +10,6 @@ public class SlimeSpikeEnemy : BaseNPC
 {
 
     [Header("Combat")]
-    [SerializeField] float contactDamage = 10f;
     [SerializeField] float knockbackForce = 6f;
     [SerializeField] float recoverTime = 1f;
 
@@ -60,8 +59,6 @@ public class SlimeSpikeEnemy : BaseNPC
 
     AIPath aiPath;
     AIDestinationSetter destSetter;
-    Rigidbody2D rb;
-
 
     // ===============================
     // TIMERS

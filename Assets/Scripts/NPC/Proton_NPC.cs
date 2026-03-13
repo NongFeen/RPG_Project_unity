@@ -13,8 +13,6 @@ public class Proton_NPC : BaseNPC
     [Header("Dash Settings")]
     [SerializeField] private float aimDuration = 1f;
     [SerializeField] private float dashSpeed = 15f;
-    [SerializeField] private float dashDuration = 0.6f;
-    [SerializeField] private float recoverDuration = 1f;
     [SerializeField] private float dashMaxDuration = 5f;
     private Vector2 dashTargetPosition;
     [SerializeField] private float decelerationRate = 15f;

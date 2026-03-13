@@ -16,15 +16,6 @@ public class OverSeer_NPC : BaseNPC
     }
 
 
-    [Header("Ranges")]
-    [SerializeField] private float nearbyRange = 15f;
-    [SerializeField] private float preferredDistance = 30f;
-    [SerializeField] private float tooCloseDistance = 4f;
-
-    [Header("Combat")]
-    [SerializeField] private float fireInterval = 1.5f;
-    private float nextFireTime;
-
     [Header("Idle Movement")]
     [SerializeField] private float idleMoveMinTime = 2f;
     [SerializeField] private float idleMoveMaxTime = 4f;
