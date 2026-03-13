@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+    using System.Collections.Generic;
 using System.Text;
 using Unity.Netcode;
 using UnityEngine;
@@ -23,20 +23,25 @@ public class LobbyNetwork : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (!IsServer) return;
+        if (!IsServer) return;  
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
         NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnected;
+    }
+    public override void OnNetworkDespawn()
+    {
+        NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
+        NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnected;
     }
 
     private void OnClientConnected(ulong clientId)
     {
+        print($"Client connected: {clientId}");
         playersProfileData.Add(new LobbyPlayerData
         {
             clientId = clientId,
             isReady = false,
             saveData = default
         });
-        print($"Client connected: {clientId}");
     }
 
     private void OnClientDisconnected(ulong clientId)
@@ -108,11 +113,6 @@ public class LobbyNetwork : NetworkBehaviour
 
         Debug.Log(sb.ToString());
     }
-    [ContextMenu("Print Lobby Player Data")]
-    private void PrintLobbyPlayerData_ContextMenu()
-    {
-        PrintAllLobbyPlayerData();
-    }
     public MapName GetCurrentMapName()
     {
         return MapName.Value;
@@ -134,6 +134,17 @@ public class LobbyNetwork : NetworkBehaviour
         }
 
         return default;
+    }
+
+    public void ResetPlayersProfileData()
+    {
+        if (!IsServer) return;
+        if (playersProfileData == null) return;
+
+        for (int i = 0; i < playersProfileData.Count; i++)
+        {
+            playersProfileData.RemoveAt(i);
+        }
     }
 
     [ClientRpc]

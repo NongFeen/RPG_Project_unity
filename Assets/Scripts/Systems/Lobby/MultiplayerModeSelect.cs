@@ -11,10 +11,11 @@ public class MultiplayerModeSelect : MonoBehaviour
     [SerializeField] public ushort TargetPort;
     [SerializeField] public GameObject joinMenu;
     [SerializeField] public GameObject selectCharacterMenu;
-    [SerializeField] public GameObject lobbyMenu;
+    // [SerializeField] public GameObject lobbyMenu;
 
     public void CreateServer()
     {
+        LobbyNetwork.Instance.ResetPlayersProfileData();
         LobbyManager.Instance.HostDefaultLobby();
     }
     public void JoinServer()
@@ -24,7 +25,7 @@ public class MultiplayerModeSelect : MonoBehaviour
             // connected
             joinMenu.SetActive(false);
             selectCharacterMenu.SetActive(true);
-            lobbyMenu.SetActive(true);
+            // lobbyMenu.SetActive(true);
             GameManager.Instance.gameState = GameState.Lobby;
         }
     }

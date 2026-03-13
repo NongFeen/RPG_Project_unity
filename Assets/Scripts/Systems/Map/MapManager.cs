@@ -168,6 +168,7 @@ public class MapManager : NetworkBehaviour
         GameManager.Instance.OnGameComplete(totalExperienceReward, droppedItems, relicDrops);
         ClearPendingRewards();
 
+
         NotifyMapCompletedClientRpc();
     }
 

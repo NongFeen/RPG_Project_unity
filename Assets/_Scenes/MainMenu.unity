@@ -798,7 +798,6 @@ MonoBehaviour:
   TargetPort: 0
   joinMenu: {fileID: 1046136450}
   selectCharacterMenu: {fileID: 249380434}
-  lobbyMenu: {fileID: 512434800}
 --- !u!1 &830028932
 GameObject:
   m_ObjectHideFlags: 0
@@ -3091,16 +3090,44 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1241636722726483506, guid: 8a49b3938766333419a3d8f2dc847580, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241636722726483506, guid: 8a49b3938766333419a3d8f2dc847580, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241636722726483506, guid: 8a49b3938766333419a3d8f2dc847580, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 823041531}
+    - target: {fileID: 1241636722726483506, guid: 8a49b3938766333419a3d8f2dc847580, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3958063679164966611}
+    - target: {fileID: 1241636722726483506, guid: 8a49b3938766333419a3d8f2dc847580, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1241636722726483506, guid: 8a49b3938766333419a3d8f2dc847580, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: JoinServer
       objectReference: {fileID: 0}
     - target: {fileID: 1241636722726483506, guid: 8a49b3938766333419a3d8f2dc847580, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OpenTargetMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241636722726483506, guid: 8a49b3938766333419a3d8f2dc847580, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: MultiplayerModeSelect, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241636722726483506, guid: 8a49b3938766333419a3d8f2dc847580, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: SimpleOpenMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241636722726483506, guid: 8a49b3938766333419a3d8f2dc847580, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3327556349433714596, guid: 8a49b3938766333419a3d8f2dc847580, type: 3}
       propertyPath: m_Pivot.x
@@ -3209,8 +3236,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7431450527553257143, guid: 8a49b3938766333419a3d8f2dc847580, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3958063679164966611}
   m_SourcePrefab: {fileID: 100100000, guid: 8a49b3938766333419a3d8f2dc847580, type: 3}
+--- !u!1 &3958063679164966610 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7431450527553257143, guid: 8a49b3938766333419a3d8f2dc847580, type: 3}
+  m_PrefabInstance: {fileID: 3958063679164966609}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3958063679164966611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3958063679164966610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1b49db80d2c286419a862a40688124c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetMenu:
+  - {fileID: 512434800}
 --- !u!1001 &6119234233098874674
 PrefabInstance:
   m_ObjectHideFlags: 0
