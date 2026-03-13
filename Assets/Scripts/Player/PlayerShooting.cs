@@ -28,17 +28,20 @@ public class PlayerShooting : NetworkBehaviour
     private void HandlePrimaryFire(bool isPressed)
     {
         if (!IsOwner) return;
+        if (playerStats != null && playerStats.IsGhost) return;
         isFiring = isPressed;
     }
     private void HandleReload(bool isPressed)
     {
         if (!IsOwner) return;
+        if (playerStats != null && playerStats.IsGhost) return;
         playerEquipedItem.activeWeapon?.OnReload();
     }
     private void FixedUpdate()
     {
         if (!IsOwner) return;
-        if (isFiring)
+        if (playerStats != null && playerStats.IsGhost) return;
+        if (isFiring )
         {
             Vector2 dir = AimDirection();
             WeaponBehaviour weapon = playerEquipedItem.activeWeapon;

@@ -79,12 +79,6 @@ public class PlayerMovement : NetworkBehaviour
         {
             GetComponent<PlayerSprite>().SetWalking(currentWalkingState);
         }
-        // -- remove
-        // change direction base on aim
-        // if (moveInput.magnitude > MIN_MOVEMENT_THRESHOLD)
-        // {
-        //     // ChangeSpriteDirection();
-        // }
     }
     [ClientRpc]
     public void TeleportClientRpc(Vector3 pos)

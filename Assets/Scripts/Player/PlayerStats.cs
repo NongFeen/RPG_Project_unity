@@ -23,6 +23,10 @@ public class PlayerStats : NetworkBehaviour
         new NetworkVariable<float>(100,
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Server);
+    public NetworkVariable<bool> isGhost =
+        new NetworkVariable<bool>(false,
+            NetworkVariableReadPermission.Everyone,
+            NetworkVariableWritePermission.Server);
 
     //bonus stats from player upgrades
     public NetworkVariable<BonusStats> bonusStats =
@@ -42,6 +46,7 @@ public class PlayerStats : NetworkBehaviour
             NetworkVariableWritePermission.Server);
     private Dictionary<BuffType, BaseBuff> activeBuffs= new Dictionary<BuffType, BaseBuff>();
     [SerializeField] GameObject uiPrefab;
+    public bool IsGhost => isGhost.Value;
     public override void OnNetworkSpawn()
     {
         PlayerManager.Instance.RegisterPlayer(this);
@@ -56,6 +61,8 @@ public class PlayerStats : NetworkBehaviour
             currentHP.OnValueChanged += OnHPChanged;
             UIManager.Instance.ActivePlayerHUD(gameObject);
         }
+        isGhost.OnValueChanged += OnGhostChanged;
+        ApplyGhostState(isGhost.Value);
     }
     public override void OnNetworkDespawn()
     {
@@ -65,6 +72,7 @@ public class PlayerStats : NetworkBehaviour
             currentHP.OnValueChanged -= OnHPChanged;
             UIManager.Instance.DeactivePlayerHUD();
         }
+        isGhost.OnValueChanged -= OnGhostChanged;
     }
     public void Update()
     {
@@ -114,6 +122,7 @@ public class PlayerStats : NetworkBehaviour
     public void TakeDamage(float amount)
     {
         if (!IsServer) return;
+        if (isGhost.Value) return;
         float def = activeStats.Value.defense;
 
         // Get reduction in range 0 - 1
@@ -160,8 +169,21 @@ public class PlayerStats : NetworkBehaviour
     }
     private void OnDeath()
     {
+        if (isGhost.Value) return;
         Debug.Log($"{OwnerClientId} has died");
-        // You can handle respawn or death logic here
+        isGhost.Value = true;
+    }
+    private void OnGhostChanged(bool oldValue, bool newValue)
+    {
+        ApplyGhostState(newValue);
+    }
+    private void ApplyGhostState(bool ghosted)
+    {
+        Collider2D[] colliders = GetComponentsInChildren<Collider2D>(true);
+        foreach (var col in colliders)
+        {
+            col.enabled = !ghosted;
+        }
     }
     public ClassType GetClassType()
     {
@@ -305,6 +327,7 @@ public class PlayerStats : NetworkBehaviour
     [ServerRpc]
     public void ApplyUpgradeServerRpc(StatType stat)
     {
+        //upgrade while game is progess
         BonusStats newBonus = bonusStats.Value;
         switch (stat)
         {

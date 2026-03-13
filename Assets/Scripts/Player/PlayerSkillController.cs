@@ -27,6 +27,10 @@ public class PlayerSkillController : NetworkBehaviour
     void Start()
     {
         // player = GetComponent<PlayerStats>();
+        if (player == null)
+        {
+            player = GetComponent<PlayerStats>();
+        }
         if (IsOwner)
         {
             inputReader.SkillUseEvents += OnSkillUse;
@@ -84,6 +88,7 @@ public class PlayerSkillController : NetworkBehaviour
     void Update()
     {
         if (!IsOwner) return;
+        if (player.IsGhost) return;
         if (canCooldown)
         {
             SkillV?.Tick(Time.deltaTime);
@@ -94,6 +99,7 @@ public class PlayerSkillController : NetworkBehaviour
     void OnSkillUse(int skillIndex)
     {
         if (!IsOwner) return;
+        if (player.IsGhost) return;
 
 
         switch (skillIndex)

@@ -34,6 +34,10 @@ public class MapManager : NetworkBehaviour
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Server
     );
+    [Header("Reset On All Dead")]
+    [SerializeField] private float allDeadResetDelay = 5f;
+    private bool resetPending;
+    private float resetTimer;
 
     [SerializeField] public MapItemDrop mapItemDrop;
     [SerializeField] public int mapExperienceReward = 20;
@@ -47,6 +51,12 @@ public class MapManager : NetworkBehaviour
     {
         mapItemDrop = GameDatabase.Instance.GetMapDatabase().GetMapData(GameManager.Instance.selectMapName).mapItemDrop;
         AstarPath.active.Scan();
+    }
+    private void Update()
+    {
+        if (!IsServer) return;
+        if (currenState.Value == MapState.Completed) return;
+        CheckAllPlayersDeadAndReset();
     }
     public void PlayerTriggeredTile(List<int> id)
     {
@@ -212,5 +222,48 @@ public class MapManager : NetworkBehaviour
     public virtual void CheckFriendshipCondition(int value)
     {
         
+    }
+    private void CheckAllPlayersDeadAndReset()
+    {
+        if (PlayerManager.Instance == null) return;
+        if (PlayerManager.Instance.Players.Count == 0) return;
+
+        bool allDead = true;
+        foreach (var player in PlayerManager.Instance.Players)
+        {
+            if (player == null) continue;
+            if (!player.IsGhost)
+            {
+                allDead = false;
+                break;
+            }
+        }
+
+        if (allDead)
+        {
+            if (!resetPending)
+            {
+                resetPending = true;
+                resetTimer = allDeadResetDelay;
+            }
+            else
+            {
+                resetTimer -= Time.deltaTime;
+                if (resetTimer <= 0f)
+                {
+                    resetPending = false;
+                    ResetMap();
+                }
+            }
+        }
+        else if (resetPending)
+        {
+            resetPending = false;
+        }
+    }
+    private void ResetMap()
+    {
+        if (!IsServer) return;
+        LoadingScreenManager.Instance.LoadScene(GameManager.Instance.selectMapName.ToString());
     }
 }
