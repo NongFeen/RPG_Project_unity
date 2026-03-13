@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3198526413755505822, guid: 8cc2f37218421ec4ca5ba35762571f03, type: 3}
       propertyPath: damage
-      value: 30
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: -3198526413755505822, guid: 8cc2f37218421ec4ca5ba35762571f03, type: 3}
       propertyPath: pierce

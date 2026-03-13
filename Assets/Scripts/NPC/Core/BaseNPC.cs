@@ -19,9 +19,9 @@ public abstract class BaseNPC : NetworkBehaviour
     [SerializeField] public Weapon weaponDrop;
     [SerializeField][Range(0f, 1f)] public float weaponDropChance = 0.1f;
     [SerializeField][Range(0f, 1f)] public float relicDropChance = 0.05f;
-    [SerializeField] public RelicRarity relicDropRarity = RelicRarity.Common;
+    // [SerializeField] public RelicRarity relicDropRarity = RelicRarity.Common;
 
-    public RelicRarity RelicDropRarity => relicDropRarity;
+    // public RelicRarity RelicDropRarity => relicDropRarity;
     [Header("NPC Current data")]
     [SerializeField] protected float displayHealth;
     [SerializeField] protected float lastAttackTime;

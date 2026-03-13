@@ -289,8 +289,7 @@ MonoBehaviour:
   expReward: 5
   weaponDrop: {fileID: 0}
   weaponDropChance: 0
-  relicDropChance: 1
-  relicDropRarity: 2
+  relicDropChance: 0.01
   displayHealth: 0
   lastAttackTime: 0
   target: {fileID: 0}

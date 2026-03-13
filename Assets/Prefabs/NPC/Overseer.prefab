@@ -108,10 +108,14 @@ MonoBehaviour:
   detectionRange: 15
   attackRange: 0
   attackCooldown: 2
-  contactDamage: 30
+  contactDamage: 50
   isBoss: 0
   isFinalRoomEnemy: 0
   damagePopupPrefab: {fileID: 8040580954099728450, guid: c646c7475af31fe4c807e2d1c5c491ae, type: 3}
+  expReward: 50
+  weaponDrop: {fileID: 11400000, guid: bbc31e5881b41104785b5b0b1d0f5027, type: 2}
+  weaponDropChance: 0.05
+  relicDropChance: 0.1
   displayHealth: 0
   lastAttackTime: 0
   target: {fileID: 0}

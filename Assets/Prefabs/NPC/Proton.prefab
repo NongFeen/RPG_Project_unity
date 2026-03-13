@@ -254,6 +254,10 @@ MonoBehaviour:
   isBoss: 0
   isFinalRoomEnemy: 0
   damagePopupPrefab: {fileID: 8040580954099728450, guid: c646c7475af31fe4c807e2d1c5c491ae, type: 3}
+  expReward: 50
+  weaponDrop: {fileID: 11400000, guid: 9564606107aa9bb4aaff048f056d26b4, type: 2}
+  weaponDropChance: 0.1
+  relicDropChance: 0.05
   displayHealth: 0
   lastAttackTime: 0
   target: {fileID: 0}

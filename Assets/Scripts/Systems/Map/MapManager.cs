@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Pathfinding;
 using Unity.Netcode;
@@ -5,6 +6,12 @@ using UnityEngine;
 
 public class MapManager : NetworkBehaviour
 {
+    [Serializable]
+    public struct RelicRollChance
+    {
+        public RelicRarity relicRarity;
+        public float weight;
+    }
     public static MapManager Instance;
     [SerializeField] private bool mapHasBoss = false;
     [SerializeField] private HashSet<int> triggeredTiles = new HashSet<int>();
@@ -38,12 +45,15 @@ public class MapManager : NetworkBehaviour
     [SerializeField] private float allDeadResetDelay = 5f;
     private bool resetPending;
     private float resetTimer;
-
+    [Header("Drops")]
     [SerializeField] public MapItemDrop mapItemDrop;
     [SerializeField] public int mapExperienceReward = 20;
+    [SerializeField] public List<RelicRollChance> relicRollChance;
+    
     private int pendingExperienceReward = 0;
     private List<WeaponInstance> pendingWeaponDrops = new List<WeaponInstance>();
     private List<RelicInstance> pendingRelicDrops = new List<RelicInstance>();
+
 
 
     private void Awake()
@@ -257,7 +267,7 @@ public class MapManager : NetworkBehaviour
         int weaponItemId = -1;
         if (npc.weaponDrop != null && npc.weaponDropChance > 0f)
         {
-            float roll = Random.Range(0f, 1f);
+            float roll = UnityEngine.Random.Range(0f, 1f);
             if (roll <= npc.weaponDropChance)
             {
                 weaponDropped = true;
@@ -267,10 +277,12 @@ public class MapManager : NetworkBehaviour
         }
         //relic drop
         bool relicDropped = false;
-        RelicRarity relicRarity = npc.RelicDropRarity;
+        
+        RelicRarity relicRarity = RollRelicRarity(relicRollChance);
+
         if (npc.relicDropChance > 0f)
         {
-            float roll = Random.Range(0f, 1f);
+            float roll = UnityEngine.Random.Range(0f, 1f);
             if (roll <= npc.relicDropChance)
             {
                 relicDropped = true;
@@ -279,6 +291,31 @@ public class MapManager : NetworkBehaviour
         }
         // let player know if it drop all not(1 drop from enemy = everyone get)
         NotifyEnemyRewardClientRpc(npc.expReward, weaponDropped, weaponItemId, relicDropped, relicRarity);
+    }
+    public RelicRarity RollRelicRarity(List<RelicRollChance> chances)
+    {
+        float totalWeight = 0f;
+
+        foreach (var c in chances)
+        {
+            totalWeight += c.weight;
+        }
+
+        float roll = UnityEngine.Random.Range(0f, totalWeight);
+
+        float cumulative = 0f;
+
+        foreach (var c in chances)
+        {
+            cumulative += c.weight;
+
+            if (roll <= cumulative)
+            {
+                return c.relicRarity;
+            }
+        }
+
+        return RelicRarity.Common;
     }
     [ClientRpc]
     private void NotifyEnemyRewardClientRpc(int expReward, bool weaponDropped, int weaponItemId, bool relicDropped, RelicRarity relicRarity)

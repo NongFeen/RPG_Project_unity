@@ -351,8 +351,16 @@ MonoBehaviour:
     m_InternalValue: 0
   finalRoomEnemyCount:
     m_InternalValue: 0
+  allDeadResetDelay: 5
   mapItemDrop: {fileID: 11400000, guid: 4603e6ae0f0aabb4396dec3fbd394501, type: 2}
   mapExperienceReward: 20
+  relicRollChance:
+  - relicRarity: 0
+    weight: 90
+  - relicRarity: 0
+    weight: 9
+  - relicRarity: 0
+    weight: 1
 --- !u!4 &528956166
 Transform:
   m_ObjectHideFlags: 0
@@ -776,6 +784,10 @@ MonoBehaviour:
   isBoss: 0
   isFinalRoomEnemy: 0
   damagePopupPrefab: {fileID: 8040580954099728450, guid: c646c7475af31fe4c807e2d1c5c491ae, type: 3}
+  expReward: 5
+  weaponDrop: {fileID: 0}
+  weaponDropChance: 0.1
+  relicDropChance: 0.05
   displayHealth: 0
   lastAttackTime: 0
   target: {fileID: 0}
@@ -6669,6 +6681,10 @@ MonoBehaviour:
   isBoss: 0
   isFinalRoomEnemy: 0
   damagePopupPrefab: {fileID: 8040580954099728450, guid: c646c7475af31fe4c807e2d1c5c491ae, type: 3}
+  expReward: 5
+  weaponDrop: {fileID: 0}
+  weaponDropChance: 0.1
+  relicDropChance: 0.05
   displayHealth: 0
   lastAttackTime: 0
   target: {fileID: 0}
@@ -6775,6 +6791,10 @@ MonoBehaviour:
   isBoss: 0
   isFinalRoomEnemy: 0
   damagePopupPrefab: {fileID: 8040580954099728450, guid: c646c7475af31fe4c807e2d1c5c491ae, type: 3}
+  expReward: 5
+  weaponDrop: {fileID: 0}
+  weaponDropChance: 0.1
+  relicDropChance: 0.05
   displayHealth: 0
   lastAttackTime: 0
   target: {fileID: 0}
