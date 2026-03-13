@@ -52,6 +52,7 @@ public class LoadingScreenManager : MonoBehaviour
                 BindSceneEvents();
             }
         }
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
@@ -63,8 +64,13 @@ public class LoadingScreenManager : MonoBehaviour
         }
         if (NetworkManager.Singleton == null) return;
         NetworkSceneManager.OnSceneEvent -= HandleOnSceneEvent;
-        // SceneManager.OnLoad -= OnLoadStarted;
-        // SceneManager.OnLoadEventCompleted -= OnLoadCompleted;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (!isLoading) return;
+        isLoading = false;
+        Hide();
     }
     private void OnClientConnected(ulong clientId)
     {
@@ -88,10 +94,7 @@ public class LoadingScreenManager : MonoBehaviour
         }
         if(isBinded) return;
 
-        // var sceneManager = NetworkManager.Singleton.SceneManager;
-        // sceneManager.OnLoad += OnLoadStarted;
         NetworkManager.Singleton.SceneManager.OnSceneEvent += HandleOnSceneEvent;
-        // sceneManager.OnLoadEventCompleted += OnLoadCompleted;
         isBinded = true;
         Debug.Log("subscribed to SceneManager events");
     }
@@ -102,11 +105,13 @@ public class LoadingScreenManager : MonoBehaviour
             return;
         if(sceneEvent.SceneEventType == SceneEventType.Load)
         {
+            isLoading = true;
             Show();
             StartCoroutine(TrackProgress(sceneEvent.AsyncOperation));
         }
         if(sceneEvent.SceneEventType == SceneEventType.LoadComplete)
         {
+            isLoading = false;
             Hide();
         }
     }
@@ -224,6 +229,7 @@ public class LoadingScreenManager : MonoBehaviour
     public void ShowLoading()
     {
         BindSceneEvents();
+        isLoading = true;
         Show();
     }
 
@@ -235,6 +241,7 @@ public class LoadingScreenManager : MonoBehaviour
             //close all menu before it's unloaded
             UIManager.Instance.CloseAllMenus();
         }
+        isLoading = true;
         Show();
         if (!NetworkManager.Singleton.IsServer)
         {
@@ -250,6 +257,7 @@ public class LoadingScreenManager : MonoBehaviour
         {
             UIManager.Instance.CloseAllMenus();
         }
+        isLoading = true;
         StartCoroutine(LoadClientSceneAsync(sceneName));
     }
 
