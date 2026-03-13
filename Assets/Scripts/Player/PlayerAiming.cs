@@ -12,6 +12,9 @@ public class PlayerAiming : NetworkBehaviour
     [SerializeField] private Animator weaponAnimator;
     [SerializeField] private GameObject weaponHolderPrefab;
     [SerializeField] private PlayerSprite playerSprite;
+    [SerializeField] private float reloadSpinSpeed = 1000f;
+    [SerializeField] private float facingFlipDeadzone = 0.05f;
+    private float reloadSpinAngle;
     private void Update()
     {
         if (playerEquippedItem.activeWeapon == null) return;
@@ -23,10 +26,26 @@ public class PlayerAiming : NetworkBehaviour
 
             // Rotate weapon
             Vector2 rotatedDir = new Vector2(-direction.y, direction.x);
-            weaponDisplayRoot.up = rotatedDir;
+            bool isReloading = playerEquippedItem.activeWeapon.isReloading;
+            if (isReloading)
+            {
+                reloadSpinAngle += reloadSpinSpeed * Time.deltaTime;
+                if (reloadSpinAngle >= 360f) reloadSpinAngle -= 360f;
+                Quaternion spin = Quaternion.AngleAxis(reloadSpinAngle, Vector3.forward);
+                weaponDisplayRoot.up = spin * rotatedDir;
+            }
+            else
+            {
+                reloadSpinAngle = 0f;
+                weaponDisplayRoot.up = rotatedDir;
+            }
 
-            // Handle sprite facing direction
-            bool shouldFaceRight = direction.x >= 0f;
+            bool shouldFaceRight = playerSprite.isFacingRight.Value;
+            Vector2 PlayerDirection = aimWorldPos - (Vector2)playerSprite.transform.position;
+            if (Mathf.Abs(PlayerDirection.x) > facingFlipDeadzone)
+            {
+                shouldFaceRight = PlayerDirection.x > 0f;
+            }
             if (playerSprite.isFacingRight.Value != shouldFaceRight)
             {
                 playerSprite.SetFacingDirection(shouldFaceRight);

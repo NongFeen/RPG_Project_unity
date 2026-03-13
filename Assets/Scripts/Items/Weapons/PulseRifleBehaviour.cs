@@ -32,7 +32,7 @@ public class PulseRifleBehaviour : WeaponBehaviour
                 Vector2 dir = shooter.AimDirection();
 
                 base.SpawnProjectileServer(
-                    shooter.transform.position,
+                    shooter.weaponPos.transform.position,
                     dir,
                     UnityEngine.Random.value < CurrentCritChance,
                     burstCritDamage,
@@ -45,9 +45,9 @@ public class PulseRifleBehaviour : WeaponBehaviour
             }
         }
     }
-    public override void Shoot(Vector2 direction, PlayerStats playerStats, ServerRpcParams rpcParams)
+    public override void Shoot(Vector2 direction,Transform weaponHolder, PlayerStats playerStats, ServerRpcParams rpcParams)
     {
-        base.Shoot(direction, playerStats, rpcParams);
+        base.Shoot(direction,weaponHolder, playerStats, rpcParams);
         shooter = playerStats.GetComponent<PlayerShooting>();
         CurrentCritChance = playerStats.activeStats.Value.critRate + weaponInstance.bonusStat.critRate;
     }

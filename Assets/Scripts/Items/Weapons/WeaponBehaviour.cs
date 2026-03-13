@@ -100,7 +100,7 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
             ConsumeAmmo();
         }
     }
-    public virtual void Shoot(Vector2 direction,PlayerStats playerStats, ServerRpcParams rpcParams)
+    public virtual void Shoot(Vector2 direction,Transform weaponHolder,PlayerStats playerStats, ServerRpcParams rpcParams)
     {
         //This is only do in server
         OnShoot(direction);
@@ -113,7 +113,7 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
 
         float percentExtraDamage = playerStats.activeStats.Value.extraDamage;
         float flatExtraDamage = weaponInstance.bonusStat.bonusDamage;
-        SpawnProjectileServer(playerStats.transform.position,direction,UnityEngine.Random.value < critChance,critDamage, percentExtraDamage, flatExtraDamage, rpcParams);
+        SpawnProjectileServer(weaponHolder.position,direction,UnityEngine.Random.value < critChance,critDamage, percentExtraDamage, flatExtraDamage, rpcParams);
     }
     public virtual void SpawnProjectileServer(Vector3 firePointPosition, Vector2 direction, bool isCrit, float critDamageMultiplier, 
         float damageMultiplier, float flatExtraDamage, ServerRpcParams rpcParams)

@@ -8,7 +8,7 @@ public class Player : NetworkBehaviour
 {
     public Rigidbody2D rb;
     [SerializeField] private InputReader inputReader;
-    [SerializeField]public PlayerExperience playerExperience;
+    [SerializeField] public PlayerExperience playerExperience;
     public string characterName; 
     public int experience;
     public int level;
@@ -42,15 +42,15 @@ public class Player : NetworkBehaviour
                 break;
 
             case StatType.Defense:
-                bonusStats.bonusDefense += 2;
+                bonusStats.bonusDefense += 3;
                 break;
 
             case StatType.CritChance:
-                bonusStats.bonusCritChance += 1;
+                bonusStats.bonusCritChance += 0.01f;
                 break;
 
             case StatType.CritDamage:
-                bonusStats.bonusCritDamage += 5;
+                bonusStats.bonusCritDamage += 0.02f;
                 break;
         }
         // RecalculateStats();

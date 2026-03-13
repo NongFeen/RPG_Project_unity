@@ -7,7 +7,7 @@ public class ShotGunBehaviour : WeaponBehaviour
     [SerializeField]public float spreadAngle = 30f;
     [SerializeField]public float randomJitter = 3f;
 
-    public override void Shoot(Vector2 direction, PlayerStats playerStats, ServerRpcParams rpcParams)
+    public override void Shoot(Vector2 direction,Transform weaponHolder, PlayerStats playerStats, ServerRpcParams rpcParams)
     {
         //This is only do in server
         OnShoot(direction);
@@ -31,7 +31,7 @@ public class ShotGunBehaviour : WeaponBehaviour
             Vector2 dir = Quaternion.Euler(0, 0, angle) * direction;
 
             SpawnProjectileServer(
-                playerStats.transform.position,
+                weaponHolder.position,
                 dir,
                 isCrit,
                 critDamage,

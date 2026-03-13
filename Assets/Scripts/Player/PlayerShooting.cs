@@ -3,7 +3,7 @@ using Unity.Netcode;
 public class PlayerShooting : NetworkBehaviour
 {
     [SerializeField] private InputReader inputReader;
-    [SerializeField] private Transform playerPos;
+    [SerializeField] public Transform weaponPos;
     [SerializeField] private PlayerEquipedItem playerEquipedItem;
     [SerializeField] private PlayerStats playerStats;
     private bool isFiring;
@@ -67,7 +67,7 @@ public class PlayerShooting : NetworkBehaviour
     private void ShootWeaponServerRPC(Vector2 direction,ServerRpcParams rpcParams = default)
     {
         WeaponBehaviour weapon = playerEquipedItem.activeWeapon;
-        weapon.Shoot(direction, playerStats,rpcParams);
+        weapon.Shoot(direction,weaponPos, playerStats,rpcParams);
     }
     public Vector2 AimDirection()
     {
@@ -75,7 +75,7 @@ public class PlayerShooting : NetworkBehaviour
         // Vector3 mosPos = inputReader.AimPosition;
         Vector3 mosPos = Camera.main.ScreenToWorldPoint(inputReader.AimPosition);
         // Get direction from player to mouse
-        Vector2 dir = mosPos - playerPos.position;
+        Vector2 dir = mosPos - weaponPos.position;
 
         return dir.normalized;
     }
