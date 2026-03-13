@@ -798,8 +798,13 @@ MonoBehaviour:
   finalRoomEnemyCount:
     m_InternalValue: 0
   allDeadResetDelay: 5
-  mapItemDrop: {fileID: 0}
-  mapExperienceReward: 20
+  mapItemDrop: {fileID: 11400000, guid: c9f31c9fe6cc3ba41b0d5a587d495950, type: 2}
+  mapExperienceReward: 1000
+  relicRollChance:
+  - relicRarity: 1
+    weight: 66
+  - relicRarity: 2
+    weight: 33
   pad1: {fileID: 1120697958}
   pad2: {fileID: 1410813755}
   pad3: {fileID: 1775411257}

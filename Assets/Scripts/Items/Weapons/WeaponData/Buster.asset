@@ -20,7 +20,7 @@ MonoBehaviour:
   itemType: 1
   clientProjectilePrefab: {fileID: 4091576519318105471, guid: de6cad3707aaca245964ff65aa88d749, type: 3}
   serverProjectilePrefab: {fileID: 3661950033510355805, guid: 2cc314923cc8d3a49ab83d4c70686f36, type: 3}
-  baseDamage: 30
+  baseDamage: 15
   baseFirerate: 140
   baseMaxammo: 8
   baseReloadSpeed: 1
@@ -31,3 +31,10 @@ MonoBehaviour:
     bonusDamage: 0
     critRate: 0
     critDamage: 0
+  randomStatsRange:
+    minBonusDamage: 0
+    maxBonusDamage: 10
+    minCritRate: 0
+    maxCritRate: 0.05
+    minCritDamage: 0
+    maxCritDamage: 0.25

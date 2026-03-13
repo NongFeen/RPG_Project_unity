@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a55193867b6e0db4e82bf856f46bdd80, type: 3}
+  m_Name: Dungeon02_itemDrop
+  m_EditorClassIdentifier: 
+  possibleDrops:
+  - item: {fileID: 11400000, guid: 9564606107aa9bb4aaff048f056d26b4, type: 2}
+    dropChance: 0.1
+  - item: {fileID: 11400000, guid: cd3cf6db5241b8447bd498757987bfe9, type: 2}
+    dropChance: 0.1
+  - item: {fileID: 11400000, guid: bbc31e5881b41104785b5b0b1d0f5027, type: 2}
+    dropChance: 0.2
+  - item: {fileID: 11400000, guid: c341e89b219479d4ba552973825dbde8, type: 2}
+    dropChance: 0.1

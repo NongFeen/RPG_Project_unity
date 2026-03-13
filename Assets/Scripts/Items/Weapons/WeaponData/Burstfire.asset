@@ -31,3 +31,10 @@ MonoBehaviour:
     bonusDamage: 0
     critRate: 0
     critDamage: 0
+  randomStatsRange:
+    minBonusDamage: 0
+    maxBonusDamage: 10
+    minCritRate: 0
+    maxCritRate: 0.1
+    minCritDamage: 0
+    maxCritDamage: 0.2

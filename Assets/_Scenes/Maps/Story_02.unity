@@ -454,8 +454,16 @@ MonoBehaviour:
     m_InternalValue: 0
   finalRoomEnemyCount:
     m_InternalValue: 0
-  mapItemDrop: {fileID: 11400000, guid: 4603e6ae0f0aabb4396dec3fbd394501, type: 2}
-  mapExperienceReward: 20
+  allDeadResetDelay: 5
+  mapItemDrop: {fileID: 11400000, guid: ea9a55bb3b4e257439d3381b839d4106, type: 2}
+  mapExperienceReward: 100
+  relicRollChance:
+  - relicRarity: 0
+    weight: 90
+  - relicRarity: 1
+    weight: 9
+  - relicRarity: 2
+    weight: 1
 --- !u!4 &528956166
 Transform:
   m_ObjectHideFlags: 0
