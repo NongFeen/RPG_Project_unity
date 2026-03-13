@@ -565,30 +565,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5041528c022622e4183df116d6ac5a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  experienceCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: -41.531616
-      inSlope: 155.37868
-      outSlope: 155.37868
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.43012354
-    - serializedVersion: 3
-      time: 30
-      value: 15000
-      inSlope: 1467.3964
-      outSlope: 1467.3964
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.04424235
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   currentLevel: 1
   totalExperience: 0
   player: {fileID: 4995212873685085254}
@@ -628,7 +604,7 @@ MonoBehaviour:
       critRate: 0
       critDamage: 0
       extraDamage: 0
-  stats:
+  activeStats:
     m_InternalValue:
       health: 0
       defense: 0
@@ -666,8 +642,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   inputReader: {fileID: 11400000, guid: 1103830ac2ad5e24f9122dbb95b609de, type: 2}
-  playerPos: {fileID: 7517307914353145018}
+  weaponPos: {fileID: 5256679747011165651}
   playerEquipedItem: {fileID: 7539527338994378859}
+  playerStats: {fileID: 9114623135003730550}
 --- !u!114 &-8900828022519834306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,9 +707,11 @@ MonoBehaviour:
   weaponDisplayRoot: {fileID: 5256679747011165651}
   weaponTransformList: []
   playerEquippedItem: {fileID: 7539527338994378859}
-  weaponAnimator: {fileID: 8773628098893573528}
+  weaponAnimator: {fileID: 0}
   weaponHolderPrefab: {fileID: 8544791998596934045}
   playerSprite: {fileID: -8900828022519834306}
+  reloadSpinSpeed: 360
+  facingFlipDeadzone: 0.05
 --- !u!114 &7235659161953144731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -751,15 +730,6 @@ MonoBehaviour:
   player: {fileID: 9114623135003730550}
   inputReader: {fileID: 11400000, guid: 1103830ac2ad5e24f9122dbb95b609de, type: 2}
   canCooldown: 1
-  skillV:
-    definition: {fileID: 0}
-    cooldownRemaining: 0
-  skillQ:
-    definition: {fileID: 0}
-    cooldownRemaining: 0
-  skillF:
-    definition: {fileID: 0}
-    cooldownRemaining: 0
 --- !u!1 &7400113154753930220
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,7 +770,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5256679747011165651}
-  - component: {fileID: 8773628098893573528}
   m_Layer: 0
   m_Name: WeaponHolder
   m_TagString: Untagged
@@ -824,25 +793,3 @@ Transform:
   - {fileID: 5189050668189668568}
   m_Father: {fileID: 7894618892708468175}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &8773628098893573528
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8544791998596934045}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0

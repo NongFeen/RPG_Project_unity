@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class PlayerExperience : MonoBehaviour
 {
     [Header("Experience")]
-    [SerializeField] public AnimationCurve experienceCurve;
 
     [SerializeField]int currentLevel, totalExperience;
     int previousLevelsExperience, nextLevelsExperience;
@@ -49,8 +48,16 @@ public class PlayerExperience : MonoBehaviour
 
     void UpdateLevel()
     {
-        previousLevelsExperience = (int)experienceCurve.Evaluate(currentLevel);
-        nextLevelsExperience = (int)experienceCurve.Evaluate(currentLevel + 1);
+        AnimationCurve curve = GameDatabase.Instance.GetExperienceData().experienceCurve;
+        if (curve == null)
+        {
+            previousLevelsExperience = 0;
+            nextLevelsExperience = 0;
+            return;
+        }
+
+        previousLevelsExperience = (int)curve.Evaluate(currentLevel);
+        nextLevelsExperience = (int)curve.Evaluate(currentLevel + 1);
         // UpdateInterface();
     }
 
@@ -70,4 +77,5 @@ public class PlayerExperience : MonoBehaviour
         
         UpdateLevel();
     }
+
 }

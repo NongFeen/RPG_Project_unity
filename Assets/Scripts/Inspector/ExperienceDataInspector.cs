@@ -14,11 +14,20 @@ public class PlayerExperienceEditor : Editor
         
         Scrollbar = EditorGUILayout.BeginScrollView(Scrollbar, GUILayout.Height(300));
 
+        AnimationCurve curve = GameDatabase.Instance.GetExperienceData().experienceCurve;
+
+        if (curve == null)
+        {
+            EditorGUILayout.HelpBox("No experience curve assigned.", MessageType.Warning);
+            EditorGUILayout.EndScrollView();
+            return;
+        }
+
         for(int i = 1 ; i <= 30; i++)
         {
             EditorGUILayout.BeginHorizontal("box");
             EditorGUILayout.LabelField($"Level {i}");
-            int expRequired = (int)playerExperience.experienceCurve.Evaluate(i);
+            int expRequired = (int)curve.Evaluate(i);
             EditorGUILayout.LabelField($"{expRequired} EXP");
             EditorGUILayout.EndHorizontal();    
         }

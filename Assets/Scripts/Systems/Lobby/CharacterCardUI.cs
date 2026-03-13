@@ -27,6 +27,9 @@ public class CharacterCardUI : MonoBehaviour
     public void SelectCharacter()
     {
         GameManager.Instance.SelectPlayer(saveProfileData);
+        var statsUI = FindObjectOfType<PlayerStatsUI>();
+        if (statsUI != null)
+            statsUI.RefreshFromSelectedProfile();
         CloseSelectedMenu();
     }
     public void CloseSelectedMenu()

@@ -7,6 +7,7 @@ public class GameDatabase : MonoBehaviour
     [SerializeField] private ClassDataBase classData;
     [SerializeField] private MapDatabase mapData;
     [SerializeField] private BuffDatabase buffData;
+    [SerializeField] private ExperienceData experienceData;
 
     private void Awake()
     {
@@ -32,5 +33,9 @@ public class GameDatabase : MonoBehaviour
     public BuffDatabase GetBuffDatabase()
     {
         return buffData;
+    }
+    public ExperienceData GetExperienceData()
+    {
+        return experienceData;
     }
 }

@@ -180,16 +180,12 @@ public class PlayerStats : NetworkBehaviour
         int lvl = level.Value;
 
         Stats calStats;
-        calStats.health =
-            data.GetHealth(lvl) + bonusStats.Value.bonusHealth;
-        calStats.defense =
-            data.GetDefense(lvl) + bonusStats.Value.bonusDefense;
-        calStats.critRate =
-            data.GetCritRate(lvl) + bonusStats.Value.bonusCritChance;
-        calStats.critDamage =
-            data.GetCritDamage(lvl) + bonusStats.Value.bonusCritDamage;
-        calStats.extraDamage = 1.0f +bonusStats.Value.bonusDamage;
-        calStats +=bonusStats.Value;
+        calStats.health = data.GetHealth(lvl);
+        calStats.defense = data.GetDefense(lvl);
+        calStats.critRate = data.GetCritRate(lvl);
+        calStats.critDamage = data.GetCritDamage(lvl);
+        calStats.extraDamage = 1.0f;
+        calStats += bonusStats.Value;
         stableStats.Value = calStats;   
         
         //display server stats for debugging
@@ -206,7 +202,6 @@ public class PlayerStats : NetworkBehaviour
     private void RecalculateActiveStats()
     {
         Stats newStats = stableStats.Value;
-        newStats += bonusStats.Value;
 
         foreach (var buff in activeBuffs.Values)
         {
@@ -305,5 +300,39 @@ public class PlayerStats : NetworkBehaviour
         if(IsServer) return;
         if (activeBuffs.ContainsKey(type))
             activeBuffs.Remove(type);
+    }
+
+    [ServerRpc]
+    public void ApplyUpgradeServerRpc(StatType stat)
+    {
+        BonusStats newBonus = bonusStats.Value;
+        switch (stat)
+        {
+            case StatType.Health:
+                newBonus.bonusHealth += 10;
+                break;
+
+            case StatType.Defense:
+                newBonus.bonusDefense += 3;
+                break;
+
+            case StatType.CritChance:
+                newBonus.bonusCritChance += 0.01f;
+                break;
+
+            case StatType.CritDamage:
+                newBonus.bonusCritDamage += 0.02f;
+                break;
+        }
+
+        bonusStats.Value = newBonus;
+        
+        // calculate hp percent before apply new hp
+        float hpPercent = currentHP.Value/activeStats.Value.health;
+
+        RecalculateStableStats();
+        RecalculateActiveStats();
+        currentHP.Value = hpPercent * activeStats.Value.health;
+        
     }
 }
