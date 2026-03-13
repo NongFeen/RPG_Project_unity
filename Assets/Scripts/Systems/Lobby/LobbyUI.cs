@@ -76,6 +76,11 @@ public class LobbyUI : MonoBehaviour
     public void StartGame()
     {
         MapName targetMap = LobbyNetwork.Instance.GetCurrentMapName();
+        //make sure to let client know is start loading scene
+        if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsHost)
+        {
+            LobbyNetwork.Instance.ShowLoadingClientRpc();
+        }
         GameManager.Instance.StartGame(targetMap);
     }
 }

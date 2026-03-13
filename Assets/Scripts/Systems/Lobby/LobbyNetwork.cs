@@ -136,4 +136,13 @@ public class LobbyNetwork : NetworkBehaviour
         return default;
     }
 
+    [ClientRpc]
+    public void ShowLoadingClientRpc()
+    {
+        if (LoadingScreenManager.Instance != null)
+        {
+            LoadingScreenManager.Instance.ShowLoading();
+        }
+    }
+
 }

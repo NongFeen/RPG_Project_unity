@@ -40,13 +40,44 @@ public class LoadingScreenManager : MonoBehaviour
         EnsureCanvasGroup();
         HideImmediate();
     }
+    private void OnEnable()
+    {
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+            NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnected;
+            // In case this object is enabled after we're already connected.
+            if (NetworkManager.Singleton.IsClient)
+            {
+                BindSceneEvents();
+            }
+        }
+    }
 
     private void OnDisable()
     {
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
+            NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnected;
+        }
         if (NetworkManager.Singleton == null) return;
         NetworkSceneManager.OnSceneEvent -= HandleOnSceneEvent;
         // SceneManager.OnLoad -= OnLoadStarted;
         // SceneManager.OnLoadEventCompleted -= OnLoadCompleted;
+    }
+    private void OnClientConnected(ulong clientId)
+    {
+        if (NetworkManager.Singleton == null) return;
+        if (clientId != NetworkManager.Singleton.LocalClientId) return;
+        BindSceneEvents();
+    }
+    private void OnClientDisconnected(ulong clientId)
+    {
+        if (NetworkManager.Singleton == null) return;
+        if (clientId != NetworkManager.Singleton.LocalClientId) return;
+        NetworkSceneManager.OnSceneEvent -= HandleOnSceneEvent;
+        isBinded = false;
     }
     public void BindSceneEvents()
     {
@@ -188,6 +219,12 @@ public class LoadingScreenManager : MonoBehaviour
         bool visible = targetAlpha > 0.01f;
         loadingCanvasGroup.blocksRaycasts = visible;
         loadingCanvasGroup.interactable = false;
+    }
+
+    public void ShowLoading()
+    {
+        BindSceneEvents();
+        Show();
     }
 
     public void LoadScene(string sceneName)

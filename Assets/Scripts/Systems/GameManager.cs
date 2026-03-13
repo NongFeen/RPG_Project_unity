@@ -114,14 +114,37 @@ public class GameManager : NetworkBehaviour
     {
         print("Received request to end session");
         NetworkManager.Singleton.Shutdown();
-        GoToMainMenu();
+        if (LoadingScreenManager.Instance != null)
+        {
+            LoadingScreenManager.Instance.LoadClientScene("MainMenu");
+        }
+        GameManager.Instance.gameState = GameState.Lobby;
     }
     public void GoToMainMenu()
     {
         UIManager.Instance.DeactivePlayerHUD();
-        // UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
-        LoadingScreenManager.Instance.LoadScene("MainMenu");
+        if (NetworkManager.Singleton == null)
+        {
+            if (LoadingScreenManager.Instance != null)
+            {
+                LoadingScreenManager.Instance.LoadClientScene("MainMenu");
+            }
+            GameManager.Instance.gameState = GameState.Lobby;
+            return;
+        }
+
+        if (IsServer)
+        {
+            // Tell all clients to disconnect and load their local menu.
+            RequestEndSessionClientRpc();
+        }
+
+        // disconnect and return to menu
         NetworkManager.Singleton.Shutdown();
+        if (LoadingScreenManager.Instance != null)
+        {
+            LoadingScreenManager.Instance.LoadClientScene("MainMenu");
+        }
         GameManager.Instance.gameState = GameState.Lobby;
     }
 }
