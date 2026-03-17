@@ -34,7 +34,8 @@ public class CharacterSelect : MonoBehaviour
         var card = Instantiate(createCharacterCardPrefab,characterList.transform);
         card.GetComponent<Button>().onClick.AddListener(() =>
         {
-            createCharacterMenu.gameObject.SetActive(true);
+            // createCharacterMenu.SetActive(true);
+            UIManager.Instance.OpenMenu(createCharacterMenu);
         }); 
     }
      

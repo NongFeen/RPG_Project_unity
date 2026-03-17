@@ -15,14 +15,30 @@ public class PlayerExperienceEditor : Editor
         
         Scrollbar = EditorGUILayout.BeginScrollView(Scrollbar, GUILayout.Height(300));
 
-        AnimationCurve curve = GameDatabase.Instance.GetExperienceData().experienceCurve;
+        ExperienceData experienceData = null;
+        if (GameDatabase.Instance != null)
+            experienceData = GameDatabase.Instance.GetExperienceData();
 
-        if (curve == null)
+#if UNITY_EDITOR
+        if (experienceData == null)
         {
-            EditorGUILayout.HelpBox("No experience curve assigned.", MessageType.Warning);
+            string[] guids = AssetDatabase.FindAssets("t:ExperienceData");
+            if (guids.Length > 0)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guids[0]);
+                experienceData = AssetDatabase.LoadAssetAtPath<ExperienceData>(path);
+            }
+        }
+#endif
+
+        if (experienceData == null || experienceData.experienceCurve == null)
+        {
+            EditorGUILayout.HelpBox("No experience curve assigned. Add a GameDatabase to the scene or set ExperienceData asset.", MessageType.Warning);
             EditorGUILayout.EndScrollView();
             return;
         }
+
+        AnimationCurve curve = experienceData.experienceCurve;
 
         for(int i = 1 ; i <= 30; i++)
         {

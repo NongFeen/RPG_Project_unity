@@ -25,6 +25,24 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.43012354
     - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 140.00441
+      outSlope: 140.00441
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 14.957684
+      value: 2544.5498
+      inSlope: 344.53583
+      outSlope: 344.53583
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
       time: 30
       value: 15000
       inSlope: 1467.3964
@@ -33,6 +51,15 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0.04424235
       outWeight: 0
+    - serializedVersion: 3
+      time: 31
+      value: 25000
+      inSlope: 10000
+      outSlope: 1385.6565
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.3113823
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

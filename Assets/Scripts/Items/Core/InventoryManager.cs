@@ -34,7 +34,7 @@ public class InventoryManager : MonoBehaviour
     public void AddItemInstance(WeaponInstance itemInstance)
     {
         weaponInventoryItems.Add(itemInstance);
-        print($"Added Weapon {itemInstance.itemData.itemName} to inventory.");
+        // print($"Added Weapon {itemInstance.itemData.itemName} to inventory.");
         OnInventoryChanged?.Invoke();
     }
     public void EquipItem(WeaponInstance item, int slotIndex)
@@ -96,7 +96,7 @@ public class InventoryManager : MonoBehaviour
     public void AddRelicInstance(RelicInstance relicInstance)
     {
         relicInventoryItems.Add(relicInstance);
-        print($"Added Relic of Rarity {relicInstance.rarity} to inventory.");
+        // print($"Added Relic of Rarity {relicInstance.rarity} to inventory.");
         OnInventoryChanged?.Invoke();
     }
     public void EquipRelic(RelicInstance relic, int slotIndex)

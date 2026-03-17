@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 3
   itemName: Burstfire
   description: Pulse Rifle
-  image: {fileID: 7108749317203499763, guid: a8d45aa1b9ec16d44a4ba275c8647dfa, type: 3}
+  image: {fileID: -587061048, guid: a8d45aa1b9ec16d44a4ba275c8647dfa, type: 3}
   itemPrefab: {fileID: 5646012898124733676, guid: a7454ba340b132042b869a5745315a00, type: 3}
   itemType: 1
   clientProjectilePrefab: {fileID: 4091576519318105471, guid: de6cad3707aaca245964ff65aa88d749, type: 3}

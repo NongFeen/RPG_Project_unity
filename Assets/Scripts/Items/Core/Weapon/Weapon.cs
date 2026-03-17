@@ -10,17 +10,13 @@ public class Weapon : Item
     [SerializeField] public float baseFirerate;
     [SerializeField] public int baseMaxammo;
     [SerializeField] public float baseReloadSpeed = 1;
-    [SerializeField] public Animator animator;
-    [SerializeField] public AnimationClip animationClip;
     [SerializeField] public GameObject weaponPrefab;
-    [SerializeField] public WeaponStat weaponExtraStat;
-
     [Header("Random Stats Range on Drop (1.0 => 100%)")]
     [SerializeField] public RandomStatsRange randomStatsRange;
+    [SerializeField] public WeaponStat weaponExtraStat;
     public override ItemInstance CreateInstance()
     {
         return ItemInstance.CreateInstance(this);
-
     }
     public override string ToString()
     {

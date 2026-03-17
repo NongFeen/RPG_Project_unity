@@ -196,16 +196,15 @@ public class PlayerStats : NetworkBehaviour
     }
     public void RecalculateStableStats()
     {
-        ClassStatData data = GameDatabase.Instance.GetClassDatabase()
-            .GetClassStatData(playerClass.Value);
+        ClassStatData data = GameDatabase.Instance.GetClassDatabase().GetClassStatData(playerClass.Value);
 
         if (data == null)
         {
             Debug.LogError("No ClassStatData for " + playerClass.Value);
             return;
         }
+        Debug.Log($"Current class {playerClass.Value} + {data.classType}");
         int lvl = level.Value;
-
         Stats calStats;
         calStats.health = data.GetHealth(lvl);
         calStats.defense = data.GetDefense(lvl);
@@ -220,7 +219,6 @@ public class PlayerStats : NetworkBehaviour
         calStats.critRate += relicStats.Value.critRate;
         calStats.critDamage += relicStats.Value.critDamage;
         calStats.defense += relicStats.Value.defense;
-        // calStats += relicStats.Value;
         stableStats.Value = calStats;   
         
         //display server stats for debugging
@@ -338,6 +336,22 @@ public class PlayerStats : NetworkBehaviour
     }
 
     [ServerRpc]
+    public void ChangeClassServerRpc(ClassType newClass)
+    {
+        // only allow class change at level 15
+        if (level.Value != 15)
+            return;
+
+        if (playerClass.Value == newClass)
+            return;
+        playerClass.Value = newClass;
+        RecalculateStableStats();
+        RecalculateActiveStats();
+
+        Debug.Log($"Player class changed to {newClass}");
+    }
+
+    [ServerRpc]
     public void ApplyUpgradeServerRpc(StatType stat)
     {
         //upgrade while game is progess
@@ -371,7 +385,13 @@ public class PlayerStats : NetworkBehaviour
         currentHP.Value = hpPercent * activeStats.Value.health;
         
     }
-
+    [ServerRpc]
+    public void ChangeLevelServerRpc(int level){
+        this.level.Value = level;
+        RecalculateStableStats();
+        RecalculateActiveStats();
+        Debug.Log($"Player level changed to {level}");
+    }
     [ServerRpc]
     public void SetRelicStatsServerRpc(Stats newRelicStats)
     {

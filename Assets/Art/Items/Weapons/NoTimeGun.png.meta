@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 33
+  spritePixelsToUnits: 150
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -126,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: NoTimeGun_0
+      name: NoTimeGun_1
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 18
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3fa173917d957a260800000000000000
-      internalID: 7108749317203499763
+      spriteID: e1a6000bc7894e045a246df536017605
+      internalID: -587061048
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 0910aaf57581f2444b5e5e6530936d04
     internalID: 0
     vertices: []
     indices: 
@@ -162,6 +162,7 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       NoTimeGun_0: 7108749317203499763
+      NoTimeGun_1: -587061048
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

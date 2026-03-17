@@ -20,6 +20,9 @@ public class PlayerStatsUI : MonoBehaviour, IPlayerStatUI
     [SerializeField] private Color bonusColor;
     [SerializeField] private Color debonusColor;
 
+    [Header("Class Change")]
+    [SerializeField] private ChangeClassUI changeClassUI;
+
     private PlayerStats playerStats;
     private Player player;
     private bool inventorySubscribed;
@@ -34,6 +37,9 @@ public class PlayerStatsUI : MonoBehaviour, IPlayerStatUI
     {
         UnsubscribePlayerStats();
         UnsubscribeInventory();
+
+        if (changeClassUI != null)
+            changeClassUI.Hide();
     }
 
     public void SetPlayerData(GameObject playerObject)
@@ -96,6 +102,7 @@ public class PlayerStatsUI : MonoBehaviour, IPlayerStatUI
         string playerName = player != null ? player.characterName : "Player";
 
         UpdateUI(playerName, classType, level, exp, startExp, nextLevelExp, upgradePoints, bonus, relicStats);
+        RefreshClassChangePanel();
     }
 
     private void RefreshFromSaveProfile(SaveProfileData profile)
@@ -120,6 +127,15 @@ public class PlayerStatsUI : MonoBehaviour, IPlayerStatUI
             save.bonusStats,
             relicStats
         );
+
+        bool canChangeClass = save.level == 15;
+        if (changeClassUI != null)
+        {
+            if (canChangeClass)
+                changeClassUI.Show(playerStats, player);
+            else
+                changeClassUI.Hide();
+        }
     }
 
     private void UpdateUI(
@@ -141,6 +157,7 @@ public class PlayerStatsUI : MonoBehaviour, IPlayerStatUI
         {
             int start = Mathf.Max(0, experience - startLevelExperience);
             int needed = Mathf.Max(0, nextLevelExperience - startLevelExperience);
+            Debug.Log($"Exp{experience} Start Exp{startLevelExperience} nextLevelExperience {nextLevelExperience}");
             playerExpDisplay.text = $"{start} / {needed} exp";
         }
         if (playerUpgradeStatsRemainingDisplay != null)
@@ -192,6 +209,21 @@ public class PlayerStatsUI : MonoBehaviour, IPlayerStatUI
         return InventoryManager.Instance.GetRelicStats();
     }
 
+    private void RefreshClassChangePanel()
+    {
+        if (changeClassUI == null)
+            return;
+
+        bool canChangeClass = player != null && player.playerExperience != null && player.playerExperience.CanChangeClass();
+        if (canChangeClass && playerStats != null)
+        {
+            changeClassUI.Show(playerStats, player);
+        }
+        else
+        {
+            changeClassUI.Hide();
+        }
+    }
 
     private void GetLevelExpBounds(int level, out int startExp, out int nextLevelExp)
     {
@@ -211,6 +243,8 @@ public class PlayerStatsUI : MonoBehaviour, IPlayerStatUI
         }
         startExp = Mathf.RoundToInt(curve.Evaluate(level));
         nextLevelExp = Mathf.RoundToInt(curve.Evaluate(level + 1));
+        // Debug.Log($"Start Exp{startExp}");
+        // Debug.Log($"Start Exp{nextLevelExp}");
     }
 
     private void AttachPlayerStats(PlayerStats stats)

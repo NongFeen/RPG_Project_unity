@@ -290,7 +290,7 @@ public class PlayerEquipedItem : NetworkBehaviour
         if (activeWeapon.weaponInstance.weaponData != null)
         {
             activeWeapon.OnDrawWeapon();
-            Debug.Log($"Drawing {activeWeapon.weaponInstance.weaponData.name}");
+            // Debug.Log($"Drawing {activeWeapon.weaponInstance.weaponData.name}");
         }
     }
     public void OnReload()

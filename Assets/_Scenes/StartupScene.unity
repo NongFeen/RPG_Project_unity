@@ -247,6 +247,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 6231319397455131855, guid: 2fd2334535464d745bf14aeeb772e1f2, type: 3}
+    - target: {fileID: 1075870957413954076, guid: 1e345b738b387f54881ddd181f3f7433, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1125497990806776031, guid: 1e345b738b387f54881ddd181f3f7433, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1897,6 +1901,10 @@ PrefabInstance:
     - target: {fileID: 7254123095117972727, guid: a77cbd92d6e9e4e4a8bf96c1dbebd309, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7306363348205469241, guid: a77cbd92d6e9e4e4a8bf96c1dbebd309, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7491342991899843225, guid: a77cbd92d6e9e4e4a8bf96c1dbebd309, type: 3}
       propertyPath: m_IsActive

@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b193f979d6717e498e73d9a206fd12c, type: 3}
-  m_Name: HumanClass
+  m_Script: {fileID: 11500000, guid: 373a9f0e6bf8b224489f859f67eca6f1, type: 3}
+  m_Name: Story_02_data
   m_EditorClassIdentifier: 
-  characterClass: 0
-  skillV: {fileID: 11400000, guid: a404ade557bd82a45a9b231c667c66ec, type: 2}
-  skillQ: {fileID: 0}
-  skillF: {fileID: 0}
+  mapName: 1
+  displayName: Story_02
+  sceneName: Story_02
+  previewImage: {fileID: 0}
+  recommendedLevel: 1
+  mapItemDrop: {fileID: 11400000, guid: 4603e6ae0f0aabb4396dec3fbd394501, type: 2}

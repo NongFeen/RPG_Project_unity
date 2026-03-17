@@ -358,7 +358,6 @@ GameObject:
   - component: {fileID: 3447988077060116251}
   - component: {fileID: 1433378484091147264}
   - component: {fileID: 4995212873685085254}
-  - component: {fileID: 6326442693015793568}
   - component: {fileID: 9114623135003730550}
   - component: {fileID: 704731320939996596}
   - component: {fileID: -2108464116596113877}
@@ -366,6 +365,7 @@ GameObject:
   - component: {fileID: 9015590740763334302}
   - component: {fileID: 7235659161953144731}
   - component: {fileID: -8900828022519834306}
+  - component: {fileID: 6326442693015793568}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -574,6 +574,7 @@ MonoBehaviour:
   rb: {fileID: 3331725097010812407}
   inputReader: {fileID: 11400000, guid: 1103830ac2ad5e24f9122dbb95b609de, type: 2}
   playerExperience: {fileID: 6326442693015793568}
+  playerStats: {fileID: 9114623135003730550}
   characterName: Prefab_Name
   experience: 0
   level: 1
@@ -585,24 +586,6 @@ MonoBehaviour:
     bonusCritDamage: 0
     bonusDamage: 0
   characterClass: 0
---- !u!114 &6326442693015793568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5324988620213499629}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5041528c022622e4183df116d6ac5a73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentLevel: 1
-  totalExperience: 0
-  player: {fileID: 4995212873685085254}
-  levelText: {fileID: 0}
-  experienceText: {fileID: 0}
-  experienceFill: {fileID: 0}
 --- !u!114 &9114623135003730550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -631,6 +614,13 @@ MonoBehaviour:
       bonusCritChance: 0
       bonusCritDamage: 0
       bonusDamage: 0
+  relicStats:
+    m_InternalValue:
+      health: 0
+      defense: 0
+      critRate: 0
+      critDamage: 0
+      extraDamage: 0
   stableStats:
     m_InternalValue:
       health: 0
@@ -701,6 +691,7 @@ MonoBehaviour:
   activeWeapon: {fileID: 0}
   inputReader: {fileID: 11400000, guid: 1103830ac2ad5e24f9122dbb95b609de, type: 2}
   playerAiming: {fileID: 9015590740763334302}
+  playerStats: {fileID: 0}
   weaponParent: {fileID: 8544791998596934045}
 --- !u!114 &9015590740763334302
 MonoBehaviour:
@@ -776,6 +767,21 @@ MonoBehaviour:
     spriteLibraryAsset: {fileID: 7108339969198208228, guid: 3a7b2470e2a9309429f27f3c45ca9ba0, type: 3}
   - classType: 4
     spriteLibraryAsset: {fileID: 7108339969198208228, guid: 81219964343ab884085ad6eebaca3f5d, type: 3}
+--- !u!114 &6326442693015793568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5324988620213499629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5041528c022622e4183df116d6ac5a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentLevel: 1
+  totalExperience: 0
+  player: {fileID: 4995212873685085254}
 --- !u!1 &7400113154753930220
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,7 +838,7 @@ Transform:
   m_GameObject: {fileID: 8544791998596934045}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.75, y: -0.3, z: 0}
+  m_LocalPosition: {x: 0.496, y: -0.402, z: 0}
   m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
   m_ConstrainProportionsScale: 1
   m_Children:

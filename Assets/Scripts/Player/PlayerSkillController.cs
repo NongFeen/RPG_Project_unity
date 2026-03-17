@@ -32,7 +32,12 @@ public class PlayerSkillController : NetworkBehaviour
         {
             inputReader.SkillUseEvents += OnSkillUse;
         }
+
         SetUpSkill(player.GetClassType());
+
+        if (player != null)
+            player.playerClass.OnValueChanged += OnClassChanged;
+
         // print($"Skills Set Up for {player.GetClassType()}");
         //V Q F
         //1 2 3
@@ -79,12 +84,21 @@ public class PlayerSkillController : NetworkBehaviour
             _ => null,
         };
     }
+    private void OnClassChanged(ClassType oldClass, ClassType newClass)
+    {
+        SetUpSkill(newClass);
+    }
+
     public override void OnDestroy()
     {
+        if (player != null)
+            player.playerClass.OnValueChanged -= OnClassChanged;
+
         if (!IsOwner) return;
         inputReader.SkillUseEvents -= OnSkillUse;
         base.OnDestroy();
     }
+
     void Update()
     {
         if (!IsOwner) return;

@@ -9,6 +9,8 @@ public class Player : NetworkBehaviour
     public Rigidbody2D rb;
     [SerializeField] private InputReader inputReader;
     [SerializeField] public PlayerExperience playerExperience;
+    [SerializeField] public PlayerStats playerStats;
+
     public string characterName; 
     public int experience;
     public int level;
@@ -53,8 +55,18 @@ public class Player : NetworkBehaviour
                 bonusStats.bonusCritDamage += 0.02f;
                 break;
         }
-        // RecalculateStats();
         return true;
+    }
+    public void ChangeClass(ClassType newClass)
+    {
+        if (level != 15)
+            return;
+
+        if (characterClass == newClass)
+            return;
+        characterClass = newClass;
+        
+        playerStats.ChangeClassServerRpc(newClass);
     }
 
 
@@ -72,7 +84,7 @@ public class Player : NetworkBehaviour
         data.characterClass = characterClass;
         data.upgradePoints = upgradePoints;
         data.bonusStats = bonusStats;
-        Debug.Log($"Saved Player: {characterName} Lv.{level} EXP:{experience}");
+        // Debug.Log($"Saved Player: {characterName} Lv.{level} EXP:{experience}");
     }
     public void Load(PlayerSaveData data)
     {
@@ -80,7 +92,7 @@ public class Player : NetworkBehaviour
         level = data.level;
         experience = data.experience;
         characterClass = data.characterClass;
-         if(playerExperience != null)
+        if(playerExperience != null)
         {
             playerExperience.SetData(level, experience);
         }

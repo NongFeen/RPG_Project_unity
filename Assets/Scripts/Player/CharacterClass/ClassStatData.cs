@@ -27,5 +27,5 @@ public class ClassStatData : ScriptableObject
         => critRateCurve.Evaluate(level);
 
     public float GetCritDamage(int level)
-        => critDamageCurve.Evaluate(level);
+        => 1.0f + critDamageCurve.Evaluate(level);
 }
