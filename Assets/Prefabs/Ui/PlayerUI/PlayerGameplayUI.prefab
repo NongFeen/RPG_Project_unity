@@ -283,6 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba112a82abfa30a45ae2d8399d0760ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   playerStats: {fileID: 0}
   playerEquipedItem: {fileID: 0}
   playerHealthUI: {fileID: 3496534877606071287}

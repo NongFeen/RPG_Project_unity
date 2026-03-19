@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
+using Unity.Collections;
 
 public class PlayerHealthUI : MonoBehaviour,IPlayerStatUI
 {
@@ -12,7 +13,7 @@ public class PlayerHealthUI : MonoBehaviour,IPlayerStatUI
         public ClassType classType;
         public Sprite sprite;
     }
-
+    [SerializeField] TextMeshProUGUI characterNameText;
     [SerializeField] Image playerIcon;
     [SerializeField] TextMeshProUGUI hpNumberText;
     [SerializeField] private PlayerStats playerStats;
@@ -26,16 +27,11 @@ public class PlayerHealthUI : MonoBehaviour,IPlayerStatUI
         playerStats.currentHP.OnValueChanged += UpdateHp;
         playerStats.activeStats.OnValueChanged += UpdateMaxHp;
         playerStats.playerClass.OnValueChanged += UpdateClassIcon;
+        playerStats.playerName.OnValueChanged += UpdatePlayerName;
         ApplyClassIcon(playerStats.playerClass.Value);
-    }
-    public void SetPlayerData(PlayerStats player)
-    {
-        playerStats = player;
-        UpdateHp(0, playerStats.currentHP.Value);
-        playerStats.currentHP.OnValueChanged += UpdateHp;
-        playerStats.activeStats.OnValueChanged += UpdateMaxHp;
-        playerStats.playerClass.OnValueChanged += UpdateClassIcon;
-        ApplyClassIcon(playerStats.playerClass.Value);
+        // player name is already update before UI, so it need manually set
+        characterNameText.text = playerStats.playerName.Value.ToString();
+        // print("Name : "+characterNameText.text + "  " + playerStats.playerName.Value.ToString());
     }
     private void OnDestroy()
     {
@@ -44,6 +40,7 @@ public class PlayerHealthUI : MonoBehaviour,IPlayerStatUI
             playerStats.currentHP.OnValueChanged -= UpdateHp;
             playerStats.activeStats.OnValueChanged -= UpdateMaxHp;
             playerStats.playerClass.OnValueChanged -= UpdateClassIcon;
+            playerStats.playerName.OnValueChanged -= UpdatePlayerName;
         }
     }
     private void UpdateHp(float oldValue, float newValue)
@@ -60,7 +57,11 @@ public class PlayerHealthUI : MonoBehaviour,IPlayerStatUI
     {
         ApplyClassIcon(newClass);
     }
-
+    private void UpdatePlayerName(FixedString32Bytes oldValue, FixedString32Bytes newValue)
+    {
+        print("PLayerName "+ playerStats.playerName.Value);
+        characterNameText.text = newValue.ToString();
+    }
     private void ApplyClassIcon(ClassType classType)
     {
         if (playerIcon == null) return;

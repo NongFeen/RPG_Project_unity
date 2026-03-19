@@ -95,7 +95,7 @@ public class ServerProjectile : NetworkBehaviour
         rb.linearVelocity = direction * speed;
     }
     public virtual void OnProjectileHit(BaseNPC npc){
-        print("Hit target");
+        // print("Hit target");
         npc.OnHit(damage,isCrit);
     }
 }

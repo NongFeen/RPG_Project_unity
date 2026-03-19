@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 public class PlayerGameplayUI : MonoBehaviour,IPlayerStatUI
 {
+    [SerializeField] private Player player;
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private PlayerEquipedItem playerEquipedItem;
     [SerializeField] private PlayerHealthUI playerHealthUI;
@@ -13,13 +14,12 @@ public class PlayerGameplayUI : MonoBehaviour,IPlayerStatUI
 
     public void SetPlayerData(GameObject player)
     {
-        // playerStats = stats; 
-        playerStats = player.GetComponent<PlayerStats>();
-        // playerEquipedItem = equip;
-        playerEquipedItem = player.GetComponent<PlayerEquipedItem>();;
+        this.player = player.GetComponent<Player>();
+        this.playerStats = player.GetComponent<PlayerStats>();
+        this.playerEquipedItem = player.GetComponent<PlayerEquipedItem>();
+
         playerHealthUI.SetPlayerData(player);
         playerWeaponUI.SetPlayerData(player);
-        // playerSkillUI.SetPlayerData(player);
         playerBuffUI.SetPlayerData(player);
     }
     public void SetPlayerSkill(GameObject player)

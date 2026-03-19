@@ -304,10 +304,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55c5b3be68e65f4479a4e3349157f13b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpText: {fileID: 5557055650737783220}
+  characterNameText: {fileID: 8923027121559892014}
+  playerIcon: {fileID: 0}
   hpNumberText: {fileID: 4414083936351143076}
   playerStats: {fileID: 0}
   HPbar: {fileID: 7588136054874467895}
+  defaultIconSprite: {fileID: 0}
+  classIconSprites: []
 --- !u!1 &3335519840273517288
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +412,7 @@ GameObject:
   - component: {fileID: 8622044437808915725}
   - component: {fileID: 8923027121559892014}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CharacterName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

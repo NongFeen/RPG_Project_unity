@@ -1,15 +1,15 @@
 using UnityEngine;
 using Unity.Netcode;
-using System;
 using System.Collections.Generic;
+using Unity.Collections;
 
 public class PlayerStats : NetworkBehaviour
 {
     [Header("Stats (Network Synced)")]
-    // public NetworkVariable<String> playerName =
-    //     new NetworkVariable<String>("Playername",
-    //         NetworkVariableReadPermission.Everyone,
-    //         NetworkVariableWritePermission.Owner);
+    public NetworkVariable<FixedString32Bytes> playerName = 
+        new NetworkVariable<FixedString32Bytes>("Name",
+            NetworkVariableReadPermission.Everyone,
+            NetworkVariableWritePermission.Server);
     public NetworkVariable<ClassType> playerClass =
         new NetworkVariable<ClassType>(ClassType.Human,
             NetworkVariableReadPermission.Everyone,
@@ -119,10 +119,9 @@ public class PlayerStats : NetworkBehaviour
         // Apply save data
         level.Value = save.level;
         playerClass.Value = save.characterClass;
-
         bonusStats.Value = save.bonusStats;
-
-        Debug.Log($"Loaded save for {clientId}");
+        playerName.Value = save.characterName;
+        Debug.Log($"Loaded save for {clientId} : Name {save.characterName.ToString()}");
     }
     public void TakeDamage(float amount)
     {
