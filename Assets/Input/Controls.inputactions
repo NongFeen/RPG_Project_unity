@@ -217,17 +217,6 @@
                 },
                 {
                     "name": "",
-                    "id": "c15f9af3-30af-49f8-886c-159f1bc629ce",
-                    "path": "<VirtualMouse>/position",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Controller",
-                    "action": "Aim",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "f5cf2de8-950b-4285-80f8-c193201f81a4",
                     "path": "<Keyboard>/f1",
                     "interactions": "",

@@ -76,6 +76,7 @@ public class MapManager : NetworkBehaviour
         grid.SetDimensions(aStarSetting.width,aStarSetting.depth,aStarSetting.nodeSize);
         AstarPath.active.Scan();
         mapItemDrop = GameDatabase.Instance.GetMapDatabase().GetMapData(GameManager.Instance.selectMapName).mapItemDrop;
+        GameManager.Instance.gameState = GameState.InGame;
     }
     private void Update()
     {
@@ -130,7 +131,7 @@ public class MapManager : NetworkBehaviour
             Debug.LogError("Boss spawn failed");
             return;
         }
-
+        GameManager.Instance.gameState = GameState.BossFight;
         bossRef.Value = bossNetObj;
         bossSpawned.Value = true;
     }

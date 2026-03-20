@@ -1,5 +1,6 @@
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.InputSystem;
 public class PlayerShooting : NetworkBehaviour
 {
     [SerializeField] private InputReader inputReader;
@@ -7,6 +8,7 @@ public class PlayerShooting : NetworkBehaviour
     [SerializeField] private PlayerEquipedItem playerEquipedItem;
     [SerializeField] private PlayerStats playerStats;
     private bool isFiring;
+    private Mouse virtualMouse;
     public void Awake()
     {
         playerStats = GetComponent<PlayerStats>();
@@ -74,12 +76,50 @@ public class PlayerShooting : NetworkBehaviour
     }
     public Vector2 AimDirection()
     {
-        // Get mouse position in world space
-        // Vector3 mosPos = inputReader.AimPosition;
-        Vector3 mosPos = Camera.main.ScreenToWorldPoint(inputReader.AimPosition);
+        Vector2 screenAimPos = GetScreenAimPosition();
+        Vector3 mosPos = Camera.main.ScreenToWorldPoint(screenAimPos);
         // Get direction from player to mouse
         Vector2 dir = mosPos - weaponPos.position;
 
         return dir.normalized;
+    }
+    private Vector2 GetScreenAimPosition()
+    {
+        if (inputReader != null && inputReader.activeGameDevice == InputReader.GameDevice.GamePad)
+        {
+            var mouse = GetVirtualMouse();
+            if (mouse != null && mouse.added)
+            {
+                return mouse.position.value;
+            }
+        }
+        return inputReader != null ? inputReader.AimPosition : Vector2.zero;
+    }
+    private Mouse GetVirtualMouse()
+    {
+        if (virtualMouse != null && virtualMouse.added)
+        {
+            return virtualMouse;
+        }
+
+        virtualMouse = InputSystem.GetDevice<Mouse>("VirtualMouse");
+        if (virtualMouse != null)
+        {
+            return virtualMouse;
+        }
+
+        foreach (var device in InputSystem.devices)
+        {
+            if (device is Mouse mouse)
+            {
+                if (mouse.layout == "VirtualMouse" || mouse.displayName == "VirtualMouse" || mouse.name == "VirtualMouse")
+                {
+                    virtualMouse = mouse;
+                    return virtualMouse;
+                }
+            }
+        }
+
+        return null;
     }
 }   

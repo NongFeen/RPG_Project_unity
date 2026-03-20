@@ -1645,6 +1645,46 @@ MonoBehaviour:
   virtualMouseInput: {fileID: 938922120}
   canvasRectTransform: {fileID: 1739935269}
   inputReader: {fileID: 11400000, guid: 1103830ac2ad5e24f9122dbb95b609de, type: 2}
+  menuStickAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Menu Stick
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: fa18bf12-d00c-4aca-898c-259397403397
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: 33615e99-112d-4982-86b0-d694e605f9c2
+        m_Path: <Gamepad>/leftStick
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Menu Stick
+        m_Flags: 0
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  gameplayStickAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Gameplay Stick
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: d342b5b2-d38c-493a-a1da-144515c9121c
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: ee8278f9-a634-437e-9912-2ed1780a7db5
+        m_Path: <Gamepad>/rightStick
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Gameplay Stick
+        m_Flags: 0
+      m_Flags: 0
+    m_Reference: {fileID: 0}
 --- !u!1 &953582289
 GameObject:
   m_ObjectHideFlags: 0
