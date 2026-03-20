@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 373a9f0e6bf8b224489f859f67eca6f1, type: 3}
   m_Name: Raid_01_data
   m_EditorClassIdentifier: 
-  mapName: 0
-  displayName: Story_01
-  sceneName: Story_01
+  mapName: 10
+  displayName: Raid_01
+  sceneName: Raid_01
   previewImage: {fileID: 0}
   recommendedLevel: 1
-  mapItemDrop: {fileID: 11400000, guid: 4603e6ae0f0aabb4396dec3fbd394501, type: 2}
+  mapItemDrop: {fileID: 11400000, guid: c9f31c9fe6cc3ba41b0d5a587d495950, type: 2}

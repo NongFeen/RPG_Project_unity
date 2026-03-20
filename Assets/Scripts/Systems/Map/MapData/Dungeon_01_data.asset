@@ -17,4 +17,4 @@ MonoBehaviour:
   sceneName: Dungeon_01
   previewImage: {fileID: 0}
   recommendedLevel: 1
-  mapItemDrop: {fileID: 11400000, guid: 4603e6ae0f0aabb4396dec3fbd394501, type: 2}
+  mapItemDrop: {fileID: 11400000, guid: a054b929bb662394d842efad377e7772, type: 2}

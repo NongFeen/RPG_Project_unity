@@ -184,9 +184,14 @@ public class MapManager : NetworkBehaviour
 
         Debug.Log("Map Completed!");
         int totalExperienceReward = mapExperienceReward + pendingExperienceReward;
+
         List<WeaponInstance> droppedItems = GenerateItemDrop();
-        droppedItems.AddRange(pendingWeaponDrops);
+        if(droppedItems.Count >0)
+            droppedItems.AddRange(pendingWeaponDrops);
+        
+        
         List<RelicInstance> relicDrops = new List<RelicInstance>(pendingRelicDrops);
+        
         GameManager.Instance.OnGameComplete(totalExperienceReward, droppedItems, relicDrops);
         ClearPendingRewards();
 

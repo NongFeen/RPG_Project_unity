@@ -14,10 +14,11 @@ public class InputReader : ScriptableObject, IPlayerActions
     public event Action<int> SkillUseEvents;
     public event Action<Vector2> MoveEvents;
     public event Action<bool> EscapeKey;
-
+    public event Action OnBindingsChanged;
+    public event Action<string> OnRebindStarted;
+    private InputActionRebindingExtensions.RebindingOperation currentRebind;
     public InputAction OpenInventoryAction => controls.Player.OpenInventory;
     public Vector2 AimPosition { get; private set; }
-    public event Action<bool> SpawnEnemyEvents;
 
     private Controls controls;
 
@@ -49,7 +50,7 @@ public class InputReader : ScriptableObject, IPlayerActions
         {
             controls = new Controls();
         }
-
+        LoadRebinds();
         controls.Player.SetCallbacks(this);
         controls.Player.Enable();
     }
@@ -101,14 +102,6 @@ public class InputReader : ScriptableObject, IPlayerActions
         if (context.performed) SelectActiveItemEvents?.Invoke(2);
     }
 
-    public void OnSpawnEnemy(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-            SpawnEnemyEvents?.Invoke(true);
-        else if (context.canceled)
-            SpawnEnemyEvents?.Invoke(false);
-    }
-
     public void OnReload(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -137,4 +130,107 @@ public class InputReader : ScriptableObject, IPlayerActions
         if(context.performed) EscapeKey?.Invoke(true);
         else if (context.canceled) EscapeKey?.Invoke(false); 
     } 
+
+    #region Rebinding 
+    public void StartRebind(string actionName, int bindingIndex = 0)
+    {
+        // 🔒 Safety: controls must exist
+        if (controls == null)
+        {
+            Debug.LogError("Controls not initialized");
+            return;
+        }
+
+        var action = controls.asset.FindAction(actionName);
+
+        // 🔒 Safety: action must exist
+        if (action == null)
+        {
+            Debug.LogError($"Action '{actionName}' not found");
+            return;
+        }
+
+        // 🔒 Safety: binding index valid
+        if (bindingIndex < 0 || bindingIndex >= action.bindings.Count)
+        {
+            Debug.LogError($"Invalid binding index {bindingIndex} for action '{actionName}'");
+            return;
+        }
+
+        // 🧹 Cancel previous rebind if exists
+        if (currentRebind != null)
+        {
+            currentRebind.Cancel();
+            currentRebind.Dispose();
+            currentRebind = null;
+        }
+
+        // 🔕 Disable ALL input during rebind (important)
+        controls.Player.Disable();
+
+        // 📢 Notify UI (e.g. "Press any key...")
+        OnRebindStarted?.Invoke(actionName);
+
+        // 🎯 Start rebinding
+        currentRebind = action.PerformInteractiveRebinding(bindingIndex)
+            .WithCancelingThrough("<Keyboard>/escape")
+            .WithControlsExcluding("Mouse")
+            .WithControlsExcluding("<Pointer>")
+            .WithControlsExcluding("<Touchscreen>")
+
+            .OnComplete(operation =>
+            {
+                operation.Dispose();
+                currentRebind = null;
+
+                // 🔊 Re-enable input
+                controls.Player.Enable();
+
+                // 💾 Save binding
+                SaveRebinds();
+
+                // 🔄 Notify UI to refresh
+                OnBindingsChanged?.Invoke();
+
+                Debug.Log($"Rebind complete: {actionName}");
+            })
+
+            .OnCancel(operation =>
+            {
+                operation.Dispose();
+                currentRebind = null;
+
+                // 🔊 Re-enable input
+                controls.Player.Enable();
+
+                Debug.Log("Rebind canceled");
+            });
+
+        currentRebind.Start();
+    }
+    public string GetBindingName(string actionName, int bindingIndex = 0)
+    {
+        var action = controls.asset.FindAction(actionName);
+        return action.bindings[bindingIndex].ToDisplayString();
+    }
+    public void SaveRebinds()
+    {
+        var rebinds = controls.asset.SaveBindingOverridesAsJson();
+        PlayerPrefs.SetString("rebinds", rebinds);
+    }
+    public void LoadRebinds()
+    {
+        if (PlayerPrefs.HasKey("rebinds"))
+        {
+            var rebinds = PlayerPrefs.GetString("rebinds");
+            controls.asset.LoadBindingOverridesFromJson(rebinds);
+        }
+    }
+    public void ResetBindings()
+    {
+        controls.asset.RemoveAllBindingOverrides();
+        SaveRebinds();
+        OnBindingsChanged?.Invoke();
+    }
+    #endregion
 }

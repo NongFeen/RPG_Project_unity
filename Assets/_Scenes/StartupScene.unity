@@ -415,6 +415,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -55
       objectReference: {fileID: 0}
+    - target: {fileID: 8293728234752553507, guid: 1e345b738b387f54881ddd181f3f7433, type: 3}
+      propertyPath: m_Name
+      value: 'NameText '
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293728234752553507, guid: 1e345b738b387f54881ddd181f3f7433, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8299176053958467007, guid: 1e345b738b387f54881ddd181f3f7433, type: 3}
       propertyPath: buffCardPrefab
       value: 

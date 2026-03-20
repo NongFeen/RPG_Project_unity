@@ -17,4 +17,4 @@ MonoBehaviour:
   sceneName: Story_04
   previewImage: {fileID: 0}
   recommendedLevel: 1
-  mapItemDrop: {fileID: 11400000, guid: 4603e6ae0f0aabb4396dec3fbd394501, type: 2}
+  mapItemDrop: {fileID: 11400000, guid: 3031e29d62e8209449751e8ab9b74b2d, type: 2}

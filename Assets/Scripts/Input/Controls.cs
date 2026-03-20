@@ -156,15 +156,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SpawnEnemy"",
-                    ""type"": ""Button"",
-                    ""id"": ""2b606118-bcb0-4a6f-aef6-80d1140c997d"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Reload"",
                     ""type"": ""Button"",
                     ""id"": ""0f60a119-96a6-4aa0-95ab-9393bd0e6003"",
@@ -218,6 +209,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Mouse&Keyboard"",
+                    ""action"": ""PrimaryFire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ff686c03-c58d-4f95-b986-87da1430dd51"",
+                    ""path"": ""<XInputController>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
                     ""action"": ""PrimaryFire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -279,6 +281,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""62c20511-ab45-416d-8fb0-78ba662d24be"",
+                    ""path"": ""<XInputController>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""683e2f63-cd4a-446a-a614-f5d63d773e90"",
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
@@ -290,11 +303,33 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""c15f9af3-30af-49f8-886c-159f1bc629ce"",
+                    ""path"": ""<XInputController>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""f5cf2de8-950b-4285-80f8-c193201f81a4"",
                     ""path"": ""<Keyboard>/f1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Mouse&Keyboard"",
+                    ""action"": ""OpenInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b4e2daec-a035-48e3-aaed-9fb62e4f0611"",
+                    ""path"": ""<XInputController>/{Back}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
                     ""action"": ""OpenInventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -329,17 +364,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Mouse&Keyboard"",
                     ""action"": ""OnSelectSlot3"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3f25c147-5050-4dcb-9382-7775dc33b6fd"",
-                    ""path"": ""<Keyboard>/p"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Mouse&Keyboard"",
-                    ""action"": ""SpawnEnemy"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -397,6 +421,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0dbcda46-c0bc-4279-9013-67e233476458"",
+                    ""path"": ""<XInputController>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -417,6 +452,11 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""isOR"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Controller"",
+            ""bindingGroup"": ""Controller"",
+            ""devices"": []
         }
     ]
 }");
@@ -429,7 +469,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_OnSelectSlot1 = m_Player.FindAction("OnSelectSlot1", throwIfNotFound: true);
         m_Player_OnSelectSlot2 = m_Player.FindAction("OnSelectSlot2", throwIfNotFound: true);
         m_Player_OnSelectSlot3 = m_Player.FindAction("OnSelectSlot3", throwIfNotFound: true);
-        m_Player_SpawnEnemy = m_Player.FindAction("SpawnEnemy", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
         m_Player_Skill1 = m_Player.FindAction("Skill1", throwIfNotFound: true);
         m_Player_Skill2 = m_Player.FindAction("Skill2", throwIfNotFound: true);
@@ -522,7 +561,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_OnSelectSlot1;
     private readonly InputAction m_Player_OnSelectSlot2;
     private readonly InputAction m_Player_OnSelectSlot3;
-    private readonly InputAction m_Player_SpawnEnemy;
     private readonly InputAction m_Player_Reload;
     private readonly InputAction m_Player_Skill1;
     private readonly InputAction m_Player_Skill2;
@@ -567,10 +605,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/OnSelectSlot3".
         /// </summary>
         public InputAction @OnSelectSlot3 => m_Wrapper.m_Player_OnSelectSlot3;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/SpawnEnemy".
-        /// </summary>
-        public InputAction @SpawnEnemy => m_Wrapper.m_Player_SpawnEnemy;
         /// <summary>
         /// Provides access to the underlying input action "Player/Reload".
         /// </summary>
@@ -638,9 +672,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @OnSelectSlot3.started += instance.OnOnSelectSlot3;
             @OnSelectSlot3.performed += instance.OnOnSelectSlot3;
             @OnSelectSlot3.canceled += instance.OnOnSelectSlot3;
-            @SpawnEnemy.started += instance.OnSpawnEnemy;
-            @SpawnEnemy.performed += instance.OnSpawnEnemy;
-            @SpawnEnemy.canceled += instance.OnSpawnEnemy;
             @Reload.started += instance.OnReload;
             @Reload.performed += instance.OnReload;
             @Reload.canceled += instance.OnReload;
@@ -688,9 +719,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @OnSelectSlot3.started -= instance.OnOnSelectSlot3;
             @OnSelectSlot3.performed -= instance.OnOnSelectSlot3;
             @OnSelectSlot3.canceled -= instance.OnOnSelectSlot3;
-            @SpawnEnemy.started -= instance.OnSpawnEnemy;
-            @SpawnEnemy.performed -= instance.OnSpawnEnemy;
-            @SpawnEnemy.canceled -= instance.OnSpawnEnemy;
             @Reload.started -= instance.OnReload;
             @Reload.performed -= instance.OnReload;
             @Reload.canceled -= instance.OnReload;
@@ -752,6 +780,19 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_MouseKeyboardSchemeIndex];
         }
     }
+    private int m_ControllerSchemeIndex = -1;
+    /// <summary>
+    /// Provides access to the input control scheme.
+    /// </summary>
+    /// <seealso cref="UnityEngine.InputSystem.InputControlScheme" />
+    public InputControlScheme ControllerScheme
+    {
+        get
+        {
+            if (m_ControllerSchemeIndex == -1) m_ControllerSchemeIndex = asset.FindControlSchemeIndex("Controller");
+            return asset.controlSchemes[m_ControllerSchemeIndex];
+        }
+    }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Player" which allows adding and removing callbacks.
     /// </summary>
@@ -808,13 +849,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnOnSelectSlot3(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "SpawnEnemy" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnSpawnEnemy(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Reload" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
