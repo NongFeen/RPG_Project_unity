@@ -31,10 +31,6 @@ public class GameManager : NetworkBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         gameState = GameState.MainMenu;
-        // if (inventoryCanvasUI != null)
-        // {
-        //     // DontDestroyOnLoad(inventoryCanvasUI);
-        // }
     }
     public void Update()
     {

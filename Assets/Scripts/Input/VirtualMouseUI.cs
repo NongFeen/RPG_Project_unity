@@ -1,0 +1,79 @@
+using System;
+using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.InputSystem.UI;
+using UnityEngine.UI;
+
+[RequireComponent(typeof(VirtualMouseInput))]
+public class VirtualMouseUI : MonoBehaviour
+{
+    [SerializeField]private VirtualMouseInput virtualMouseInput;
+    [SerializeField]private RectTransform canvasRectTransform;
+    [SerializeField] InputReader inputReader;
+    private Graphic cursorGraphic;
+    private bool pendingIsMnK;
+    private bool hasPendingChange;
+    private void Awake()
+    {
+        virtualMouseInput = GetComponent<VirtualMouseInput>();
+        if (virtualMouseInput != null)
+        {
+            cursorGraphic = virtualMouseInput.cursorGraphic;
+        }
+
+    }
+    private void Start()
+    {
+        inputReader.OnGameDeviceChange += DeviceChange;
+    }
+
+    private void DeviceChange(bool isMnK)
+    {
+        pendingIsMnK = isMnK;
+        hasPendingChange = true;
+    }
+
+    private void UpdateVisibiliy(bool isMnK)
+    {
+        if (isMnK)
+            Hide();
+        else
+            Show();
+    }
+    void Hide()
+    {
+        if (cursorGraphic != null)
+        {
+            cursorGraphic.enabled = false;
+        }
+    }
+    void Show()
+    {
+        if (cursorGraphic != null)
+        {
+            cursorGraphic.enabled = true;
+        }
+    }
+
+    void Update()
+    {
+        if (hasPendingChange)
+        {
+            hasPendingChange = false;
+            UpdateVisibiliy(pendingIsMnK);
+        }
+
+        transform.localScale = Vector3.one * (1f/ canvasRectTransform.localScale.x);
+    }
+    private void LateUpdate()
+    {
+        if (virtualMouseInput == null) return;
+        if (virtualMouseInput.virtualMouse == null) return;
+        if (!virtualMouseInput.virtualMouse.added) return;
+
+        Vector2 virtualMousePosition = virtualMouseInput.virtualMouse.position.value;
+        virtualMousePosition.x = Mathf.Clamp(virtualMousePosition.x,0f,Screen.width);
+        virtualMousePosition.y = Mathf.Clamp(virtualMousePosition.y,0f,Screen.height);
+        InputState.Change(virtualMouseInput.virtualMouse.position,virtualMousePosition);
+    }
+}

@@ -13,6 +13,11 @@ public class RebindButton : MonoBehaviour
 
     private void Awake()
     {
+        if(button== null)
+        {
+            this.TryGetComponent<Button>(out var btn);
+            button = btn;
+        }
         button.onClick.AddListener(OnClick);
     }
 
