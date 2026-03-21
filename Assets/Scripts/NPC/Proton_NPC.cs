@@ -23,6 +23,8 @@ public class Proton_NPC : BaseNPC
 
     private Vector2 dashDirection;
 
+    private static readonly int ProtonChargeTrigger = Animator.StringToHash("ProtonCharge");
+
 
     public enum ProtonState
     {
@@ -51,6 +53,14 @@ public class Proton_NPC : BaseNPC
 
         if (IsServer)
             SetState(ProtonState.Idle);
+
+        npcState.OnValueChanged += OnStateChanged;
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        npcState.OnValueChanged -= OnStateChanged;
+        base.OnNetworkDespawn();
     }
 
     protected override void Update()
@@ -98,6 +108,17 @@ public class Proton_NPC : BaseNPC
     {
         npcState.Value = newState;
         stateTimer = 0f;
+    }
+
+    private void OnStateChanged(ProtonState oldState, ProtonState newState)
+    {
+        if (animator == null) return;
+
+        // Fire charge animation when entering Aim state.
+        if (newState == ProtonState.Aim)
+        {
+            animator.SetTrigger(ProtonChargeTrigger);
+        }
     }
 
     void UpdateIdle()
