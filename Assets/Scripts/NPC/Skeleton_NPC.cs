@@ -7,7 +7,7 @@ using System;
 public class Skeleton_NPC : BaseNPC
 {
     AIPath aiPath;
-
+    
     protected override void Awake()
     {
         base.Awake();

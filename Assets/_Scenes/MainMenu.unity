@@ -2808,6 +2808,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1632992093}
     m_Modifications:
+    - target: {fileID: 358745510810439421, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 363820815948546909, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -2839,6 +2843,10 @@ PrefabInstance:
     - target: {fileID: 363820815948546909, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 445043270752618902, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 735400491975863982, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -2903,6 +2911,10 @@ PrefabInstance:
     - target: {fileID: 1903013045005471369, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2362979687414967373, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3376918420465317820, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
       propertyPath: m_Pivot.x
@@ -2989,6 +3001,18 @@ PrefabInstance:
       value: MapSelectMenu
       objectReference: {fileID: 0}
     - target: {fileID: 4524204273840003540, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546042825902657206, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5501512410120444580, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6928917875137723410, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

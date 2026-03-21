@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -5570352919031550935, guid: e8a7603208c029c4a827064cab0259fe, type: 3}
+    - target: {fileID: 67750148095859521, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3431919067030215821, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
       propertyPath: m_Name
       value: Skeleton
@@ -72,17 +76,41 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4289218053732195853, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+      propertyPath: m_Name
+      value: Sprite
+      objectReference: {fileID: 0}
     - target: {fileID: 5400721118391141185, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3177356207
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5703590214518497900, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+      propertyPath: m_Size.x
+      value: 0.31111112
+      objectReference: {fileID: 0}
+    - target: {fileID: 5703590214518497900, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+      propertyPath: m_Size.y
+      value: 0.47666666
+      objectReference: {fileID: 0}
+    - target: {fileID: 5703590214518497900, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -8268918818784027049, guid: 20eb41333505d424d85065e2951f3340, type: 3}
+    - target: {fileID: 5703590214518497900, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2428021452842083496, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3431919067030215821, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9207753022146325731}
+    - targetCorrespondingSourceObject: {fileID: 3431919067030215821, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5632262277406043515}
   m_SourcePrefab: {fileID: 100100000, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
 --- !u!1 &6242414147363201484 stripped
 GameObject:
@@ -122,12 +150,29 @@ MonoBehaviour:
   currentHealth:
     m_InternalValue: 100
   rb: {fileID: 0}
-  animator: {fileID: 6391507302115121641}
+  animator: {fileID: 5632262277406043515}
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 128
---- !u!95 &6391507302115121641 stripped
+--- !u!95 &5632262277406043515
 Animator:
-  m_CorrespondingSourceObject: {fileID: 2428021452842083496, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
-  m_PrefabInstance: {fileID: 8719288435871661377}
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6242414147363201484}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7a6f28f59041de64ca36b74a447bd8b0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

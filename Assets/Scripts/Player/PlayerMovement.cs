@@ -69,6 +69,10 @@ public class PlayerMovement : NetworkBehaviour
         {
             return;
         }
+
+        gameObject.TryGetComponent<PlayerStats>(out var playerStats);
+        if(playerStats.IsGhost)return;
+
         Vector2 movementVelocity = baseMoveSpeed * moveInput;
         rb.linearVelocity = movementVelocity + externalVelocity;
         externalVelocity = Vector2.Lerp(externalVelocity, Vector2.zero, 10f * Time.fixedDeltaTime);
@@ -88,5 +92,9 @@ public class PlayerMovement : NetworkBehaviour
     public void AddExternalVelocity(Vector2 force)
     {
         externalVelocity += force;
+    }
+    public Vector2 GetMoveInput()
+    {
+        return moveInput;
     }
 }

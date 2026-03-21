@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf2c3781c933ff439b5f9717b580c02, type: 3}
+  m_Name: JohnDialogue
+  m_EditorClassIdentifier: 
+  npcName: John
+  dialogueLine:
+  - Welcome New Adventure!
+  - We are here to teach you some basic.
+  - There are 3 weapon slots you can swap to. And Relic to increase your stats
+  - Press F1 (Default) to look at your inventory. (Look at setting for your keybinds)
+  - 'You can level up to 30 levels. Each level give you 1 stats point to use. '
+  - At level 15 you can change your class to 3 classes.Each class have there own
+    ability to use.
+  - Ranger. High damage but low survivability.
+  - Tank. High survivability but low damage.
+  - Priest. Mid for both survivability and damage but can support others.
+  - There is a target dummy to test your weapon. You can come back to me anytime
+    to try out your new weapon.
+  textSpeed: 0.05
+  autoProgressDeley: 1.5

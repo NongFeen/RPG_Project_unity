@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
     [SerializeField] private GameObject PlayerHUDUI;
     [SerializeField] private GameObject SettingMenu;
+    [SerializeField] public GameObject dialoguePanel;
     [SerializeField] private Stack<GameObject> menuStack = new Stack<GameObject>();
     [SerializeField] InputReader inputReader;
     private void Awake()
