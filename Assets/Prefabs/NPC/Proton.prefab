@@ -151,6 +151,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 7095948284930971354, guid: 439e9f8c1437b0f4385ff6443e102905, type: 3}
+    - target: {fileID: 67750148095859521, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428021452842083496, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3431919067030215821, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
       propertyPath: m_Name
       value: Proton
@@ -195,6 +203,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4289218053732195853, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+      propertyPath: m_Name
+      value: Sprite
+      objectReference: {fileID: 0}
     - target: {fileID: 5175192876903583976, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
       propertyPath: m_Radius
       value: 0.6
@@ -207,6 +219,22 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 982773049
       objectReference: {fileID: 0}
+    - target: {fileID: 5703590214518497900, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+      propertyPath: m_Size.x
+      value: 3.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 5703590214518497900, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+      propertyPath: m_Size.y
+      value: 3.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 5703590214518497900, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 446317196916810961, guid: d5d775b030e70b7488e8599b111cfbbc, type: 3}
+    - target: {fileID: 5703590214518497900, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8348459132850889927, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
       propertyPath: m_Radius
       value: 0.6
@@ -215,7 +243,8 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: -0.07
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2428021452842083496, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3513584160700304900, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
@@ -225,6 +254,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3431919067030215821, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
       insertIndex: -1
       addedObject: {fileID: -5933685270815696485}
+    - targetCorrespondingSourceObject: {fileID: 3431919067030215821, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6770452176281782035}
   m_SourcePrefab: {fileID: 100100000, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
 --- !u!1 &3051449957824930752 stripped
 GameObject:
@@ -264,7 +296,7 @@ MonoBehaviour:
   currentHealth:
     m_InternalValue: 500
   rb: {fileID: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 6770452176281782035}
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -273,12 +305,32 @@ MonoBehaviour:
   idleSpeedMultiplier: 1
   aimDuration: 2
   dashSpeed: 10
-  dashDuration: 1
-  recoverDuration: 6
   dashMaxDuration: 5
   decelerationRate: 15
   npcState:
     m_InternalValue: 0
+--- !u!95 &6770452176281782035
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3051449957824930752}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0d7b145fed41faf4fa188d4ad09cb61f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &3835535852051362121 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3513584160700304900, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
