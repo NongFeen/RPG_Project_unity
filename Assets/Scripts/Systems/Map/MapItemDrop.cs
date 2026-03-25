@@ -9,7 +9,7 @@ public class MapItemDrop : ScriptableObject
     public List<Item> GetDroppedItems()
     {
         List<Item> droppedItems = new();
-        Debug.LogError("PossibleDrop " + possibleDrops[0].item.itemName);
+        // Debug.LogError("PossibleDrop " + possibleDrops[0].item.itemName);
         foreach (ItemDropEntry entry in this.possibleDrops)
         {
             float roll = Random.Range(0f, 1f);

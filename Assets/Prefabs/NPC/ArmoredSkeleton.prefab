@@ -151,6 +151,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 3438810907341637790, guid: 1df1f1efdf7e60b428dec00b5999e02a, type: 3}
+    - target: {fileID: 2428021452842083496, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3431919067030215821, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
       propertyPath: m_Name
       value: ArmoredSkeleton
@@ -211,6 +215,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4289218053732195853, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+      propertyPath: m_Name
+      value: Sprite
+      objectReference: {fileID: 0}
     - target: {fileID: 5175192876903583976, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
       propertyPath: m_Radius
       value: 0.16
@@ -231,7 +239,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2428021452842083496, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3513584160700304900, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
@@ -241,15 +250,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3431919067030215821, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8669224832383276795}
+    - targetCorrespondingSourceObject: {fileID: 3431919067030215821, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5956602012200168777}
   m_SourcePrefab: {fileID: 100100000, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
 --- !u!4 &174264464000562361 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3513584160700304900, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
-  m_PrefabInstance: {fileID: 3650693850441267901}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1376920693449367061 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2428021452842083496, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
   m_PrefabInstance: {fileID: 3650693850441267901}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2092342605738731056 stripped
@@ -290,10 +297,13 @@ MonoBehaviour:
   currentHealth:
     m_InternalValue: 3500
   rb: {fileID: 0}
-  animator: {fileID: 1376920693449367061}
+  animator: {fileID: 5956602012200168777}
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 128
+  spriteRenderer: {fileID: 9047423385269033169}
+  spriteRoot: {fileID: 6262777665092377751}
+  faceDeadzone: 0.01
   baseAimDuration: 1
   baseDashSpeed: 12
   minDashDuration: 0.2
@@ -303,3 +313,35 @@ MonoBehaviour:
   aimLine: {fileID: 6640496618529617913}
   npcState:
     m_InternalValue: 0
+--- !u!95 &5956602012200168777
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092342605738731056}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b89c4344821386e49912022b7d42bc82, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!4 &6262777665092377751 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7223780039271507498, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+  m_PrefabInstance: {fileID: 3650693850441267901}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &9047423385269033169 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5703590214518497900, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+  m_PrefabInstance: {fileID: 3650693850441267901}
+  m_PrefabAsset: {fileID: 0}

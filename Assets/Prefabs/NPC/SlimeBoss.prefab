@@ -173,10 +173,12 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 128
+  spriteRenderer: {fileID: 4870178380008107006}
+  spriteRoot: {fileID: 7561937219359518648}
+  faceDeadzone: 0.01
   aoeProjectilePrefab: {fileID: 2636463631664538298, guid: 13dc9ff48f599ad4eb78efc8d50cca21, type: 3}
   jumpUpDuration: 0.5
   moveMinDuration: 0.2
-  slamDuration: 1
   attackCooldownTime: 2
   NPCLayerMask:
     serializedVersion: 2
@@ -212,3 +214,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slime: {fileID: 0}
+--- !u!212 &4870178380008107006 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5703590214518497900, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+  m_PrefabInstance: {fileID: 914618277071636882}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7561937219359518648 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7223780039271507498, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+  m_PrefabInstance: {fileID: 914618277071636882}
+  m_PrefabAsset: {fileID: 0}

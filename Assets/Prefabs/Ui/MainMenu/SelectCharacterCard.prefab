@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9811321, g: 0.7913849, b: 0.7913849, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 924353284519227911}
   - component: {fileID: 2632267602838571547}
   - component: {fileID: 5009230418174118702}
+  - component: {fileID: 649343251947443561}
   m_Layer: 5
   m_Name: SelectCharacterCard
   m_TagString: Untagged
@@ -134,9 +135,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feb6d8d3d0f8d5c47a46d574f6161b7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  classIconSprites:
+  - classType: 0
+    sprite: {fileID: -7796864351666666146, guid: 49f61281e78157f41a8cb14917e9d1db, type: 3}
+  - classType: 1
+    sprite: {fileID: -843801121442313827, guid: fb5872c275a79564daf933c5e3e45e7f, type: 3}
+  - classType: 2
+    sprite: {fileID: -7777412095868867932, guid: d3911fa40bd866247add8116f44e13ec, type: 3}
+  - classType: 3
+    sprite: {fileID: -3825355267081067428, guid: 54a1f00d3ab74bc4887d1b8c9570ede9, type: 3}
+  - classType: 4
+    sprite: {fileID: -7744115289829805025, guid: bd495bbf993a5824b9a587259734e97f, type: 3}
+  charIcon: {fileID: 520309632550891697}
   charNameText: {fileID: 1761074712614923784}
   charLevelText: {fileID: 3647198585999745301}
   charClassText: {fileID: 9114117032391649251}
+--- !u!114 &649343251947443561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625825097033645677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1b49db80d2c286419a862a40688124c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetMenu: []
 --- !u!1 &1715743024112138158
 GameObject:
   m_ObjectHideFlags: 0

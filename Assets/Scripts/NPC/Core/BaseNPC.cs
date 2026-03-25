@@ -1,5 +1,6 @@
 using UnityEngine;
 using Unity.Netcode;
+using Pathfinding;
 
 public abstract class BaseNPC : NetworkBehaviour
 {
@@ -33,6 +34,11 @@ public abstract class BaseNPC : NetworkBehaviour
     [Header("Animation")]
     [SerializeField] public Animator animator;
     [SerializeField] public LayerMask obstacleLayer;
+    [Header("Visual Facing")]
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Transform spriteRoot;
+    [SerializeField] private float faceDeadzone = 0.01f;
+    private AIPath aiPath;
 
     public override void OnNetworkSpawn()
     {
@@ -49,6 +55,26 @@ public abstract class BaseNPC : NetworkBehaviour
 
     protected virtual void Awake()
     {
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
+        aiPath = GetComponent<AIPath>();
+        if (spriteRoot == null)
+        {
+            spriteRoot = GetComponentInChildren<Transform>();
+        }
+        // Default all enemies to face left.
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (spriteRoot != null)
+        {
+            Vector3 scale = spriteRoot.localScale;
+            scale.x = Mathf.Abs(scale.x);
+            spriteRoot.localScale = scale;
+        }
     }
 
     protected virtual void Update()
@@ -57,6 +83,11 @@ public abstract class BaseNPC : NetworkBehaviour
 
         FindTarget();
         HandleBehavior();
+    }
+
+    protected virtual void LateUpdate()
+    {
+        UpdateFacing();
     }
 
     protected virtual void FindTarget()
@@ -96,6 +127,39 @@ public abstract class BaseNPC : NetworkBehaviour
     {
         Vector2 dir = (destination - transform.position).normalized;
         rb.MovePosition(rb.position + dir * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    private void UpdateFacing()
+    {
+        float vx = 0f;
+        bool hasVelocity = false;
+
+        if (rb != null)
+        {
+            vx = rb.linearVelocity.x;
+            hasVelocity = Mathf.Abs(vx) > faceDeadzone;
+        }
+
+        if (!hasVelocity && aiPath != null)
+        {
+            vx = aiPath.desiredVelocity.x;
+            hasVelocity = Mathf.Abs(vx) > faceDeadzone;
+        }
+
+        if (!hasVelocity) return;
+
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.flipX = vx > 0f;
+            return;
+        }
+
+        if (spriteRoot == null) return;
+
+        Vector3 scale = spriteRoot.localScale;
+        float sign = vx < 0f ? -1f : 1f;
+        scale.x = Mathf.Abs(scale.x) * sign;
+        spriteRoot.localScale = scale;
     }
 
     protected virtual void TryAttack()

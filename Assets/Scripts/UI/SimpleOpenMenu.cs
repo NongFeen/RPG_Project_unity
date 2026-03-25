@@ -3,16 +3,17 @@ using UnityEngine;
 
 public class SimpleOpenMenu : MonoBehaviour
 {
-    [SerializeField] List<GameObject> targetMenu; 
+    [SerializeField] public List<GameObject> targetMenu; 
 
     public void OpenTargetMenu(){
-        foreach (GameObject menu in targetMenu)
-        {
-            UIManager.Instance.OpenMenu(menu);
-        }
+        UIManager.Instance.OpenMenuGroup(targetMenu);
     }
     public void Close()
     {
         UIManager.Instance.CloseTopMenu();
+    }
+    public void SetTargetMenu(List<GameObject> newTargetmenu)
+    {
+        targetMenu = newTargetmenu;
     }
 }

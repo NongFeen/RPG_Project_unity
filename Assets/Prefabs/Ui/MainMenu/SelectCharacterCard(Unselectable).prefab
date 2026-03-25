@@ -134,6 +134,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feb6d8d3d0f8d5c47a46d574f6161b7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  classIconSprites:
+  - classType: 0
+    sprite: {fileID: -7796864351666666146, guid: 49f61281e78157f41a8cb14917e9d1db, type: 3}
+  - classType: 1
+    sprite: {fileID: -843801121442313827, guid: fb5872c275a79564daf933c5e3e45e7f, type: 3}
+  - classType: 2
+    sprite: {fileID: -7777412095868867932, guid: d3911fa40bd866247add8116f44e13ec, type: 3}
+  - classType: 3
+    sprite: {fileID: -3825355267081067428, guid: 54a1f00d3ab74bc4887d1b8c9570ede9, type: 3}
+  - classType: 4
+    sprite: {fileID: -7744115289829805025, guid: bd495bbf993a5824b9a587259734e97f, type: 3}
+  charIcon: {fileID: 520309632550891697}
   charNameText: {fileID: 1761074712614923784}
   charLevelText: {fileID: 3647198585999745301}
   charClassText: {fileID: 9114117032391649251}

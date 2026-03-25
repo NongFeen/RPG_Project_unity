@@ -74,10 +74,12 @@
         }
         void OnTriggerEnter2D(Collider2D collision)
         {
+            if(collision.CompareTag("Player"))
             PlayerInRange();
         }
         void OnTriggerExit2D(Collider2D collision)
         {
+            if(collision.CompareTag("Player"))
             PlayerOutOfRange();
         }
     }

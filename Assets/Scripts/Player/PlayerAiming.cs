@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.Netcode;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerSprite))]
 public class PlayerAiming : NetworkBehaviour
 {
@@ -15,12 +16,13 @@ public class PlayerAiming : NetworkBehaviour
     [SerializeField] private float reloadSpinSpeed = 1000f;
     [SerializeField] private float facingFlipDeadzone = 0.05f;
     private float reloadSpinAngle;
+    private Mouse virtualMouse;
     private void Update()
     {
         if (playerEquippedItem.activeWeapon == null) return;
         if (IsOwner)
         {
-            Vector2 aimPos = inputReader.AimPosition;
+            Vector2 aimPos = GetScreenAimPosition();
             Vector2 aimWorldPos = Camera.main.ScreenToWorldPoint(aimPos);
             Vector2 direction = aimWorldPos - (Vector2)weaponDisplayRoot.position;
 
@@ -51,5 +53,47 @@ public class PlayerAiming : NetworkBehaviour
                 playerSprite.SetFacingDirection(shouldFaceRight);
             }
         }
+    }
+
+    private Vector2 GetScreenAimPosition()
+    {
+        if (inputReader != null && inputReader.activeGameDevice == InputReader.GameDevice.GamePad)
+        {
+            var mouse = GetVirtualMouse();
+            if (mouse != null && mouse.added)
+            {
+                return mouse.position.value;
+            }
+        }
+
+        return inputReader != null ? inputReader.AimPosition : Vector2.zero;
+    }
+
+    private Mouse GetVirtualMouse()
+    {
+        if (virtualMouse != null && virtualMouse.added)
+        {
+            return virtualMouse;
+        }
+
+        virtualMouse = InputSystem.GetDevice<Mouse>("VirtualMouse");
+        if (virtualMouse != null)
+        {
+            return virtualMouse;
+        }
+
+        foreach (var device in InputSystem.devices)
+        {
+            if (device is Mouse mouse)
+            {
+                if (mouse.layout == "VirtualMouse" || mouse.displayName == "VirtualMouse" || mouse.name == "VirtualMouse")
+                {
+                    virtualMouse = mouse;
+                    return virtualMouse;
+                }
+            }
+        }
+
+        return null;
     }
 }

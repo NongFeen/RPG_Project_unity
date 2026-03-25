@@ -806,6 +806,9 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 128
+  spriteRenderer: {fileID: 0}
+  spriteRoot: {fileID: 0}
+  faceDeadzone: 0.01
 --- !u!1 &1100917247
 GameObject:
   m_ObjectHideFlags: 0
@@ -8453,6 +8456,9 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 128
+  spriteRenderer: {fileID: 0}
+  spriteRoot: {fileID: 0}
+  faceDeadzone: 0.01
 --- !u!1001 &1578413247
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8563,6 +8569,9 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 128
+  spriteRenderer: {fileID: 0}
+  spriteRoot: {fileID: 0}
+  faceDeadzone: 0.01
 --- !u!1 &1666968907
 GameObject:
   m_ObjectHideFlags: 0
@@ -8637,7 +8646,7 @@ MonoBehaviour:
   inputReader: {fileID: 11400000, guid: 1103830ac2ad5e24f9122dbb95b609de, type: 2}
   spawnPointConfigs:
   - id: 1
-    enemyPrefab: {fileID: 3051449957824930752, guid: d9a3c027f28948f4fa616a6af61f4753, type: 3}
+    enemyPrefab: {fileID: 6242414147363201484, guid: 2e0325e4b233f6c489c13f713f5028ae, type: 3}
     spawnPoint: {fileID: 1934043719}
     spawnCount: 1
     spawnOnStart: 0

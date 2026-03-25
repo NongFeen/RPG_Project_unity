@@ -7,7 +7,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject PlayerHUDUI;
     [SerializeField] private GameObject SettingMenu;
     [SerializeField] public GameObject dialoguePanel;
-    [SerializeField] private Stack<GameObject> menuStack = new Stack<GameObject>();
+    [SerializeField] public Stack<GameObject> menuStack = new Stack<GameObject>();
+    // Tracks menus opened as a group so one ESC can close them all.
+    private readonly Dictionary<GameObject, List<GameObject>> groupedMenus = new Dictionary<GameObject, List<GameObject>>();
     [SerializeField] InputReader inputReader;
     private void Awake()
     {
@@ -49,6 +51,27 @@ public class UIManager : MonoBehaviour
         menu.SetActive(true);
         menuStack.Push(menu);
     }
+    public void OpenMenuGroup(List<GameObject> menus)
+    {
+        if (menus == null || menus.Count == 0) return;
+
+        GameObject root = null;
+        var groupList = new List<GameObject>();
+        foreach (var menu in menus)
+        {
+            if (menu == null) continue;
+            menu.SetActive(true);
+            groupList.Add(menu);
+            if (root == null)
+            {
+                root = menu;
+            }
+        }
+        if (root == null || groupList.Count == 0) return;
+
+        menuStack.Push(root);
+        groupedMenus[root] = groupList;
+    }
     public void DoPopStackUI(bool isPress)
     {
         if (!isPress) return;
@@ -60,8 +83,6 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        //no stack. open setting menu
-        // work good in play scene
         if (SettingMenu != null)
         {
             OpenMenu(SettingMenu);
@@ -72,17 +93,48 @@ public class UIManager : MonoBehaviour
         if (menuStack.Count == 0) return;
 
         GameObject top = menuStack.Pop();
+        if (top == null) return;
+
+        //for open multiple menu at once
+        if (groupedMenus.TryGetValue(top, out var groupList))
+        {
+            for (int i = 0; i < groupList.Count; i++)
+            {
+                var menu = groupList[i];
+                if (menu != null)
+                {
+                    menu.SetActive(false);
+                }
+                menu.TryGetComponent<LobbyUI>(out var lobbyUI);
+                if(lobbyUI !=null) lobbyUI.ExitLobby();
+            }
+            groupedMenus.Remove(top);
+            return;
+        }
         top.SetActive(false);
+        top.TryGetComponent<LobbyUI>(out var lobby);
+            if(lobby !=null) lobby.ExitLobby();
     }
     public void CloseAllMenus()
     {
         while (menuStack.Count > 0)
         {
             GameObject top = menuStack.Pop();
-            if (top != null)
+            if (top == null) continue;
+            if (groupedMenus.TryGetValue(top, out var groupList))
             {
-                top.SetActive(false);
+                for (int i = 0; i < groupList.Count; i++)
+                {
+                    var menu = groupList[i];
+                    if (menu != null)
+                    {
+                        menu.SetActive(false);
+                    }
+                }
+                groupedMenus.Remove(top);
+                continue;
             }
+            top.SetActive(false);
         }
     }
 }

@@ -112,6 +112,16 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5632262277406043515}
   m_SourcePrefab: {fileID: 100100000, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+--- !u!4 &2108009044120230763 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7223780039271507498, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+  m_PrefabInstance: {fileID: 8719288435871661377}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &3901836597582749485 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5703590214518497900, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+  m_PrefabInstance: {fileID: 8719288435871661377}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6242414147363201484 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3431919067030215821, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
@@ -154,6 +164,9 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 128
+  spriteRenderer: {fileID: 3901836597582749485}
+  spriteRoot: {fileID: 2108009044120230763}
+  faceDeadzone: 0.01
 --- !u!95 &5632262277406043515
 Animator:
   serializedVersion: 7

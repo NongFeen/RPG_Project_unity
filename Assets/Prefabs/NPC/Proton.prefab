@@ -300,6 +300,9 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 128
+  spriteRenderer: {fileID: 5395159179267939617}
+  spriteRoot: {fileID: 7041457219583678823}
+  faceDeadzone: 0.01
   roamRadius: 6
   roamInterval: 3
   idleSpeedMultiplier: 1
@@ -334,5 +337,15 @@ Animator:
 --- !u!4 &3835535852051362121 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3513584160700304900, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+  m_PrefabInstance: {fileID: 430179133770760013}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &5395159179267939617 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5703590214518497900, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
+  m_PrefabInstance: {fileID: 430179133770760013}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7041457219583678823 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7223780039271507498, guid: b20346e90f442be42a9b31dc3194220c, type: 3}
   m_PrefabInstance: {fileID: 430179133770760013}
   m_PrefabAsset: {fileID: 0}

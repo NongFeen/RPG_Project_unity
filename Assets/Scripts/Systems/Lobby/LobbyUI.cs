@@ -84,4 +84,16 @@ public class LobbyUI : MonoBehaviour
         }
         GameManager.Instance.StartGame(targetMap);
     }
+
+    public void ExitLobby()
+    {
+        if (LobbyManager.Instance != null)
+        {
+            LobbyManager.Instance.LeaveLobby();
+        }
+        else if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Singleton.Shutdown();
+        }
+    }
 }
