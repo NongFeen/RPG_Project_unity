@@ -15,7 +15,7 @@ MonoBehaviour:
   skillType: 4
   displayName: LOCKED IN
   cooldown: 5
-  icon: {fileID: -8774827867185692175, guid: e2ad661681248314786b2fb24289665e, type: 3}
+  icon: {fileID: 8351852693202890542, guid: f576507f73f4a0b4994591e49e4538eb, type: 3}
   projectilePrefab: {fileID: 0}
   magicNumber1: 10
   magicNumber2: 15

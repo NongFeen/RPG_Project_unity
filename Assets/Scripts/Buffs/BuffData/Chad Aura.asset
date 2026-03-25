@@ -25,4 +25,4 @@ MonoBehaviour:
   percentCritDamage: 0
   percentExtraDamage: 0
   particlePrefab: {fileID: 0}
-  buffIcon: {fileID: -8774827867185692175, guid: e2ad661681248314786b2fb24289665e, type: 3}
+  buffIcon: {fileID: -8505401208375041544, guid: 6b44a84f9e3e78644a17311494cad02f, type: 3}

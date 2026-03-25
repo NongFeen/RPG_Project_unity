@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6aef6b9442f900c4a8d9e61b1f00d1d1
+guid: f1ac0d6ea3f8e0e429159e96dc1eb202
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 792494858163547246
-    second: SteelStrong_0
+      213: -8670432816183158951
+    second: Along_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -24,7 +24,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SteelStrong
+      name: Along_0
       rect:
         serializedVersion: 2
         x: 0
@@ -134,15 +134,15 @@ TextureImporter:
         width: 512
         height: 512
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e6c692befd18ffa00800000000000000
-      internalID: 792494858163547246
+      spriteID: 9575386aa4f6ca780800000000000000
+      internalID: -8670432816183158951
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 75892122a6ca8fc4ab48e28c079efd80
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SteelStrong: 792494858163547246
+      Along_0: -8670432816183158951
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

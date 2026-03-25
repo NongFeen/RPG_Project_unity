@@ -19,11 +19,10 @@ MonoBehaviour:
   flatDefense: 0
   flatCritRate: 0
   flatCritDamage: 0
-  flatExtraDamage: 0
   percentHealth: 0
   percentDefense: 0
   percentCritRate: 0
   percentCritDamage: 0
   percentExtraDamage: 0.3
   particlePrefab: {fileID: 0}
-  buffIcon: {fileID: -8774827867185692175, guid: e2ad661681248314786b2fb24289665e, type: 3}
+  buffIcon: {fileID: 2955286255927101427, guid: 4bb90817cacf8b74ca99dbd9c73d03b4, type: 3}

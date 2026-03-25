@@ -15,7 +15,7 @@ MonoBehaviour:
   skillType: 9
   displayName: Quick Draw
   cooldown: 1
-  icon: {fileID: -8774827867185692175, guid: e2ad661681248314786b2fb24289665e, type: 3}
+  icon: {fileID: -1351534590578996684, guid: a4b1f8e7d15d95147ad9dee8d5aa8fdd, type: 3}
   projectilePrefab: {fileID: 3661950033510355805, guid: 2cc314923cc8d3a49ab83d4c70686f36, type: 3}
   magicNumber1: 30
   magicNumber2: 8

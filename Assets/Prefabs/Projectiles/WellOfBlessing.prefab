@@ -125,6 +125,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4659129289118104156, guid: 8cc2f37218421ec4ca5ba35762571f03, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4659129289118104156, guid: 8cc2f37218421ec4ca5ba35762571f03, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
@@ -155,10 +159,30 @@ PrefabInstance:
     - target: {fileID: 8913708120837025622, guid: 8cc2f37218421ec4ca5ba35762571f03, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 7756414197507959373, guid: a7cdd08471bd42543aef72c1baaf5ca4, type: 3}
+      objectReference: {fileID: 7343515115063829559, guid: 41f3d8ba24dc4144e92286b416a536f3, type: 3}
+    - target: {fileID: 8913708120837025622, guid: 8cc2f37218421ec4ca5ba35762571f03, type: 3}
+      propertyPath: m_Color.a
+      value: 0.85882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 8913708120837025622, guid: 8cc2f37218421ec4ca5ba35762571f03, type: 3}
+      propertyPath: m_Color.b
+      value: 0.28875935
+      objectReference: {fileID: 0}
+    - target: {fileID: 8913708120837025622, guid: 8cc2f37218421ec4ca5ba35762571f03, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7633439
+      objectReference: {fileID: 0}
+    - target: {fileID: 8913708120837025622, guid: 8cc2f37218421ec4ca5ba35762571f03, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9716981
+      objectReference: {fileID: 0}
     - target: {fileID: 8913708120837025622, guid: 8cc2f37218421ec4ca5ba35762571f03, type: 3}
       propertyPath: m_SortingLayer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8913708120837025622, guid: 8cc2f37218421ec4ca5ba35762571f03, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8913708120837025622, guid: 8cc2f37218421ec4ca5ba35762571f03, type: 3}
       propertyPath: m_SortingLayerID
@@ -193,10 +217,12 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   speed: 0
   lifeTime: 15
-  pierce: 999
+  basePierce: 1
   canHitPlayer: 1
   isFriendly: 1
   direction: {x: 0, y: 0}
   damage: 0
   isCrit: 0
+  owner: {fileID: 0}
+  pierce: 999
   lifeTimer: 0

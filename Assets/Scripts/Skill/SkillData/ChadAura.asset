@@ -15,7 +15,7 @@ MonoBehaviour:
   skillType: 10
   displayName: Chad Aura
   cooldown: 7
-  icon: {fileID: 0}
+  icon: {fileID: -8505401208375041544, guid: 6b44a84f9e3e78644a17311494cad02f, type: 3}
   projectilePrefab: {fileID: 2636463631664538298, guid: 87a0c607e121b1d43bac8655a484ca60, type: 3}
   magicNumber1: 0
   magicNumber2: 0

@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 4076249551127237528, guid: 6d1622f4cf3cd034c874d0820dbad566, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 3406613819206705736, guid: 212664450116e384a9c1405ae7c39a0b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -340,12 +340,14 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   speed: 0
   lifeTime: 1
-  pierce: 999
+  basePierce: 1
   canHitPlayer: 0
   isFriendly: 1
   direction: {x: 0, y: 0}
   damage: 50
   isCrit: 0
+  owner: {fileID: 0}
+  pierce: 999
   lifeTimer: 0
 --- !u!4 &4096414764253170182 stripped
 Transform:

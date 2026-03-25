@@ -15,7 +15,7 @@ MonoBehaviour:
   skillType: 13
   displayName: A Big Guy
   cooldown: 7
-  icon: {fileID: 0}
+  icon: {fileID: 7499031799718731168, guid: 53f2401bc54a4394c9f1214c6424a2d1, type: 3}
   projectilePrefab: {fileID: 0}
   magicNumber1: 10
   magicNumber2: 0

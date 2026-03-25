@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6aef6b9442f900c4a8d9e61b1f00d1d1
+guid: 6b44a84f9e3e78644a17311494cad02f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 792494858163547246
-    second: SteelStrong_0
+      213: -8505401208375041544
+    second: SteelStrong 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -24,7 +24,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SteelStrong
+      name: ChadAura
       rect:
         serializedVersion: 2
         x: 0
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e6c692befd18ffa00800000000000000
-      internalID: 792494858163547246
+      spriteID: 8f1a0ae1aaeb6f980800000000000000
+      internalID: -8505401208375041544
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 75892122a6ca8fc4ab48e28c079efd80
+    spriteID: 10a8f3b73a003884abc6df3b3e4b695f
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SteelStrong: 792494858163547246
+      ChadAura: -8505401208375041544
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
