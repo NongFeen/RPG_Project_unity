@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.754717, g: 0.754717, b: 0.754717, a: 1}
+  m_Color: {r: 0.010679956, g: 0.3415197, b: 0.4528302, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -93,6 +93,7 @@ MonoBehaviour:
   selectCharacterCardPrefab: {fileID: 1625825097033645677, guid: 534d1e8ae5198fc408f7637d05cf2a07, type: 3}
   createCharacterCardPrefab: {fileID: 1625825097033645677, guid: 19cb18cebc9a7a045834ad11c702be17, type: 3}
   characterList: {fileID: 8785294859778301856}
+  createCharacterMenu: {fileID: 0}
 --- !u!1 &8361836758211009290
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,8 +128,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 318}
-  m_SizeDelta: {x: 519.1925, y: 72.7996}
+  m_AnchoredPosition: {x: -0.000076293945, y: 318}
+  m_SizeDelta: {x: 1000, y: 72.7996}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &550679933174317902
 CanvasRenderer:
@@ -167,8 +168,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -185,8 +186,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 72
+  m_fontSizeBase: 72
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

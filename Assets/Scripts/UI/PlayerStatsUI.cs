@@ -129,10 +129,12 @@ public class PlayerStatsUI : MonoBehaviour, IPlayerStatUI
         );
 
         bool canChangeClass = save.level == 15;
+        if(save.characterClass != ClassType.Human) 
+            canChangeClass = false;
         if (changeClassUI != null)
         {
             if (canChangeClass)
-                changeClassUI.Show(playerStats, player);
+                changeClassUI.Show();
             else
                 changeClassUI.Hide();
         }
@@ -217,7 +219,7 @@ public class PlayerStatsUI : MonoBehaviour, IPlayerStatUI
         bool canChangeClass = player != null && player.playerExperience != null && player.playerExperience.CanChangeClass();
         if (canChangeClass && playerStats != null)
         {
-            changeClassUI.Show(playerStats, player);
+            changeClassUI.Show();
         }
         else
         {

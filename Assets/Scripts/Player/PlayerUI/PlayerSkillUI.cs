@@ -16,21 +16,24 @@ public class PlayerSkillUI : MonoBehaviour, IPlayerStatUI
         {
             skillVSlot.Bind(
                 playerSkillController.SkillV,
-                playerSkillController.SkillV.GetSkillDefinition()
+                playerSkillController.SkillV.GetSkillDefinition(),
+                "Skill1"
             );
         }
         if(playerSkillController.SkillQ != null)
         {
             skillQSlot.Bind(
                 playerSkillController.SkillQ,
-                playerSkillController.SkillQ.GetSkillDefinition()
+                playerSkillController.SkillQ.GetSkillDefinition(),
+                "Skill2"
             );
         }
         if(playerSkillController.SkillF != null)
         {
             skillFSlot.Bind(
                 playerSkillController.SkillF,
-                playerSkillController.SkillF.GetSkillDefinition()
+                playerSkillController.SkillF.GetSkillDefinition(),
+                "Skill3"
             );
         }
     }

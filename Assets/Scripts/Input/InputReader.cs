@@ -90,7 +90,7 @@ public class InputReader : ScriptableObject, IPlayerActions
 
         //disable cursor when use controller
         Cursor.visible = activeGameDevice == GameDevice.KeyboardAndMouse;
-
+        //return true if use MnK
         OnGameDeviceChange?.Invoke(activeGameDevice == GameDevice.KeyboardAndMouse);
     }
     // === Input Callbacks ===

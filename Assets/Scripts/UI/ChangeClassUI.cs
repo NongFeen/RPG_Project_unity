@@ -17,18 +17,17 @@ public class ChangeClassUI : MonoBehaviour
         Hide();
     }
 
-    public void Show(PlayerStats stats, Player player)
+    public void Show()
     {
 
-        // if (panelRoot != null)
-        //     panelRoot.SetActive(true);
+        if (panelRoot != null)
+            panelRoot.SetActive(true);
     }
 
     public void Hide()
     {
-        // if (panelRoot != null)
-        //     panelRoot.SetActive(false);
-
+        if (panelRoot != null)
+            panelRoot.SetActive(false);
     }
 
     public void TryChangeClass(ClassType newClass)

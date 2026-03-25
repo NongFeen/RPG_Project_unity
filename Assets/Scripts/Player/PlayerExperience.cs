@@ -20,6 +20,7 @@ public class PlayerExperience : MonoBehaviour
     void Awake()
     {
         Max_Level_Experience = (int)GameDatabase.Instance.GetExperienceData().experienceCurve.Evaluate(MAX_LEVEL);
+        CheckForLevelUp();
     }
 
     public void AddExperience(int amount)
@@ -44,16 +45,19 @@ public class PlayerExperience : MonoBehaviour
         nextLevelsExperience = (int)curve.Evaluate(currentLevel + 1);
         print($"Level {currentLevel} Exp {totalExperience}/{nextLevelsExperience} ");
         print($"Level Up? {totalExperience>=nextLevelsExperience}");
-        if(totalExperience >= nextLevelsExperience)
+
+        while (currentLevel < MAX_LEVEL && totalExperience >= nextLevelsExperience)
         {
             print($"Exceed Exp should be {totalExperience-nextLevelsExperience}");
             UpdateLevel();
+            previousLevelsExperience = (int)curve.Evaluate(currentLevel);
+            nextLevelsExperience = (int)curve.Evaluate(currentLevel + 1);
         }
     }
 
     void UpdateLevel()
     {
-        if(currentLevel < 30)
+        if(currentLevel < MAX_LEVEL)
         {
             //normal level up
             currentLevel++;
