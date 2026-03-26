@@ -23,7 +23,6 @@ public class PulseRifleBehaviour : WeaponBehaviour
     {
         base.Update();
 
-        // Client: mirror burst timing for ammo consumption and shoot lock
         if (!NetworkManager.Singleton.IsServer && clientBulletsLeft > 0)
         {
             clientBurstTimer += Time.deltaTime;
@@ -36,7 +35,6 @@ public class PulseRifleBehaviour : WeaponBehaviour
             }
         }
 
-        // Server: spawn remaining burst projectiles
         if (NetworkManager.Singleton.IsServer && bulletsLeft > 0)
         {
             burstTimer += Time.deltaTime;
@@ -62,7 +60,6 @@ public class PulseRifleBehaviour : WeaponBehaviour
         }
     }
 
-    // Called on the CLIENT by PlayerShooting — kick off client burst state
     public override void OnShoot(Vector2 direction)
     {
         if (!CanShoot()) return;
@@ -72,14 +69,12 @@ public class PulseRifleBehaviour : WeaponBehaviour
         clientBurstTimer = 0;
     }
 
-    // Called on the SERVER by ShootWeaponServerRpc
     public override void Shoot(Vector2 direction, Transform weaponHolder, PlayerStats playerStats, ServerRpcParams rpcParams)
     {
         base.Shoot(direction, weaponHolder, playerStats, rpcParams);
         currentCritChance = playerStats.activeStats.Value.critRate + weaponInstance.bonusStat.critRate;
     }
 
-    // Called for shot 1 on the server — store burst context for Update()
     public override void SpawnProjectileServer(
         Vector3 firePointPosition,
         Vector2 direction,

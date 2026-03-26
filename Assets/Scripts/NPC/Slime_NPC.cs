@@ -34,11 +34,6 @@ public class SlimeEnemy : BaseNPC
     [SerializeField] float speedVariance = 0.4f;
     [SerializeField] float timeVariance = 0.3f;
 
-
-    // ===============================
-    // STATE
-    // ===============================
-
     public enum SlimeState
     {
         Idle,
@@ -51,11 +46,6 @@ public class SlimeEnemy : BaseNPC
         SlimeState.Idle,
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Server);
-
-
-    // ===============================
-    // COMPONENTS
-    // ===============================
 
     AIPath aiPath;
     AIDestinationSetter destSetter;
@@ -104,11 +94,6 @@ public class SlimeEnemy : BaseNPC
         base.OnDeath();
     }
 
-
-    // ===============================
-    // MAIN UPDATE
-    // ===============================
-
     protected override void HandleBehavior()
     {
         if (!IsServer || IsDead) return;
@@ -116,11 +101,6 @@ public class SlimeEnemy : BaseNPC
         UpdateState();
         UpdateSpeed();
     }
-
-
-    // ===============================
-    // STATE MACHINE
-    // ===============================
 
     void UpdateState()
     {
@@ -143,7 +123,6 @@ public class SlimeEnemy : BaseNPC
                 break;
         }
     }
-
 
     void SetState(SlimeState newState)
     {
@@ -176,11 +155,6 @@ public class SlimeEnemy : BaseNPC
         }
     }
 
-
-    // ===============================
-    // IDLE
-    // ===============================
-
     void UpdateIdle()
     {
         if (target != null &&
@@ -208,11 +182,6 @@ public class SlimeEnemy : BaseNPC
             SetState(SlimeState.Jump);
         }
     }
-
-
-    // ===============================
-    // CHASE
-    // ===============================
 
     void UpdateChase()
     {
@@ -289,11 +258,6 @@ public class SlimeEnemy : BaseNPC
         targetSpeed = baseSpeed * speedMul;
     }
 
-
-    // ===============================
-    // RECOVER
-    // ===============================
-
     void UpdateRecover()
     {
         if (Time.time >= recoverEndTime)
@@ -301,11 +265,6 @@ public class SlimeEnemy : BaseNPC
             SetState(SlimeState.Idle);
         }
     }
-
-
-    // ===============================
-    // SPEED SMOOTH
-    // ===============================
 
     void UpdateSpeed()
     {
@@ -325,7 +284,6 @@ public class SlimeEnemy : BaseNPC
 
         Attack();
     }
-
     protected override void Attack()
     {
         if (target == null) return;
@@ -345,11 +303,6 @@ public class SlimeEnemy : BaseNPC
         SetState(SlimeState.Recover);
     }
 
-
-    // ===============================
-    // JUMP EVENT
-    // ===============================
-
     public void OnJumpAnimationEnd()
     {
         if (!IsServer || IsDead) return;
@@ -361,7 +314,6 @@ public class SlimeEnemy : BaseNPC
         }
     }
 
-
     void ResetJumpTimer()
     {
         nextJumpTime =
@@ -369,21 +321,11 @@ public class SlimeEnemy : BaseNPC
             Random.Range(minJumpInterval, maxJumpInterval);
     }
 
-
-    // ===============================
-    // RANDOMIZE
-    // ===============================
-
     void Randomize()
     {
         speedMul = Random.Range(1f - speedVariance, 1f + speedVariance);
         timeMul = Random.Range(1f - timeVariance, 1f + timeVariance);
     }
-
-
-    // ===============================
-    // ANIM
-    // ===============================
 
     void OnStateChanged(SlimeState oldS, SlimeState newS)
     {
@@ -391,11 +333,6 @@ public class SlimeEnemy : BaseNPC
 
         animator.SetBool("isJump", newS == SlimeState.Jump);
     }
-
-
-    // ===============================
-    // COLLISION
-    // ===============================
 
     void OnCollisionEnter2D(Collision2D col)
     {
