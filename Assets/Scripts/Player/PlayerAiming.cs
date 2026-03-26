@@ -15,6 +15,11 @@ public class PlayerAiming : NetworkBehaviour
     [SerializeField] private PlayerSprite playerSprite;
     [SerializeField] private float reloadSpinSpeed = 1000f;
     [SerializeField] private float facingFlipDeadzone = 0.05f;
+
+    private NetworkVariable<Vector2> aimDirection = new(writePerm: NetworkVariableWritePermission.Owner);
+    private NetworkVariable<bool> isFacingRightNet = new(writePerm: NetworkVariableWritePermission.Owner);
+    private NetworkVariable<bool> isReloadingNet = new(writePerm: NetworkVariableWritePermission.Owner);
+   
     private float reloadSpinAngle;
     private Mouse virtualMouse;
     private void Update()
@@ -24,23 +29,9 @@ public class PlayerAiming : NetworkBehaviour
         {
             Vector2 aimPos = GetScreenAimPosition();
             Vector2 aimWorldPos = Camera.main.ScreenToWorldPoint(aimPos);
-            Vector2 direction = aimWorldPos - (Vector2)weaponDisplayRoot.position;
+            Vector2 dir = aimWorldPos - (Vector2)weaponDisplayRoot.position;
 
-            // Rotate weapon
-            Vector2 rotatedDir = new Vector2(-direction.y, direction.x);
-            bool isReloading = playerEquippedItem.activeWeapon.isReloading;
-            if (isReloading)
-            {
-                reloadSpinAngle += reloadSpinSpeed * Time.deltaTime;
-                if (reloadSpinAngle >= 360f) reloadSpinAngle -= 360f;
-                Quaternion spin = Quaternion.AngleAxis(reloadSpinAngle, Vector3.forward);
-                weaponDisplayRoot.up = spin * rotatedDir;
-            }
-            else
-            {
-                reloadSpinAngle = 0f;
-                weaponDisplayRoot.up = rotatedDir;
-            }
+            aimDirection.Value = dir.normalized;
 
             bool shouldFaceRight = playerSprite.isFacingRight.Value;
             Vector2 PlayerDirection = aimWorldPos - (Vector2)playerSprite.transform.position;
@@ -52,7 +43,29 @@ public class PlayerAiming : NetworkBehaviour
             {
                 playerSprite.SetFacingDirection(shouldFaceRight);
             }
+
+            isReloadingNet.Value = playerEquippedItem.activeWeapon.isReloading;
         }
+        
+        Vector2 direction = aimDirection.Value;
+        Vector2 rotatedDir = new Vector2(-direction.y, direction.x);
+
+
+        if (isReloadingNet.Value)
+        {
+            reloadSpinAngle += reloadSpinSpeed * Time.deltaTime;
+            if (reloadSpinAngle >= 360f) reloadSpinAngle -= 360f;
+
+            Quaternion spin = Quaternion.AngleAxis(reloadSpinAngle, Vector3.forward);
+            weaponDisplayRoot.up = spin * rotatedDir;
+        }
+        else
+        {
+            reloadSpinAngle = 0f;
+            weaponDisplayRoot.up = rotatedDir;
+        }
+
+
     }
 
     private Vector2 GetScreenAimPosition()
