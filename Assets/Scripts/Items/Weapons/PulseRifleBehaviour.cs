@@ -5,37 +5,52 @@ public class PulseRifleBehaviour : WeaponBehaviour
 {
     [SerializeField] int bulletPerBurst = 3;
     [SerializeField] float burstInterval = 0.1f;
-    [SerializeField] private PlayerShooting shooter;
+
+    // Server burst state
     private float burstTimer;
     private int bulletsLeft;
     private float burstCritDamage;
     private float burstDamageMultiplier;
     private float burstFlatExtraDamage;
-    private float CurrentCritChance;
+    private float currentCritChance;
     private ServerRpcParams burstRpc;
-    private Vector2 burstDirection;
+
+    // Client burst state
+    private int clientBulletsLeft;
+    private float clientBurstTimer;
 
     public override void Update()
     {
         base.Update();
 
-        if (!NetworkManager.Singleton.IsServer) return;
+        // Client: mirror burst timing for ammo consumption and shoot lock
+        if (!NetworkManager.Singleton.IsServer && clientBulletsLeft > 0)
+        {
+            clientBurstTimer += Time.deltaTime;
+            if (clientBurstTimer >= burstInterval)
+            {
+                clientBurstTimer = 0;
+                clientBulletsLeft--;
+                ConsumeAmmo();
+                lastShootTime = Time.time + RpmToSecondsPerShot();
+            }
+        }
 
-        if (bulletsLeft > 0)
+        // Server: spawn remaining burst projectiles
+        if (NetworkManager.Singleton.IsServer && bulletsLeft > 0)
         {
             burstTimer += Time.deltaTime;
-
             if (burstTimer >= burstInterval)
             {
                 burstTimer = 0;
                 bulletsLeft--;
 
-                Vector2 dir = burstDirection;
+                Vector2 dir = playerShooting.GetAimDirection();
 
                 base.SpawnProjectileServer(
-                    shooter.weaponPos.transform.position,
+                    playerShooting.weaponPos.transform.position,
                     dir,
-                    UnityEngine.Random.value < CurrentCritChance,
+                    UnityEngine.Random.value < currentCritChance,
                     burstCritDamage,
                     burstDamageMultiplier,
                     burstFlatExtraDamage,
@@ -46,12 +61,25 @@ public class PulseRifleBehaviour : WeaponBehaviour
             }
         }
     }
-    public override void Shoot(Vector2 direction,Transform weaponHolder, PlayerStats playerStats, ServerRpcParams rpcParams)
+
+    // Called on the CLIENT by PlayerShooting — kick off client burst state
+    public override void OnShoot(Vector2 direction)
     {
-        base.Shoot(direction,weaponHolder, playerStats, rpcParams);
-        shooter = playerStats.GetComponent<PlayerShooting>();
-        CurrentCritChance = playerStats.activeStats.Value.critRate + weaponInstance.bonusStat.critRate;
+        if (!CanShoot()) return;
+        lastShootTime = Time.time + RpmToSecondsPerShot(); // lock firing during burst
+        ConsumeAmmo(); // shot 1
+        clientBulletsLeft = bulletPerBurst - 1;
+        clientBurstTimer = 0;
     }
+
+    // Called on the SERVER by ShootWeaponServerRpc
+    public override void Shoot(Vector2 direction, Transform weaponHolder, PlayerStats playerStats, ServerRpcParams rpcParams)
+    {
+        base.Shoot(direction, weaponHolder, playerStats, rpcParams);
+        currentCritChance = playerStats.activeStats.Value.critRate + weaponInstance.bonusStat.critRate;
+    }
+
+    // Called for shot 1 on the server — store burst context for Update()
     public override void SpawnProjectileServer(
         Vector3 firePointPosition,
         Vector2 direction,
@@ -63,22 +91,12 @@ public class PulseRifleBehaviour : WeaponBehaviour
     {
         if (!NetworkManager.Singleton.IsServer) return;
 
-        base.SpawnProjectileServer(
-            firePointPosition,
-            direction,
-            isCrit,
-            critDamageMultiplier,
-            damageMultiplier,
-            flatExtraDamage,
-            rpcParams
-        );
-        
+        base.SpawnProjectileServer(firePointPosition, direction, isCrit, critDamageMultiplier, damageMultiplier, flatExtraDamage, rpcParams);
+
         burstCritDamage = critDamageMultiplier;
         burstDamageMultiplier = damageMultiplier;
         burstFlatExtraDamage = flatExtraDamage;
         burstRpc = rpcParams;
-        burstDirection = direction.normalized;
-
         burstTimer = 0;
         bulletsLeft = bulletPerBurst - 1;
     }

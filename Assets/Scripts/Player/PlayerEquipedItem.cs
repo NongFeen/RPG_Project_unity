@@ -158,7 +158,7 @@ public class PlayerEquipedItem : NetworkBehaviour
             Debug.LogWarning($"Prefab {prefab.name} has no WeaponBehaviour component!");
             return null;
         }
-        behaviour.SetDefault(weaponInstance);
+        behaviour.SetDefault(weaponInstance,gameObject.GetComponent<Player>());
         return behaviour;
     }
     [ServerRpc]

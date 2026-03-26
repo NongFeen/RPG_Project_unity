@@ -16,10 +16,8 @@ public class PlayerAiming : NetworkBehaviour
     [SerializeField] private float reloadSpinSpeed = 1000f;
     [SerializeField] private float facingFlipDeadzone = 0.05f;
 
-    private NetworkVariable<Vector2> aimDirection = new(writePerm: NetworkVariableWritePermission.Owner);
-    private NetworkVariable<bool> isFacingRightNet = new(writePerm: NetworkVariableWritePermission.Owner);
-    private NetworkVariable<bool> isReloadingNet = new(writePerm: NetworkVariableWritePermission.Owner);
-   
+    public NetworkVariable<Vector2> aimDirection = new(writePerm: NetworkVariableWritePermission.Owner);
+    public NetworkVariable<bool> isReloadingNet = new(writePerm: NetworkVariableWritePermission.Owner);
     private float reloadSpinAngle;
     private Mouse virtualMouse;
     private void Update()
@@ -67,7 +65,6 @@ public class PlayerAiming : NetworkBehaviour
 
 
     }
-
     private Vector2 GetScreenAimPosition()
     {
         if (inputReader != null && inputReader.activeGameDevice == InputReader.GameDevice.GamePad)
@@ -81,7 +78,6 @@ public class PlayerAiming : NetworkBehaviour
 
         return inputReader != null ? inputReader.AimPosition : Vector2.zero;
     }
-
     private Mouse GetVirtualMouse()
     {
         if (virtualMouse != null && virtualMouse.added)

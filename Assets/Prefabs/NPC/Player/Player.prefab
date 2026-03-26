@@ -704,6 +704,7 @@ MonoBehaviour:
   weaponPos: {fileID: 5256679747011165651}
   playerEquipedItem: {fileID: 7539527338994378859}
   playerStats: {fileID: 9114623135003730550}
+  playerAiming: {fileID: 9015590740763334302}
 --- !u!114 &7539527338994378859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -750,6 +751,10 @@ MonoBehaviour:
   playerSprite: {fileID: -8900828022519834306}
   reloadSpinSpeed: 360
   facingFlipDeadzone: 0.05
+  aimDirection:
+    m_InternalValue: {x: 0, y: 0}
+  isReloadingNet:
+    m_InternalValue: 0
 --- !u!114 &7235659161953144731
 MonoBehaviour:
   m_ObjectHideFlags: 0

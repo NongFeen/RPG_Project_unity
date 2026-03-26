@@ -1,5 +1,6 @@
 using System;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WeaponBehaviour : NetworkBehaviour, IWeapon
@@ -19,7 +20,9 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
     private float reloadTime;
     private float reloadTimer;
     public WeaponStat bonusStat;
-    public virtual void SetDefault(WeaponInstance weapon)
+    public Player owner;
+    public PlayerShooting playerShooting;
+    public virtual void SetDefault(WeaponInstance weapon,Player owner)
     {
         this.weaponInstance = weapon;
         this.bonusStat = weapon.bonusStat;
@@ -28,6 +31,8 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
         this.fireRate = weapon.fireRate;
         visualRoot.TryGetComponent<SpriteRenderer>(out var sprite);
         sprite.sprite = weapon.weaponData.image;
+        this.owner = owner;
+        playerShooting = owner.GetComponent<PlayerShooting>();
     }
     public virtual void Update()
     {

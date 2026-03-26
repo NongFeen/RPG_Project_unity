@@ -7,6 +7,7 @@ public class PlayerShooting : NetworkBehaviour
     [SerializeField] public Transform weaponPos;
     [SerializeField] private PlayerEquipedItem playerEquipedItem;
     [SerializeField] private PlayerStats playerStats;
+    [SerializeField] private PlayerAiming playerAiming;
     private bool isFiring;
     private Mouse virtualMouse;
     public void Awake()
@@ -45,12 +46,11 @@ public class PlayerShooting : NetworkBehaviour
         if (playerStats != null && playerStats.IsGhost) return;
         if (isFiring )
         {
-            Vector2 dir = AimDirection();
             WeaponBehaviour weapon = playerEquipedItem.activeWeapon;
             
             if (weapon != null && weapon.CanShoot())
             {
-                ShootWeapon(weapon, dir);
+                ShootWeapon(weapon, playerAiming.aimDirection.Value);
             }
             else
             {
@@ -73,27 +73,6 @@ public class PlayerShooting : NetworkBehaviour
     {
         WeaponBehaviour weapon = playerEquipedItem.activeWeapon;
         weapon.Shoot(direction,weaponPos, playerStats,rpcParams);
-    }
-    public Vector2 AimDirection()
-    {
-        Vector2 screenAimPos = GetScreenAimPosition();
-        Vector3 mosPos = Camera.main.ScreenToWorldPoint(screenAimPos);
-        // Get direction from player to mouse
-        Vector2 dir = mosPos - weaponPos.position;
-
-        return dir.normalized;
-    }
-    private Vector2 GetScreenAimPosition()
-    {
-        if (inputReader != null && inputReader.activeGameDevice == InputReader.GameDevice.GamePad)
-        {
-            var mouse = GetVirtualMouse();
-            if (mouse != null && mouse.added)
-            {
-                return mouse.position.value;
-            }
-        }
-        return inputReader != null ? inputReader.AimPosition : Vector2.zero;
     }
     private Mouse GetVirtualMouse()
     {
@@ -121,5 +100,9 @@ public class PlayerShooting : NetworkBehaviour
         }
 
         return null;
+    }
+    public Vector2 GetAimDirection()
+    {
+        return playerAiming.aimDirection.Value;
     }
 }   
