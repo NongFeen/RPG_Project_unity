@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using NUnit.Framework;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
 using static SaveSystem;
 
@@ -62,10 +60,32 @@ public class GameManager : NetworkBehaviour
     {
         return selectedSaveProfileData;
     }
+
+    public void LoadSelectableMap(SaveProfileData saveFile)
+    {
+        selectedSaveProfileData = saveFile;
+        if (selectedSaveProfileData != null)
+            selectedSaveProfileData.EnsureDefaults();
+
+        // If current selection is locked for this save, clamp to the highest unlocked map.
+        if (selectedSaveProfileData != null && !IsMapUnlocked(selectMapName))
+            selectMapName = selectedSaveProfileData.highestUnlockedMap;
+
+        RefreshMapInvokerLocks();
+    }
+
+    public bool IsMapUnlocked(MapName mapName)
+    {
+        if (selectedSaveProfileData == null)
+            return false;
+
+        selectedSaveProfileData.EnsureDefaults();
+        return (int)mapName <= (int)selectedSaveProfileData.highestUnlockedMap;
+    }
     
     public void SelectPlayer(SaveProfileData saveProfileData)
     {
-        selectedSaveProfileData = saveProfileData;
+        LoadSelectableMap(saveProfileData);
         InventoryManager.Instance.LoadInventoryFromSaveData(selectedSaveProfileData.itemSaveData);
         // when select profile for host/join lobby, send save data to LobbyNetwork playersProfileData
         if (IsConnected)
@@ -75,10 +95,26 @@ public class GameManager : NetworkBehaviour
     }
     public void StartGame(MapName map)
     {
+        // Track current map for reward/unlock logic.
+        selectMapName = map;
+
+        if (!IsMapUnlocked(map))
+        {
+            selectedSaveProfileData.EnsureDefaults();
+            MapName fallback = selectedSaveProfileData.highestUnlockedMap;
+            Debug.LogWarning($"Map {map} is locked. Falling back to {fallback}.");
+            map = fallback;
+            selectMapName = map;
+        }
         LoadingScreenManager.Instance.LoadScene(map.ToString());
     }
     public void SelectMap(MapName map)
     {
+        if (!IsMapUnlocked(map))
+        {
+            Debug.LogWarning($"Map {map} is locked for this profile.");
+            return;
+        }
         this.selectMapName = map;
         if (LobbyNetwork.Instance && IsHost)
         {
@@ -91,6 +127,7 @@ public class GameManager : NetworkBehaviour
     }
     public void OnGameComplete(int experienceGained, List<WeaponInstance> dropsItems, List<RelicInstance> relicDrops)
     {
+        UnlockMapsFromCompletion(selectMapName);
         //add exp and item to player
         localPlayer.AddExperience(experienceGained);
         dropsItems.ForEach((dropsItems) => InventoryManager.Instance.AddItemInstance(dropsItems));
@@ -103,6 +140,32 @@ public class GameManager : NetworkBehaviour
         ui.TryGetComponent<GameSummary>(out var gameSummary);
         gameSummary.ShowSummary(experienceGained, dropsItems, relicDrops);
         Save();
+    }
+
+    private void RefreshMapInvokerLocks()
+    {
+        var invokers = FindObjectsByType<MapInvoker>(FindObjectsSortMode.None);
+        for (int i = 0; i < invokers.Length; i++)
+            invokers[i].RefreshLockState();
+    }
+
+    private void UnlockMapsFromCompletion(MapName completedMap)
+    {
+        if (selectedSaveProfileData == null)
+            return;
+
+        selectedSaveProfileData.EnsureDefaults();
+
+        // Progression: Story -> Dungeon -> Raid (enum order in MapName).
+        // If the player completes the current highest map, unlock the next one.
+        if ((int)completedMap >= (int)selectedSaveProfileData.highestUnlockedMap)
+        {
+            int maxIndex = Enum.GetValues(typeof(MapName)).Length - 1;
+            int nextIndex = Mathf.Clamp((int)completedMap + 1, 0, maxIndex);
+            selectedSaveProfileData.highestUnlockedMap = (MapName)nextIndex;
+        }
+
+        RefreshMapInvokerLocks();
     }
 
     [ClientRpc]

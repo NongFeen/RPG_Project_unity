@@ -1,0 +1,253 @@
+﻿diff --git a/Assets/Scripts/Player/Data/PlayerSaveData.cs b/Assets/Scripts/Player/Data/PlayerSaveData.cs
+index 15a3237..67613ae 100644
+--- a/Assets/Scripts/Player/Data/PlayerSaveData.cs
++++ b/Assets/Scripts/Player/Data/PlayerSaveData.cs
+@@ -10,6 +10,38 @@ public struct PlayerSaveData : INetworkSerializable,IEquatable<PlayerSaveData>
+     public ClassType characterClass;
+     public int upgradePoints;
+     public BonusStats bonusStats;
++    // Bitmask by (int)MapName. Supports up to 64 maps.
++    public ulong unlockedMapMask;
++
++    public void EnsureDefaultUnlockedMaps()
++    {
++        if (unlockedMapMask != 0)
++            return;
++
++        // Default: first story map is always playable for a new/old save.
++        unlockedMapMask = 1UL << (int)MapName.Story_01;
++    }
++
++    public bool IsMapUnlocked(MapName mapName)
++    {
++        EnsureDefaultUnlockedMaps();
++        int bit = (int)mapName;
++        if (bit < 0 || bit >= 64)
++            return false;
++
++        return (unlockedMapMask & (1UL << bit)) != 0;
++    }
++
++    public void UnlockMap(MapName mapName)
++    {
++        EnsureDefaultUnlockedMaps();
++        int bit = (int)mapName;
++        if (bit < 0 || bit >= 64)
++            return;
++
++        unlockedMapMask |= 1UL << bit;
++    }
++    
+     public bool Equals(PlayerSaveData other)
+     {
+         return characterName == other.characterName
+@@ -17,7 +49,8 @@ public bool Equals(PlayerSaveData other)
+             && experience == other.experience
+             && characterClass == other.characterClass
+             && upgradePoints == other.upgradePoints
+-            && bonusStats.Equals(other.bonusStats);
++            && bonusStats.Equals(other.bonusStats)
++            && unlockedMapMask == other.unlockedMapMask;
+     }
+ 
+ 
+@@ -30,5 +63,6 @@ public void NetworkSerialize<T>(BufferSerializer<T> serializer)
+         serializer.SerializeValue(ref characterClass);
+         serializer.SerializeValue(ref upgradePoints);
+         serializer.SerializeValue(ref bonusStats);
++        serializer.SerializeValue(ref unlockedMapMask);
+     }
+ }
+diff --git a/Assets/Scripts/Systems/GameManager.cs b/Assets/Scripts/Systems/GameManager.cs
+index ae7b4ea..b450c4c 100644
+--- a/Assets/Scripts/Systems/GameManager.cs
++++ b/Assets/Scripts/Systems/GameManager.cs
+@@ -62,10 +62,21 @@ public SaveProfileData getCurrentSaveProfileData()
+     {
+         return selectedSaveProfileData;
+     }
++
++    public bool IsMapUnlocked(MapName mapName)
++    {
++        if (selectedSaveProfileData == null)
++            return false;
++
++        selectedSaveProfileData.EnsureDefaults();
++        return selectedSaveProfileData.playerSaveData.IsMapUnlocked(mapName);
++    }
+     
+     public void SelectPlayer(SaveProfileData saveProfileData)
+     {
+         selectedSaveProfileData = saveProfileData;
++        if (selectedSaveProfileData != null)
++            selectedSaveProfileData.EnsureDefaults();
+         InventoryManager.Instance.LoadInventoryFromSaveData(selectedSaveProfileData.itemSaveData);
+         // when select profile for host/join lobby, send save data to LobbyNetwork playersProfileData
+         if (IsConnected)
+@@ -75,10 +86,21 @@ public void SelectPlayer(SaveProfileData saveProfileData)
+     }
+     public void StartGame(MapName map)
+     {
++        if (!IsMapUnlocked(map))
++        {
++            MapName fallback = GetFirstUnlockedMapOrDefault();
++            Debug.LogWarning($"Map {map} is locked. Falling back to {fallback}.");
++            map = fallback;
++        }
+         LoadingScreenManager.Instance.LoadScene(map.ToString());
+     }
+     public void SelectMap(MapName map)
+     {
++        if (!IsMapUnlocked(map))
++        {
++            Debug.LogWarning($"Map {map} is locked for this profile.");
++            return;
++        }
+         this.selectMapName = map;
+         if (LobbyNetwork.Instance && IsHost)
+         {
+@@ -91,6 +113,7 @@ public void SetLocalPlayer(Player localPlayer)
+     }
+     public void OnGameComplete(int experienceGained, List<WeaponInstance> dropsItems, List<RelicInstance> relicDrops)
+     {
++        UnlockMapsFromCompletion(selectMapName);
+         //add exp and item to player
+         localPlayer.AddExperience(experienceGained);
+         dropsItems.ForEach((dropsItems) => InventoryManager.Instance.AddItemInstance(dropsItems));
+@@ -105,6 +128,66 @@ public void OnGameComplete(int experienceGained, List<WeaponInstance> dropsItems
+         Save();
+     }
+ 
++    private void UnlockMapsFromCompletion(MapName completedMap)
++    {
++        if (selectedSaveProfileData == null)
++            return;
++
++        selectedSaveProfileData.EnsureDefaults();
++        var save = selectedSaveProfileData.playerSaveData;
++
++        // Always unlock the completed map itself.
++        save.UnlockMap(completedMap);
++
++        MapName? next = GetNextMapToUnlock(completedMap);
++        if (next.HasValue)
++            save.UnlockMap(next.Value);
++
++        selectedSaveProfileData.playerSaveData = save;
++    }
++
++    private static MapName? GetNextMapToUnlock(MapName completedMap)
++    {
++        switch (completedMap)
++        {
++            case MapName.Story_01: return MapName.Story_02;
++            case MapName.Story_02: return MapName.Story_03;
++            case MapName.Story_03: return MapName.Story_04;
++            case MapName.Story_04: return MapName.Story_05;
++            case MapName.Story_05: return null;
++
++            case MapName.Dungeon_01: return MapName.Dungeon_02;
++            case MapName.Dungeon_02: return MapName.Dungeon_03;
++            case MapName.Dungeon_03: return MapName.Dungeon_04;
++            case MapName.Dungeon_04: return MapName.Dungeon_05;
++            case MapName.Dungeon_05: return null;
++
++            case MapName.Raid_01: return MapName.Raid_02;
++            case MapName.Raid_02: return MapName.Raid_03;
++            case MapName.Raid_03: return null;
++
++            default: return null;
++        }
++    }
++
++    private MapName GetFirstUnlockedMapOrDefault()
++    {
++        if (selectedSaveProfileData == null)
++            return MapName.Story_01;
++
++        selectedSaveProfileData.EnsureDefaults();
++
++        Array values = Enum.GetValues(typeof(MapName));
++        foreach (var value in values)
++        {
++            MapName map = (MapName)value;
++            if (selectedSaveProfileData.playerSaveData.IsMapUnlocked(map))
++                return map;
++        }
++
++        return MapName.Story_01;
++    }
++
+     [ClientRpc]
+     public void RequestEndSessionClientRpc()
+     {
+diff --git a/Assets/Scripts/Systems/SaveData/SaveProfileData.cs b/Assets/Scripts/Systems/SaveData/SaveProfileData.cs
+index db8a9ec..acbb2ef 100644
+--- a/Assets/Scripts/Systems/SaveData/SaveProfileData.cs
++++ b/Assets/Scripts/Systems/SaveData/SaveProfileData.cs
+@@ -10,5 +10,11 @@ public SaveProfileData()
+     {
+         playerSaveData = new PlayerSaveData();
+         itemSaveData = new ItemSaveData();
++        EnsureDefaults();
++    }
++
++    public void EnsureDefaults()
++    {
++        playerSaveData.EnsureDefaultUnlockedMaps();
+     }
+ }
+diff --git a/Assets/Scripts/Systems/SaveData/SaveSystem.cs b/Assets/Scripts/Systems/SaveData/SaveSystem.cs
+index 0e29b18..05d3c82 100644
+--- a/Assets/Scripts/Systems/SaveData/SaveSystem.cs
++++ b/Assets/Scripts/Systems/SaveData/SaveSystem.cs
+@@ -13,8 +13,28 @@ public static string GetSaveFilePath(string characterName)
+     }
+     public static void Save()
+     {
++        // Save the currently selected profile (keeps extra fields like unlocked maps).
++        if (GameManager.Instance != null && GameManager.Instance.getCurrentSaveProfileData() != null)
++        {
++            _saveData = GameManager.Instance.getCurrentSaveProfileData();
++            _saveData.EnsureDefaults();
++        }
+         HandleSaveData();
+-        File.WriteAllText(GetSaveFilePath(GameManager.Instance.localPlayer.characterName),JsonUtility.ToJson(_saveData,true));
++
++        string characterName = null;
++        if (GameManager.Instance != null && GameManager.Instance.localPlayer != null)
++            characterName = GameManager.Instance.localPlayer.characterName;
++
++        if (string.IsNullOrWhiteSpace(characterName) && _saveData != null)
++            characterName = _saveData.playerSaveData.characterName.ToString();
++
++        if (string.IsNullOrWhiteSpace(characterName))
++        {
++            Debug.LogWarning("SaveSystem.Save skipped: no characterName available.");
++            return;
++        }
++
++        File.WriteAllText(GetSaveFilePath(characterName), JsonUtility.ToJson(_saveData, true));
+     }
+     private static void HandleSaveData()
+     {
+@@ -32,6 +52,8 @@ public static List<SaveProfileData> LoadAllProfiles()
+         {
+             string json = File.ReadAllText(file);
+             SaveProfileData data = JsonUtility.FromJson<SaveProfileData>(json);
++            if (data != null)
++                data.EnsureDefaults();
+             profiles.Add(data);
+         }
+         return profiles;
+@@ -44,6 +66,9 @@ public static SaveProfileData Load(string characterName)
+             return default;
+ 
+         string json = File.ReadAllText(path);
+-        return JsonUtility.FromJson<SaveProfileData>(json);
++        SaveProfileData data = JsonUtility.FromJson<SaveProfileData>(json);
++        if (data != null)
++            data.EnsureDefaults();
++        return data;
+     }
+ }

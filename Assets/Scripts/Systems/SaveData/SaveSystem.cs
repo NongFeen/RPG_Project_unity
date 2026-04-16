@@ -13,8 +13,28 @@ public class SaveSystem
     }
     public static void Save()
     {
+        // Save the currently selected profile (keeps extra fields like highestUnlockedMap).
+        if (GameManager.Instance != null && GameManager.Instance.getCurrentSaveProfileData() != null)
+        {
+            _saveData = GameManager.Instance.getCurrentSaveProfileData();
+            _saveData.EnsureDefaults();
+        }
         HandleSaveData();
-        File.WriteAllText(GetSaveFilePath(GameManager.Instance.localPlayer.characterName),JsonUtility.ToJson(_saveData,true));
+
+        string characterName = null;
+        if (GameManager.Instance != null && GameManager.Instance.localPlayer != null)
+            characterName = GameManager.Instance.localPlayer.characterName;
+
+        if (string.IsNullOrWhiteSpace(characterName) && _saveData != null)
+            characterName = _saveData.playerSaveData.characterName.ToString();
+
+        if (string.IsNullOrWhiteSpace(characterName))
+        {
+            Debug.LogWarning("SaveSystem.Save skipped: no characterName available.");
+            return;
+        }
+
+        File.WriteAllText(GetSaveFilePath(characterName), JsonUtility.ToJson(_saveData, true));
     }
     private static void HandleSaveData()
     {
@@ -32,6 +52,8 @@ public class SaveSystem
         {
             string json = File.ReadAllText(file);
             SaveProfileData data = JsonUtility.FromJson<SaveProfileData>(json);
+            if (data != null)
+                data.EnsureDefaults();
             profiles.Add(data);
         }
         return profiles;
@@ -44,6 +66,9 @@ public class SaveSystem
             return default;
 
         string json = File.ReadAllText(path);
-        return JsonUtility.FromJson<SaveProfileData>(json);
+        SaveProfileData data = JsonUtility.FromJson<SaveProfileData>(json);
+        if (data != null)
+            data.EnsureDefaults();
+        return data;
     }
 }

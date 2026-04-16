@@ -132,8 +132,8 @@ public class NetworkObjectPool : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (IsServer) // Only the server registers handlers that clients will use
-        {
+        // if (IsServer) // Only the server registers handlers that clients will use
+        // {
             foreach (var prefab in poolsToCreate)
             {
                 // Register a custom handler for each pooled prefab
@@ -142,19 +142,19 @@ public class NetworkObjectPool : NetworkBehaviour
                     new PooledPrefabInstanceHandler(prefab.Prefab, this)
                 );
             }
-        }
+        // }
     }
 
     public override void OnNetworkDespawn()
     {
-        if (IsServer)
-        {
+        // if (IsServer)
+        // {
             foreach (var prefab in poolsToCreate)
             {
                 // Unregister handlers when the pool manager despawns
                 NetworkManager.Singleton.PrefabHandler.RemoveHandler(prefab.Prefab.GetComponent<NetworkObject>());
             }
-        }
+        // }
     }
 
     // --- Public Pool Methods (Used by the Handler) ---

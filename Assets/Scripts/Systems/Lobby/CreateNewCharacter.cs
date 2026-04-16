@@ -26,14 +26,15 @@ public class CreateNewCharacter : MonoBehaviour
         SaveProfileData saveProfileData = new SaveProfileData
         {
             playerSaveData = save,
-            itemSaveData = ItemSaveData.Create()
+            itemSaveData = ItemSaveData.Create(),
+            highestUnlockedMap = MapName.Story_01
         };
         AddStartingItem(ref saveProfileData);
         StartSinglePlayer(saveProfileData);
     }
     void AddStartingItem(ref SaveProfileData save)
     {
-        Weapon weapon = GameDatabase.Instance.GetItemDatabase().GetWeaponByID(1);
+        Weapon weapon = GameDatabase.Instance.GetItemDatabase().GetWeaponByID(0);
         WeaponInstance startingItem = new WeaponInstance(weapon);
         save.itemSaveData.equipList.Add(startingItem);
     }
