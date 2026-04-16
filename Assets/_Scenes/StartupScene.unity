@@ -575,6 +575,51 @@ MonoBehaviour:
   mapData: {fileID: 11400000, guid: 4c96cddbddd14fb43ad52a299de513f8, type: 2}
   buffData: {fileID: 11400000, guid: b6825722f1a93f64689b71134344c7a2, type: 2}
   experienceData: {fileID: 11400000, guid: 646d0df3335712d429980ee926fcec5d, type: 2}
+--- !u!1 &320812301
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 320812303}
+  - component: {fileID: 320812304}
+  m_Layer: 0
+  m_Name: Log
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &320812303
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320812301}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.33051, y: -0.68452, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &320812304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320812301}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b74f087aaa81ee45b8b7a7650dcf90e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logInterval: 0.05
 --- !u!1001 &344239144
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4077,3 +4122,4 @@ SceneRoots:
   - {fileID: 548028880}
   - {fileID: 1684998289}
   - {fileID: 1598731360}
+  - {fileID: 320812303}

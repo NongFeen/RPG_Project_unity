@@ -27,7 +27,7 @@ public class NetworkObjectPool : NetworkBehaviour
     private Dictionary<GameObject, ObjectPool<NetworkObject>> pools = new Dictionary<GameObject, ObjectPool<NetworkObject>>();
     // A map to quickly find the original prefab from a pooled instance
     private Dictionary<NetworkObject, GameObject> instanceToPrefabMap = new Dictionary<NetworkObject, GameObject>();
-
+    public int ActiveObjectsCount { get; private set; } = 0;
     private void Awake()
     {
         if (Singleton != null && Singleton != this)
@@ -110,6 +110,7 @@ public class NetworkObjectPool : NetworkBehaviour
     {
         // Deactivate the object when it's returned to the pool
         netObj.gameObject.SetActive(false);
+        ActiveObjectsCount--;
     }
 
     private void OnGetFromPool(NetworkObject netObj)
@@ -117,6 +118,7 @@ public class NetworkObjectPool : NetworkBehaviour
         // Handled by the custom Instantiate method in PooledPrefabInstanceHandler
         // We ensure it's active before use.
         netObj.gameObject.SetActive(true);
+        ActiveObjectsCount++;
     }
 
     private void OnDestroyPooledItem(NetworkObject netObj)

@@ -1006,6 +1006,7 @@ GameObject:
   - component: {fileID: 830028936}
   - component: {fileID: 830028935}
   - component: {fileID: 830028934}
+  - component: {fileID: 830028937}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -1077,10 +1078,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 823041529}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 830028937}
+        m_TargetAssemblyTypeName: SimpleQuitGame, Assembly-CSharp
+        m_MethodName: QuitGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1127,6 +1128,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 830028932}
   m_CullTransparentMesh: 1
+--- !u!114 &830028937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830028932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83488d6dcb130ef4ca217f2770d6b326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1046136450 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 703548518760422335, guid: 8a49b3938766333419a3d8f2dc847580, type: 3}
@@ -8596,6 +8609,26 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -8479312310100512585, guid: 208e3e7d2c85c7b4599ec0d322fe1ba7, type: 3}
+    - target: {fileID: 5261735278552583842, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261735278552583842, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261735278552583842, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.b
+      value: 0.34376115
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261735278552583842, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.g
+      value: 0.34376115
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261735278552583842, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.r
+      value: 0.7075472
+      objectReference: {fileID: 0}
     - target: {fileID: 5443165211265220370, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -8692,6 +8725,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -8479312310100512585, guid: 208e3e7d2c85c7b4599ec0d322fe1ba7, type: 3}
+    - target: {fileID: 8444409443671638208, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8748080760106841359, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -8704,6 +8741,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -8479312310100512585, guid: 208e3e7d2c85c7b4599ec0d322fe1ba7, type: 3}
+    - target: {fileID: 9178048772026045041, guid: 4a6d6df5dcbdf79448a1e404e789616a, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

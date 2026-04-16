@@ -40,7 +40,7 @@ public class PlayerShooting : NetworkBehaviour
         if (playerStats != null && playerStats.IsGhost) return;
         playerEquipedItem.activeWeapon?.OnReload();
     }
-    private void FixedUpdate()
+    private void Update()
     {
         if (!IsOwner) return;
         if (playerStats != null && playerStats.IsGhost) return;

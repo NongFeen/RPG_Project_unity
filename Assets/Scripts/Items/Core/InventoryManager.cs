@@ -47,25 +47,21 @@ public class InventoryManager : MonoBehaviour
         int equippedIndex = equippedWeapons.IndexOf(item);
         if (equippedIndex >= 0 )
         {
-            // UnEquipItem(equippedIndex);
-            UnEquipItem(slotIndex);
+            if (equippedIndex == slotIndex) return;
+
+            if (equippedWeapons[slotIndex] != null && !equippedWeapons[slotIndex].IsEmpty)
+                UnEquipItem(slotIndex);
+
             equippedWeapons[slotIndex] = item;
             equippedWeapons[equippedIndex] = null;
         }
         else
         {
-            int inventoryIndex = weaponInventoryItems.IndexOf(item);
-            if (inventoryIndex >= 0)
-                weaponInventoryItems.RemoveAt(inventoryIndex);
-
-            if(equippedWeapons[slotIndex] == null)
-            {
-                equippedWeapons[slotIndex] = item;
-            }
-            if (!equippedWeapons[slotIndex].IsEmpty)
-            {
+            weaponInventoryItems.Remove(item);
+            // If the slot is occupied, unequip the old item first
+            if (equippedWeapons[slotIndex] != null && !equippedWeapons[slotIndex].IsEmpty)
                 UnEquipItem(slotIndex);
-            }
+
             equippedWeapons[slotIndex] = item;
         }
 

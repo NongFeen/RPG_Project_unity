@@ -40,6 +40,7 @@ public class SkillSlotUI : MonoBehaviour
         {
             inputReader.OnBindingsChanged -= HandleBindingsChanged;
             inputReader.OnGameDeviceChange -= HandleDeviceChanged;
+            skillIcon.sprite = null;
         }
     }
 
