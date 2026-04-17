@@ -159,7 +159,7 @@ public class PlayerStatsUI : MonoBehaviour, IPlayerStatUI
         {
             int start = Mathf.Max(0, experience - startLevelExperience);
             int needed = Mathf.Max(0, nextLevelExperience - startLevelExperience);
-            Debug.Log($"Exp{experience} Start Exp{startLevelExperience} nextLevelExperience {nextLevelExperience}");
+            // Debug.Log($"Exp{experience} Start Exp{startLevelExperience} nextLevelExperience {nextLevelExperience}");
             playerExpDisplay.text = $"{start} / {needed} exp";
         }
         if (playerUpgradeStatsRemainingDisplay != null)

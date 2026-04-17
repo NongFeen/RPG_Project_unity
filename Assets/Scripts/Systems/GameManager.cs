@@ -95,7 +95,6 @@ public class GameManager : NetworkBehaviour
     }
     public void StartGame(MapName map)
     {
-        // Track current map for reward/unlock logic.
         selectMapName = map;
 
         if (!IsMapUnlocked(map))

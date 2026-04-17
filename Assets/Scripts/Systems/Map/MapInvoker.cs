@@ -27,8 +27,10 @@ public class MapInvoker : MonoBehaviour
     public void SelectMap(MapInvoker curMapName)
     {
         if (GameManager.Instance != null && !GameManager.Instance.IsMapUnlocked(curMapName.mapName))
-            return;
-
+            {
+                Debug.Log("Map is locked: " + curMapName.mapName);
+                return;
+            }
         GameManager.Instance.SelectMap(curMapName.mapName);
     }
 }

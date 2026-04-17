@@ -15,8 +15,15 @@ public class HealAndCure : SkillLogic
 
         foreach (var hit in hits)
         {
+            //priset change class to necro
+            if (hit.CompareTag("DecaySecret"))
+            {
+                Debug.Log("Found DecaySecret, Changing class.");
+                controller.GetComponent<PlayerStats>().ChangeClassServerRpc(ClassType.Necro);
+                hit.GetComponent<DecaySecret>().ConsumeSecret();
+            }
             if (!hit.CompareTag("Player")) continue;
-
+            
             float dist = Vector2.Distance(targetPos, hit.transform.position);
             if (dist < closestDist)
             {
