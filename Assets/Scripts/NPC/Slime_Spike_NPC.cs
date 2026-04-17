@@ -57,7 +57,6 @@ public class SlimeSpikeEnemy : BaseNPC
     // COMPONENTS
     // ===============================
 
-    AIPath aiPath;
     AIDestinationSetter destSetter;
 
     // ===============================

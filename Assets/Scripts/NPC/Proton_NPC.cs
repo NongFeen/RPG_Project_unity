@@ -16,7 +16,6 @@ public class Proton_NPC : BaseNPC
     [SerializeField] private float dashMaxDuration = 5f;
     private Vector2 dashTargetPosition;
     [SerializeField] private float decelerationRate = 15f;
-    private AIPath aiPath;
 
     private float stateTimer;
     private float nextRoamTime;

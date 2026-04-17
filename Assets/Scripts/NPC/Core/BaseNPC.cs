@@ -38,7 +38,7 @@ public abstract class BaseNPC : NetworkBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Transform spriteRoot;
     [SerializeField] private float faceDeadzone = 0.01f;
-    private AIPath aiPath;
+    public AIPath aiPath;
 
     public override void OnNetworkSpawn()
     {

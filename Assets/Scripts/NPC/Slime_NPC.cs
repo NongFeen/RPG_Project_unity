@@ -47,7 +47,6 @@ public class SlimeEnemy : BaseNPC
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Server);
 
-    AIPath aiPath;
     AIDestinationSetter destSetter;
     float nextRoamTime;
     float nextJumpTime;

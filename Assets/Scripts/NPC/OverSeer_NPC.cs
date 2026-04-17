@@ -7,7 +7,6 @@ public class OverSeer_NPC : BaseNPC
     [Header("References")]
     [SerializeField] public NetworkVariable<OverseerState> currentState = new NetworkVariable<OverseerState>();
     [SerializeField] private GameObject bulletPrefab;
-    private AIPath aiPath;
     public enum OverseerState
     {
         Idle,

@@ -6,7 +6,6 @@ using Pathfinding;
 using System;
 public class Alien_NPC : BaseNPC
 {
-    AIPath aiPath;
 
     protected override void Awake()
     {

@@ -13,7 +13,6 @@ public class ArmoredSkeleton_NPC : BaseNPC
     [SerializeField] private float recoverDuration = 1f;
     [SerializeField] private LineRenderer aimLine;
 
-    private AIPath aiPath;
     private float stateTimer;
     private float dashTimer;
     private float nextDashTime;

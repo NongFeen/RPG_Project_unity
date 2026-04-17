@@ -20,7 +20,6 @@ public class KingSlime_NPC : BaseNPC
     [SerializeField] float magicProjectileOffset;
     float stateTimer;
     bool inCombat =false;
-    AIPath aiPath;
     AIDestinationSetter destSetter;
     #region State
     public NetworkVariable<KingSlimeState> npcState = new(KingSlimeState.Idle,
