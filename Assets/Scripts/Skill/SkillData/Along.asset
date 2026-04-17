@@ -17,6 +17,6 @@ MonoBehaviour:
   cooldown: 7
   icon: {fileID: -8670432816183158951, guid: f1ac0d6ea3f8e0e429159e96dc1eb202, type: 3}
   projectilePrefab: {fileID: 0}
-  magicNumber1: 10
-  magicNumber2: 0
+  magicNumber1: 0.5
+  magicNumber2: 15
   magicNumber3: 0
