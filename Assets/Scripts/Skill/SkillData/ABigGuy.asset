@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillType: 13
   displayName: A Big Guy
-  cooldown: 7
+  cooldown: 30
   icon: {fileID: 7499031799718731168, guid: 53f2401bc54a4394c9f1214c6424a2d1, type: 3}
-  projectilePrefab: {fileID: 0}
-  magicNumber1: 10
+  projectilePrefab: {fileID: 3661950033510355805, guid: 0798ad5fbf5eb8e4ab9836b68c743438, type: 3}
+  magicNumber1: 60
   magicNumber2: 0
   magicNumber3: 0

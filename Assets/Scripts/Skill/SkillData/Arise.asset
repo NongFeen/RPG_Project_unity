@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Arise
   cooldown: 7
   icon: {fileID: 8466314481310441949, guid: 89f0cba29a839d340891cc936ba398b2, type: 3}
-  projectilePrefab: {fileID: 0}
-  magicNumber1: 10
+  projectilePrefab: {fileID: 3661950033510355805, guid: 28b4f72ab21691d4f89042f5daa7b60b, type: 3}
+  magicNumber1: 30
   magicNumber2: 0
   magicNumber3: 0

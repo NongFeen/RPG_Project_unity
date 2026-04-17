@@ -81,6 +81,9 @@ public class PlayerSkillController : NetworkBehaviour
             SkillBehaviourType.WellOfBlessing => new WellBlessingSkillLogic(this, def),
             SkillBehaviourType.ChadAura => new ChadAuraSkillLogic(this, def),
             SkillBehaviourType.QucikDraw => new QuickDrawSkillLogic(this, def),
+            SkillBehaviourType.Arise => new AriseSkillLogic(this, def),
+            SkillBehaviourType.Along => new AlongSkillLogic(this, def),
+            SkillBehaviourType.ABigGuy => new ABigGuySkillLogic(this, def),
             _ => null,
         };
     }

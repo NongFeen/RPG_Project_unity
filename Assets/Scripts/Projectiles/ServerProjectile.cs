@@ -16,7 +16,7 @@ public class ServerProjectile : NetworkBehaviour
     [SerializeField] public Player owner;
     [SerializeField] public int pierce = 1;
 
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     public float lifeTimer = 0;
     public void Awake()
     {

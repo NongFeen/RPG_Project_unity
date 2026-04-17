@@ -6,6 +6,7 @@ public class ABigGuySkillLogic : SkillLogic
 
     public override bool Activate(Vector3 targetPos)
     {
+        controller.SpawnProjectileServerRpc(definition.magicNumber1,controller.transform.position,Vector2.zero,definition.skillType);
         return true;
     }
 }
