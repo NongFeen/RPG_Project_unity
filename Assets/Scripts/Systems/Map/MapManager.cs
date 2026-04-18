@@ -361,7 +361,7 @@ public class MapManager : NetworkBehaviour
         pendingWeaponDrops.Clear();
         pendingRelicDrops.Clear();
     }
-    private void CheckAllPlayersDeadAndReset()
+    public void CheckAllPlayersDeadAndReset()
     {
         if (PlayerManager.Instance == null) return;
         if (PlayerManager.Instance.Players.Count == 0) return;

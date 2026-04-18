@@ -32,6 +32,7 @@ public class RaidMapManager_TeleportRoom : MapManager
     {
         if(!IsServer) return;
         TeleporterTimer -= Time.deltaTime;
+        CheckAllPlayersDeadAndReset();
     }
     #region Teleport
     bool IsTeleportReady()

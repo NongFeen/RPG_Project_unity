@@ -41,6 +41,8 @@ public class Dungeon_Defense : MapManager
     {
         if(!IsServer) return;
         mapTimer+= Time.deltaTime;
+        CheckAllPlayersDeadAndReset();
+
     }
     private void OnChangeCurrentWave(int previousValue, int newValue)
     {
