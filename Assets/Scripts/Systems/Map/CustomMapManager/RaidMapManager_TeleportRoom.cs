@@ -97,6 +97,7 @@ public class RaidMapManager_TeleportRoom : MapManager
     private void OnFriendshipComplete()
     {
         Debug.Log("Friendship Complete!");
+        CompleteMap();
     }
 
     #endregion
