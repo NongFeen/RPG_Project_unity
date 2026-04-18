@@ -167,6 +167,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 3901836597582749485}
   spriteRoot: {fileID: 2108009044120230763}
   faceDeadzone: 0.01
+  aiPath: {fileID: 0}
 --- !u!95 &5632262277406043515
 Animator:
   serializedVersion: 7

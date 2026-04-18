@@ -166,13 +166,19 @@ public class PlayerStatsUI : MonoBehaviour, IPlayerStatUI
             playerUpgradeStatsRemainingDisplay.text = $"Upgrade points : {upgradePoints.ToString()}";
 
         Stats baseStats = GetBaseStats(classType, level);
-        Stats totalStats = baseStats + bonusStats + relicStats;
+        Stats totalStats = baseStats + bonusStats;
+        
+        totalStats.health = (baseStats.health + bonusStats.bonusHealth) * (1 + relicStats.health);
+        totalStats.defense = (baseStats.defense + bonusStats.bonusDefense) * (1 + relicStats.defense);
+        totalStats.critRate += relicStats.critRate;
+        totalStats.critDamage += relicStats.critDamage;
+        totalStats.extraDamage += relicStats.extraDamage;
 
         if (playerHealthStatsDisplay != null)
-            playerHealthStatsDisplay.text = FormatStat(baseStats.health, totalStats.health);
+            playerHealthStatsDisplay.text = FormatStat(baseStats.health + bonusStats.bonusHealth, totalStats.health);
 
         if (playerDefenseStatsDisplay != null)
-            playerDefenseStatsDisplay.text = FormatStat(baseStats.defense, totalStats.defense);
+            playerDefenseStatsDisplay.text = FormatStat(baseStats.defense + bonusStats.bonusDefense, totalStats.defense);
 
         if (playerCritRateStatsDisplay != null)
             playerCritRateStatsDisplay.text = FormatPercentStat(baseStats.critRate, totalStats.critRate);
@@ -318,7 +324,7 @@ public class PlayerStatsUI : MonoBehaviour, IPlayerStatUI
     string FormatStat(float baseStat, float totalStat)
     {
         float bonus = totalStat - baseStat;
-
+        // print("Health Bonus: " + bonus + " Total: " + totalStat + " Base: " + baseStat);
         string normalHex = ColorUtility.ToHtmlStringRGB(normalColor);
         string bonusHex = ColorUtility.ToHtmlStringRGB(bonusColor);
         string debonusHex = ColorUtility.ToHtmlStringRGB(debonusColor);

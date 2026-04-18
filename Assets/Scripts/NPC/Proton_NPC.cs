@@ -225,7 +225,7 @@ public class Proton_NPC : BaseNPC
         }
     }
 
-    protected override void FindTarget()
+    public override void FindTarget()
     {
         var players = GameObject.FindGameObjectsWithTag("Player");
 

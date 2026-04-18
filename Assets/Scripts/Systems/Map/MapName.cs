@@ -10,10 +10,5 @@ public enum MapName
     Story_05,
     Dungeon_01,
     Dungeon_02,
-    Dungeon_03,
-    Dungeon_04,
-    Dungeon_05,
     Raid_01,
-    Raid_02,
-    Raid_03
 }

@@ -63,7 +63,7 @@ public class MapManager : NetworkBehaviour
     private List<RelicInstance> pendingRelicDrops = new List<RelicInstance>();
 
     [Header("AstarSetting")]
-    [SerializeField] AStarPathSetting aStarSetting;
+    [SerializeField] public AStarPathSetting aStarSetting;
 
     private void Awake()
     {

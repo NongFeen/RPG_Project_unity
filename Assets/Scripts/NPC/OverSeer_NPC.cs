@@ -151,7 +151,7 @@ public class OverSeer_NPC : BaseNPC
         }
     }
 
-    protected override void FindTarget()
+    public override void FindTarget()
     {
         var players = GameObject.FindGameObjectsWithTag("Player");
         Transform bestCandidate = null;

@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8579870583038448863, guid: 85081530d0344c146bc382752f607612, type: 3}
-  m_Color: {r: 0.3254717, g: 1, b: 0.959479, a: 0.7058824}
+  m_Sprite: {fileID: -7166447634575263229, guid: 866aeababacb6114bbc8d2e99f9709dc, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.6666667}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -227,7 +227,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.75, y: 0.75}
   m_EdgeRadius: 0
 --- !u!114 &-3431634708103553576
 MonoBehaviour:

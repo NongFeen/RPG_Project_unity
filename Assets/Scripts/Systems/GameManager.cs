@@ -67,7 +67,6 @@ public class GameManager : NetworkBehaviour
         if (selectedSaveProfileData != null)
             selectedSaveProfileData.EnsureDefaults();
 
-        // If current selection is locked for this save, clamp to the highest unlocked map.
         if (selectedSaveProfileData != null && !IsMapUnlocked(selectMapName))
             selectMapName = selectedSaveProfileData.highestUnlockedMap;
 

@@ -16,8 +16,12 @@ public class RaidMapManager_TeleportRoom : MapManager
     // 3,4 for crossed room
     void Start()
     {
-        mapItemDrop = GameDatabase.Instance.GetMapDatabase().GetMapData(GameManager.Instance.selectMapName).mapItemDrop;
+        GridGraph grid = AstarPath.active.data.gridGraph;
+        grid.center = aStarSetting.center;
+        grid.SetDimensions(aStarSetting.width,aStarSetting.depth,aStarSetting.nodeSize);
         AstarPath.active.Scan();
+        mapItemDrop = GameDatabase.Instance.GetMapDatabase().GetMapData(GameManager.Instance.selectMapName).mapItemDrop;
+        GameManager.Instance.gameState = GameState.InGame;
     }
     public override void OnNetworkSpawn()
     {

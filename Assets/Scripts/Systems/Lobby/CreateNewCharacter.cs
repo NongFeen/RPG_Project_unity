@@ -34,7 +34,7 @@ public class CreateNewCharacter : MonoBehaviour
     }
     void AddStartingItem(ref SaveProfileData save)
     {
-        Weapon weapon = GameDatabase.Instance.GetItemDatabase().GetWeaponByID(0);
+        Weapon weapon = GameDatabase.Instance.GetItemDatabase().GetWeaponByID(1);
         WeaponInstance startingItem = new WeaponInstance(weapon);
         save.itemSaveData.equipList.Add(startingItem);
     }

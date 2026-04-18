@@ -85,12 +85,12 @@ public abstract class BaseNPC : NetworkBehaviour
         HandleBehavior();
     }
 
-    protected virtual void LateUpdate()
+    public virtual void LateUpdate()
     {
         UpdateFacing();
     }
 
-    protected virtual void FindTarget()
+    public virtual void FindTarget()
     {
         // Simple range-based detection
         var players = GameObject.FindGameObjectsWithTag("Player");

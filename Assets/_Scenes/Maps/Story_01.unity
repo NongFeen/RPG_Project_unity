@@ -379,7 +379,7 @@ MonoBehaviour:
     weight: 90
   - relicRarity: 0
     weight: 9
-  - relicRarity: 0
+  - relicRarity: 1
     weight: 1
   aStarSetting:
     center: {x: 60, y: 0, z: 0}
@@ -8652,7 +8652,7 @@ MonoBehaviour:
   inputReader: {fileID: 11400000, guid: 1103830ac2ad5e24f9122dbb95b609de, type: 2}
   spawnPointConfigs:
   - id: 1
-    enemyPrefab: {fileID: 6242414147363201484, guid: 2e0325e4b233f6c489c13f713f5028ae, type: 3}
+    enemyPrefab: {fileID: 163114654936336683, guid: aa0551179abbc0b478cbe9c300531b64, type: 3}
     spawnPoint: {fileID: 1934043719}
     spawnCount: 1
     spawnOnStart: 0

@@ -40,7 +40,7 @@ public class Alien_NPC : BaseNPC
         else
         {
             aiPath.canMove = false;
-            TryAttack(); // uses BaseNPC cooldown system
+            TryAttack(); 
         }
     }
 }

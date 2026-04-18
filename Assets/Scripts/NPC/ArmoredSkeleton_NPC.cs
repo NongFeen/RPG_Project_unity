@@ -233,12 +233,13 @@ public class ArmoredSkeleton_NPC : BaseNPC
         aimLine.enabled = newState == SkeletonState.Aim;
     }
 
-    private void LateUpdate()
+    public override void LateUpdate()
     {
         if (!aimLine || npcState.Value != SkeletonState.Aim)
             return;
 
         aimLine.SetPosition(0, transform.position);
         aimLine.SetPosition(1, transform.position + (Vector3)dashDirection * 8f);
+        base.LateUpdate();
     }
 }

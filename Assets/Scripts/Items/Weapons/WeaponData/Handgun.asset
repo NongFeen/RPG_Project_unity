@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Handgun
   m_EditorClassIdentifier: 
   id: 1
-  itemName: Pistol
+  itemName: Handgun
   description: Simple Pistol
   image: {fileID: 275340050934406193, guid: 1acde7f7429a5ba499ffb4e5941780af, type: 3}
   itemPrefab: {fileID: 5646012898124733676, guid: a7454ba340b132042b869a5745315a00, type: 3}
@@ -24,13 +24,7 @@ MonoBehaviour:
   baseFirerate: 140
   baseMaxammo: 12
   baseReloadSpeed: 1.5
-  animator: {fileID: 0}
-  animationClip: {fileID: 7400000, guid: ca1be0bfbb57073438e0829f4b9ac46c, type: 2}
   weaponPrefab: {fileID: 2722307789887907519, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
-  weaponExtraStat:
-    bonusDamage: 0
-    critRate: 0
-    critDamage: 0
   randomStatsRange:
     minBonusDamage: 0
     maxBonusDamage: 10
@@ -38,3 +32,7 @@ MonoBehaviour:
     maxCritRate: 0.05
     minCritDamage: 0
     maxCritDamage: 0.1
+  weaponExtraStat:
+    bonusDamage: 0
+    critRate: 0
+    critDamage: 0
