@@ -24,13 +24,7 @@ MonoBehaviour:
   baseFirerate: 390
   baseMaxammo: 39
   baseReloadSpeed: 1.5
-  animator: {fileID: 0}
-  animationClip: {fileID: 7400000, guid: ca1be0bfbb57073438e0829f4b9ac46c, type: 2}
   weaponPrefab: {fileID: 4077854963501827976, guid: b099b9928682b0142882f8a7d3ef616f, type: 3}
-  weaponExtraStat:
-    bonusDamage: 0
-    critRate: 0
-    critDamage: 0
   randomStatsRange:
     minBonusDamage: 0
     maxBonusDamage: 10
@@ -38,3 +32,8 @@ MonoBehaviour:
     maxCritRate: 0.1
     minCritDamage: 0
     maxCritDamage: 0.2
+  weaponExtraStat:
+    bonusDamage: 0
+    critRate: 0
+    critDamage: 0
+  shootSound: {fileID: 8300000, guid: dde05b4c662e39e4f9971d7618453ebc, type: 3}

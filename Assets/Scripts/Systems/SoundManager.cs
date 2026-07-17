@@ -67,10 +67,18 @@ public class SoundManager : MonoBehaviour
             musicSource.Stop();
     }
 
-    public void PlaySfx(AudioClip clip, float volumeScale = 1f)
+    public void PlaySfx(AudioClip clip, Transform spawnTransform, float volume)
     {
         if (clip == null) return;
-        sfxSource.volume = sfxVolume;
-        sfxSource.PlayOneShot(clip, Mathf.Clamp01(volumeScale));
+        AudioSource audioSource = Instantiate(sfxSource, spawnTransform.position, Quaternion.identity);
+        audioSource.clip = clip;
+        audioSource.volume = volume*sfxVolume;
+        audioSource.Play();
+
+        float clipLength = audioSource.clip.length;
+
+        Destroy(audioSource.gameObject, clipLength);
+        // sfxSource.volume = sfxVolume;
+        // sfxSource.PlayOneShot(clip, Mathf.Clamp01(volumeScale));
     }
 }

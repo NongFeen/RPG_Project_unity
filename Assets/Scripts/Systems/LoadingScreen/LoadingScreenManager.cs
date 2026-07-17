@@ -11,11 +11,19 @@ public class LoadingScreenManager : MonoBehaviour
 {
     public static LoadingScreenManager Instance;
 
+    [Serializable]
+    private class LoadingTip
+    {
+        [TextArea(2, 5)] public string text;
+        public Sprite image;
+    }
+
     [SerializeField] private GameObject loadingCanvas;
     [SerializeField] private CanvasGroup loadingCanvasGroup;
     [SerializeField] private TextMeshProUGUI loadingText;
     [SerializeField] private TextMeshProUGUI tipsText;
     [SerializeField] private Image tipsImage;
+    [SerializeField] private List<LoadingTip> loadingTips = new();
     [SerializeField] private float fadeInDuration = 0.15f;
     [SerializeField] private float fadeOutDuration = 0.2f;
 
@@ -27,6 +35,7 @@ public class LoadingScreenManager : MonoBehaviour
     private bool isLoading;
     private float delayTime = 5;
     private bool isBinded = false;
+    private int lastTipIndex = -1;
 
     private void Awake()
     {
@@ -155,6 +164,7 @@ public class LoadingScreenManager : MonoBehaviour
         {
             loadingText.text = "Loading... 0%";
         }
+        SetRandomTip();
         loadingCanvasGroup.alpha = 0f;
         fadeRoutine = StartCoroutine(FadeCanvas(1f, fadeInDuration));
     }
@@ -186,6 +196,7 @@ public class LoadingScreenManager : MonoBehaviour
             loadingCanvasGroup = loadingCanvas.AddComponent<CanvasGroup>();
         }
     }
+
     private IEnumerator FadeOutAndDisable()
     {
         yield return FadeCanvas(0f, fadeOutDuration);
@@ -194,6 +205,7 @@ public class LoadingScreenManager : MonoBehaviour
             loadingCanvas.SetActive(false);
         }
     }
+
     private IEnumerator FadeCanvas(float targetAlpha, float duration)
     {
         if (loadingCanvasGroup == null)
@@ -224,6 +236,37 @@ public class LoadingScreenManager : MonoBehaviour
         bool visible = targetAlpha > 0.01f;
         loadingCanvasGroup.blocksRaycasts = visible;
         loadingCanvasGroup.interactable = false;
+    }
+
+    private void SetRandomTip()
+    {
+        if (tipsText != null) tipsText.text = string.Empty;
+        if (tipsImage != null)
+        {
+            tipsImage.sprite = null;
+            tipsImage.enabled = false;
+        }
+
+        if (loadingTips == null || loadingTips.Count == 0)
+            return;
+
+        int index = UnityEngine.Random.Range(0, loadingTips.Count);
+        if (loadingTips.Count > 1 && index == lastTipIndex)
+        {
+            index = (index + 1) % loadingTips.Count;
+        }
+        lastTipIndex = index;
+
+        LoadingTip tip = loadingTips[index];
+
+        if (tipsText != null)
+            tipsText.text = tip != null ? tip.text : string.Empty;
+
+        if (tipsImage != null)
+        {
+            tipsImage.sprite = tip != null ? tip.image : null;
+            tipsImage.enabled = tipsImage.sprite != null;
+        }
     }
 
     public void ShowLoading()

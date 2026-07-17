@@ -147,6 +147,13 @@ public class ArmoredSkeleton_NPC : BaseNPC
         aiPath.canMove = true;
         aiPath.destination = target.position;
 
+        // Try to attack if in range
+        float distToTarget = Vector2.Distance(transform.position, target.position);
+        if (distToTarget <= attackRange)
+        {
+            TryAttack();
+        }
+
         if (dashTimer >= nextDashTime)
         {
             aiPath.canMove = false;
@@ -192,6 +199,11 @@ public class ArmoredSkeleton_NPC : BaseNPC
 
         if (stateTimer >= dashDuration)
         {
+            float distToTarget = Vector2.Distance(transform.position, target.position);
+            if (distToTarget <= attackRange)
+            {
+                TryAttack();
+            }
             rb.linearVelocity = Vector2.zero;
             SetState(SkeletonState.Recover);
         }
@@ -214,6 +226,7 @@ public class ArmoredSkeleton_NPC : BaseNPC
             collision.gameObject.TryGetComponent<PlayerStats>(out var player))
         {
             player.TakeDamage(contactDamage * 3f);
+            
         }
     }
 
@@ -222,7 +235,12 @@ public class ArmoredSkeleton_NPC : BaseNPC
         if (target == null) return;
         if (target.TryGetComponent<PlayerStats>(out var player))
         {
-            player.TakeDamage(contactDamage);
+            float mult = 1f;
+            if (npcState.Value == SkeletonState.Dash)
+            {
+                mult = 3f;
+            }
+            player.TakeDamage(contactDamage * mult);
         }
     }
 
@@ -235,11 +253,37 @@ public class ArmoredSkeleton_NPC : BaseNPC
 
     public override void LateUpdate()
     {
-        if (!aimLine || npcState.Value != SkeletonState.Aim)
-            return;
+        // During aim, explicitly face the dash direction since there's no velocity
+        if (npcState.Value == SkeletonState.Aim && target != null)
+        {
+            ApplyFacing(dashDirection.x);
+        }
+        else
+        {
+            // For other states, use normal velocity-based facing
+            UpdateFacing();
+        }
+        
+        if (aimLine != null && npcState.Value == SkeletonState.Aim)
+        {
+            aimLine.SetPosition(0, transform.position);
+            aimLine.SetPosition(1, transform.position + (Vector3)dashDirection * 8f);
+        }
+    }
 
-        aimLine.SetPosition(0, transform.position);
-        aimLine.SetPosition(1, transform.position + (Vector3)dashDirection * 8f);
-        base.LateUpdate();
+    private void ApplyFacing(float horizontalDirection)
+    {
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.flipX = horizontalDirection > 0f;
+            return;
+        }
+
+        if (spriteRoot == null) return;
+
+        Vector3 scale = spriteRoot.localScale;
+        float sign = horizontalDirection < 0f ? -1f : 1f;
+        scale.x = Mathf.Abs(scale.x) * sign;
+        spriteRoot.localScale = scale;
     }
 }

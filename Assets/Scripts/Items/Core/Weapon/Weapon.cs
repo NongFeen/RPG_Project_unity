@@ -14,6 +14,7 @@ public class Weapon : Item
     [Header("Random Stats Range on Drop (1.0 => 100%)")]
     [SerializeField] public RandomStatsRange randomStatsRange;
     [SerializeField] public WeaponStat weaponExtraStat;
+    [SerializeField] public AudioClip shootSound;
     public override ItemInstance CreateInstance()
     {
         return ItemInstance.CreateInstance(this);

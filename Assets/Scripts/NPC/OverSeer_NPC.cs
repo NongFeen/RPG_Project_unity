@@ -26,6 +26,8 @@ public class OverSeer_NPC : BaseNPC
     [SerializeField] private float aimTime = 2f;
 
     [SerializeField] private float losConfirmTime = 0.25f;
+    [SerializeField] private float postShotMoveDuration = 1f; 
+    private bool isPostShot = false;
     private float losTimer = 0f;
 
     [SerializeField]private float stateTimer;
@@ -112,6 +114,7 @@ public class OverSeer_NPC : BaseNPC
         if(stateTimer >= aimTime )//shoot even player goin out of los
         {
             SpawnProjectile(target.transform);
+            isPostShot = true;
             SetState(OverseerState.Move);
         }
     }
@@ -124,24 +127,31 @@ public class OverSeer_NPC : BaseNPC
 
         if (target == null)
         {
+            isPostShot = false;
             SetState(OverseerState.Idle);
             return;
         }
 
-        
+        // Force movement for a bit after shooting before re-evaluating LOS
+        if (isPostShot)
+        {
+            SetDestination(target.position);
+            if (stateTimer >= postShotMoveDuration)
+                isPostShot = false;
+            return;
+        }
 
         if (!HasLineOfSight(target))
         {
-            losTimer = 0f; // reset buffer
+            losTimer = 0f;
             SetDestination(target.position);
             return;
         }
 
-        // LOS detected → wait a bit before stopping
         losTimer += Time.deltaTime;
 
         float t = Mathf.Clamp01(losTimer / losConfirmTime);
-        float smooth = 1f - Mathf.Pow(t, 2f); // ease-out curve
+        float smooth = 1f - Mathf.Pow(t, 2f);
         aiPath.maxSpeed = idleSpeed * smooth;
 
         if (losTimer >= losConfirmTime)

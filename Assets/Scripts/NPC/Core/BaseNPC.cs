@@ -35,8 +35,8 @@ public abstract class BaseNPC : NetworkBehaviour
     [SerializeField] public Animator animator;
     [SerializeField] public LayerMask obstacleLayer;
     [Header("Visual Facing")]
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Transform spriteRoot;
+    [SerializeField] public SpriteRenderer spriteRenderer;
+    [SerializeField] public Transform spriteRoot;
     [SerializeField] private float faceDeadzone = 0.01f;
     public AIPath aiPath;
 
@@ -129,7 +129,7 @@ public abstract class BaseNPC : NetworkBehaviour
         rb.MovePosition(rb.position + dir * moveSpeed * Time.fixedDeltaTime);
     }
 
-    private void UpdateFacing()
+    public void UpdateFacing()
     {
         float vx = 0f;
         bool hasVelocity = false;

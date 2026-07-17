@@ -55,7 +55,7 @@ PrefabInstance:
     - target: {fileID: 4630622854810873113, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -8774827867185692175, guid: e2ad661681248314786b2fb24289665e, type: 3}
+      objectReference: {fileID: -1550070246163368040, guid: ad0f77bd0eb125744b3714e06d88a266, type: 3}
     - target: {fileID: 5625846844760338606, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1610545855
@@ -103,6 +103,8 @@ MonoBehaviour:
     bonusDamage: 0
     critRate: 0
     critDamage: 0
+  owner: {fileID: 0}
+  playerShooting: {fileID: 0}
 --- !u!1 &8344631773934115494 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7971074042446543761, guid: 07e7df3a2cc23f049b996dd41c8c66ec, type: 3}

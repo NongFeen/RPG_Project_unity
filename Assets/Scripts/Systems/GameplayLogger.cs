@@ -56,12 +56,10 @@ public class GameplayLogger : MonoBehaviour
         SaveToFile();
     }
 
-    // Now running every frame for maximum data precision
     void Update()
     {
         if (!isLogging) return;
 
-        // 1. Capture timings for the frame that JUST finished
         FrameTimingManager.CaptureFrameTimings();
         uint frameCount = FrameTimingManager.GetLatestTimings(1, m_FrameTimings);
 
@@ -86,24 +84,23 @@ public class GameplayLogger : MonoBehaviour
     {
         if (logs.Count == 0) return;
 
-        // 1. Collect Hardware and OS Info
+        // Collect Hardware and OS Info
         string cpu = SystemInfo.processorType;
         string gpu = SystemInfo.graphicsDeviceName;
         string os = SystemInfo.operatingSystem;
         int ram = SystemInfo.systemMemorySize; // In MB
 
-        // 2. Sanitize all strings for file system compatibility
+        // Sanitize all strings for file system compatibility
         string safeCpu = SanitizePath(cpu);
         string safeGpu = SanitizePath(gpu);
         string safeOs = SanitizePath(os);
 
-        // 3. Construct the filename
-        // Example: perf_20240520_1430_Win11_Ryzen9_RTX5090_65536MB.csv
+        // Construct the filename
         string filename = $"perf_{safeOs}_{safeCpu}_{safeGpu}_{ram}MB.csv";
         
         string path = Path.Combine(Application.persistentDataPath, filename);
 
-        // 4. Prepare CSV content
+        // Prepare CSV content
         List<string> output = new List<string>();
         output.Add("Time,FPS,CPUMs,GPUMs,Bullets");
         output.AddRange(logs);
@@ -126,7 +123,6 @@ public class GameplayLogger : MonoBehaviour
             dirtyString = dirtyString.Replace(c, '_');
         }
 
-        // Clean up common hardware/OS string clutter
         return dirtyString
             .Replace(" ", "_")
             .Replace("(", "")

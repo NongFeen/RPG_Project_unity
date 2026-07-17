@@ -36,3 +36,4 @@ MonoBehaviour:
     bonusDamage: 0
     critRate: 0
     critDamage: 0
+  shootSound: {fileID: 8300000, guid: dde05b4c662e39e4f9971d7618453ebc, type: 3}

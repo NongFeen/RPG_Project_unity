@@ -103,6 +103,7 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
         if (weaponInstance.weaponData.serverProjectilePrefab != null )
         {
             ConsumeAmmo();
+            SoundManager.Instance.PlaySfx(weaponInstance.weaponData.shootSound, this.transform,1F);
         }
     }
     public virtual void Shoot(Vector2 direction,Transform weaponHolder,PlayerStats playerStats, ServerRpcParams rpcParams)
