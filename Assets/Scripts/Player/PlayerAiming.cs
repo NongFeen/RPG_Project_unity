@@ -22,7 +22,12 @@ public class PlayerAiming : NetworkBehaviour
     private Mouse virtualMouse;
     private void Update()
     {
-        if (playerEquippedItem.activeWeapon == null) return;
+        if (playerEquippedItem.activeWeapon == null)
+        {
+            if (IsOwner && isReloadingNet.Value)
+                isReloadingNet.Value = false;
+            return;
+        }
         if (IsOwner)
         {
             Vector2 aimPos = GetScreenAimPosition();

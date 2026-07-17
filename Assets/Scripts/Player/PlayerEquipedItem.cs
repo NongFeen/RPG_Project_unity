@@ -1,7 +1,6 @@
 using UnityEngine;
 using Unity.Netcode;
 using System.Collections.Generic;
-using NUnit.Framework;
 using System;
 
 public class PlayerEquipedItem : NetworkBehaviour
@@ -102,8 +101,15 @@ public class PlayerEquipedItem : NetworkBehaviour
 
     public void SetActiveWeapon(int slotIndex)
     {
+        if (equipSlots == null || slotIndex < 0 || slotIndex >= equipSlots.Count)
+        {
+            activeWeapon = null;
+            return;
+        }
+
         if (equipSlots[slotIndex] == null)
         {
+            activeWeapon = null;
             return;
         }
         activeWeapon = equipSlots[slotIndex];
@@ -120,6 +126,8 @@ public class PlayerEquipedItem : NetworkBehaviour
         {
             Destroy(child.gameObject); 
         }
+        for (int i = 0; i < equipSlots.Count; i++)
+            equipSlots[i] = null;
         // Initialize new weapon prefabs
         for (int i = 0; i < equipSlots.Count; i++)
         {
@@ -213,6 +221,8 @@ public class PlayerEquipedItem : NetworkBehaviour
         {
             Destroy(child.gameObject); 
         }
+        for (int i = 0; i < equipSlots.Count; i++)
+            equipSlots[i] = null;
         foreach (NetworkWeaponData weaponData in equippedWeapons)
         {
             // print("WeaponID" + weaponData.weaponId);

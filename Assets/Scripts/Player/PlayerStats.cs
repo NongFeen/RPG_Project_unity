@@ -54,7 +54,8 @@ public class PlayerStats : NetworkBehaviour
     public bool IsGhost => isGhost.Value;
     public override void OnNetworkSpawn()
     {
-        PlayerManager.Instance.RegisterPlayer(this);
+        if (PlayerManager.Instance != null)
+            PlayerManager.Instance.RegisterPlayer(this);
         if (IsServer)
         {
             LoadFromLobby();
@@ -71,7 +72,8 @@ public class PlayerStats : NetworkBehaviour
     }
     public override void OnNetworkDespawn()
     {
-        PlayerManager.Instance.UnregisterPlayer(this);
+        if (PlayerManager.Instance != null)
+            PlayerManager.Instance.UnregisterPlayer(this);
         if (IsOwner)
         {
             currentHP.OnValueChanged -= OnHPChanged;
@@ -81,7 +83,10 @@ public class PlayerStats : NetworkBehaviour
     }
     public void Update()
     {
-        // if (!IsServer) return;
+        // The server owns gameplay stats while the owning client owns presentation.
+        // Other clients do not need to simulate this player's buff timers.
+        if (!IsServer && !IsOwner) return;
+
         List<BuffType> toRemove = new();
 
         foreach (var buff in activeBuffs)
@@ -98,7 +103,7 @@ public class PlayerStats : NetworkBehaviour
             activeBuffs.Remove(type);
         }
 
-        if (toRemove.Count > 0)
+        if (toRemove.Count > 0 && IsServer)
             RecalculateActiveStats();
     }
     private void LoadFromLobby()

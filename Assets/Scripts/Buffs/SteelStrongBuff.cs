@@ -7,8 +7,11 @@ public class SteelStrongBuff : BaseBuff
     public override void Update()
     {
         //heal player hp every second by 1% of max hp
-        float healAmount = owner.activeStats.Value.health * 0.01f * Time.deltaTime;
-        owner.HealServerRpc(healAmount);
+        if (owner.IsOwner)
+        {
+            float healAmount = owner.activeStats.Value.health * 0.01f * Time.deltaTime;
+            owner.HealServerRpc(healAmount);
+        }
         base.Update();
     }
 }

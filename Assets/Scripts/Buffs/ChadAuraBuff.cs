@@ -6,8 +6,11 @@ public class ChadAuraBuff : BaseBuff
         : base(owner, data, duration) { }
     public override void Update()
     {
-        float healAmount = owner.activeStats.Value.health * 0.05f * Time.deltaTime;
-        owner.Heal(healAmount);
+        if (owner.IsOwner)
+        {
+            float healAmount = owner.activeStats.Value.health * 0.05f * Time.deltaTime;
+            owner.HealServerRpc(healAmount);
+        }
         base.Update();
     }
 }

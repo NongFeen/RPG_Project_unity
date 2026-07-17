@@ -21,6 +21,6 @@ public class TargetDummy_NPC : BaseNPC
     }
     protected override void Attack()
     {
-        throw new NotImplementedException();
+        // throw new NotImplementedException();
     }
 }

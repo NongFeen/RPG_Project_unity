@@ -198,6 +198,10 @@ public class InventoryManager : MonoBehaviour
             weaponInventoryItems.Add(instance);
         }
 
+        // Preserve the saved slot indices, including empty slots.
+        for (int i = 0; i < MAX_EQUIPPED_SLOTS; i++)
+            equippedWeapons.Add(null);
+
         // ---- LOAD EQUIPPED ITEMS ----
         for (int i = 0; i < data.equipList.Count && i < MAX_EQUIPPED_SLOTS; i++)
         {
@@ -213,13 +217,7 @@ public class InventoryManager : MonoBehaviour
             instance.bonusStat.bonusDamage = saved.bonusStat.bonusDamage;
             instance.bonusStat.critRate = saved.bonusStat.critRate;
             instance.bonusStat.critDamage = saved.bonusStat.critDamage;
-            equippedWeapons.Add(instance);
-        }
-        if (equippedWeapons.Count < MAX_EQUIPPED_SLOTS)
-        {
-            int toAdd = MAX_EQUIPPED_SLOTS - equippedWeapons.Count;
-            for (int i = 0; i < toAdd; i++)
-                equippedWeapons.Add(null);
+            equippedWeapons[i] = instance;
         }
         //weapon
         // equippedWeapons = data.equipList;

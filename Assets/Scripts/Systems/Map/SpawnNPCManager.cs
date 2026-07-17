@@ -81,11 +81,6 @@ public class SpawnNPCManager : NetworkBehaviour
             }
         }
     }
-    [ServerRpc(RequireOwnership = false)]
-    private void RequestSpawnEnemyServerRpc(string id)
-    {
-        SpawnAtPoint(id,true);
-    }
 
     public void SpawnAtPoint(string id,bool isForce)
     {

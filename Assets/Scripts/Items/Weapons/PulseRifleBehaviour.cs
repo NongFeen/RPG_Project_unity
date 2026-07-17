@@ -23,7 +23,7 @@ public class PulseRifleBehaviour : WeaponBehaviour
     {
         base.Update();
 
-        if (!NetworkManager.Singleton.IsServer && clientBulletsLeft > 0)
+        if (owner != null && owner.IsOwner && clientBulletsLeft > 0)
         {
             clientBurstTimer += Time.deltaTime;
             if (clientBurstTimer >= burstInterval)
@@ -31,7 +31,6 @@ public class PulseRifleBehaviour : WeaponBehaviour
                 clientBurstTimer = 0;
                 clientBulletsLeft--;
                 ConsumeAmmo();
-                lastShootTime = Time.time + RpmToSecondsPerShot();
             }
         }
 
@@ -54,8 +53,6 @@ public class PulseRifleBehaviour : WeaponBehaviour
                     burstFlatExtraDamage,
                     burstRpc
                 );
-                ConsumeAmmo();
-                lastShootTime = Time.time + RpmToSecondsPerShot();
             }
         }
     }
@@ -63,7 +60,7 @@ public class PulseRifleBehaviour : WeaponBehaviour
     public override void OnShoot(Vector2 direction)
     {
         if (!CanShoot()) return;
-        lastShootTime = Time.time + RpmToSecondsPerShot(); // lock firing during burst
+        lastShootTime = Time.time;
         ConsumeAmmo(); // shot 1
         clientBulletsLeft = bulletPerBurst - 1;
         clientBurstTimer = 0;

@@ -54,7 +54,7 @@ public class KingSlime_NPC : BaseNPC
     }
     protected override void Attack()
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
     }
     protected override void Update()
     {
@@ -128,8 +128,10 @@ public class KingSlime_NPC : BaseNPC
     
     void UpdateIdle()
     {
-        var players = GameObject.FindGameObjectsWithTag("Player");
-        if (players.Length > 0)
+        // var players = GameObject.FindGameObjectsWithTag("Player");
+        var players = PlayerManager.Instance.Players;
+
+        if (players.Count > 0)
         {
             SetState(KingSlimeState.SelectTarget);
         }

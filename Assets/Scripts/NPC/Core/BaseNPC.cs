@@ -93,7 +93,8 @@ public abstract class BaseNPC : NetworkBehaviour
     public virtual void FindTarget()
     {
         // Simple range-based detection
-        var players = GameObject.FindGameObjectsWithTag("Player");
+        // var players = GameObject.FindGameObjectsWithTag("Player");
+        var players = PlayerManager.Instance.Players;
         float closest = detectionRange + 1f;
         Transform closestPlayer = null;
 

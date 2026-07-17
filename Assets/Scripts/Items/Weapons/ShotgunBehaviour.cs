@@ -9,9 +9,8 @@ public class ShotGunBehaviour : WeaponBehaviour
 
     public override void Shoot(Vector2 direction,Transform weaponHolder, PlayerStats playerStats, ServerRpcParams rpcParams)
     {
-        //This is only do in server
-        OnShoot(direction);
-        //calcuilate crit and damage to and send to server
+        // Ammo/reload state has already been handled by the owning client.
+        // Calculate damage and spawn the requested projectiles on the server.
         float critChance =
             playerStats.activeStats.Value.critRate + weaponInstance.bonusStat.critRate;
 

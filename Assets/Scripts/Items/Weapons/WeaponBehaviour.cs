@@ -108,8 +108,8 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
     }
     public virtual void Shoot(Vector2 direction,Transform weaponHolder,PlayerStats playerStats, ServerRpcParams rpcParams)
     {
-        //This is only do in server
-        OnShoot(direction);
+        // Ammo, reload and fire cadence are intentionally owned by the client.
+        // The server only creates the network projectile requested by the owner.
         //calcuilate crit and damage to and send to server
         float critChance =
             playerStats.activeStats.Value.critRate + weaponInstance.bonusStat.critRate;
@@ -128,8 +128,8 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
         if (!NetworkManager.Singleton.IsServer) return;
         ulong senderId = rpcParams.Receive.SenderClientId;
         GameObject prefabToUse = weaponInstance.weaponData.serverProjectilePrefab;
-        prefabToUse.TryGetComponent<NetworkObject>(out NetworkObject netObjToUse);
         if (prefabToUse == null) return;
+        if (!prefabToUse.TryGetComponent<NetworkObject>(out NetworkObject netObjToUse)) return;
         
         // Calculate rotation
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -158,12 +158,12 @@ public class WeaponBehaviour : NetworkBehaviour, IWeapon
     }
     public virtual void OnSpecialReload()
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
     }
 
     public virtual void OnSpecialShoot()
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
     }
 
     

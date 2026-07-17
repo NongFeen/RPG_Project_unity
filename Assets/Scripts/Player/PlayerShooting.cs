@@ -47,7 +47,7 @@ public class PlayerShooting : NetworkBehaviour
         if (isFiring )
         {
             WeaponBehaviour weapon = playerEquipedItem.activeWeapon;
-            
+            if( weapon == null) return;
             if (weapon != null && weapon.CanShoot())
             {
                 ShootWeapon(weapon, playerAiming.aimDirection.Value);
