@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class ChargingPadTrigger : NetworkBehaviour
 {
@@ -13,14 +14,28 @@ public class ChargingPadTrigger : NetworkBehaviour
     [SerializeField] private Sprite chargedPad;
     public event Action OnPadFullyCharged;
     [SerializeField] private Transform fillMaskTransform;
+    [Header("Charge Light")]
+    [SerializeField] private Light2D padLight;
+    [SerializeField] private float minimumLightIntensity = 0.5f;
+    [SerializeField] private float maximumLightIntensity = 1.5f;
+
     public override void OnNetworkSpawn()
     {
         padProgressTime.OnValueChanged += OnPadProgressTimerUpdate;
+        OnPadProgressTimerUpdate(padProgressTime.Value, padProgressTime.Value);
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        padProgressTime.OnValueChanged -= OnPadProgressTimerUpdate;
     }
 
     private void OnPadProgressTimerUpdate(float previousValue, float newValue)
     {
         float percent = Mathf.Clamp01(newValue / padChargedTime);
+
+        if (padLight != null)
+            padLight.intensity = Mathf.Lerp(minimumLightIntensity, maximumLightIntensity, percent);
 
         SpriteMask mask = fillMaskTransform.GetComponent<SpriteMask>();
         float spriteHeight = mask.sprite.bounds.size.y;

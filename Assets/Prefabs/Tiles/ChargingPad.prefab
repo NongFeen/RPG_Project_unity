@@ -271,6 +271,9 @@ MonoBehaviour:
   unChargedPad: {fileID: 4018918794373090891, guid: b5c1fdd992ab0234ebc60d342450d913, type: 3}
   chargedPad: {fileID: 7756414197507959373, guid: a7cdd08471bd42543aef72c1baaf5ca4, type: 3}
   fillMaskTransform: {fileID: 5293094721784069865}
+  padLight: {fileID: 4999858880083023702}
+  minimumLightIntensity: 0.2
+  maximumLightIntensity: 1.5
 --- !u!1 &6207824722592827400
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,7 +505,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.733
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.2
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: e3e3d84300000000ddaf4fed
