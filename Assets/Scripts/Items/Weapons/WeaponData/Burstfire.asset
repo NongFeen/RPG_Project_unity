@@ -21,7 +21,7 @@ MonoBehaviour:
   clientProjectilePrefab: {fileID: 4091576519318105471, guid: de6cad3707aaca245964ff65aa88d749, type: 3}
   serverProjectilePrefab: {fileID: 3661950033510355805, guid: 8cc2f37218421ec4ca5ba35762571f03, type: 3}
   baseDamage: 20
-  baseFirerate: 390
+  baseFirerate: 120
   baseMaxammo: 39
   baseReloadSpeed: 1.5
   weaponPrefab: {fileID: 4077854963501827976, guid: b099b9928682b0142882f8a7d3ef616f, type: 3}

@@ -31,6 +31,11 @@ public class PulseRifleBehaviour : WeaponBehaviour
                 clientBurstTimer = 0;
                 clientBulletsLeft--;
                 ConsumeAmmo();
+                SoundManager.Instance.PlaySfx(
+                    weaponInstance.weaponData.shootSound,
+                    transform,
+                    1f
+                );
             }
         }
 
@@ -60,8 +65,10 @@ public class PulseRifleBehaviour : WeaponBehaviour
     public override void OnShoot(Vector2 direction)
     {
         if (!CanShoot()) return;
-        lastShootTime = Time.time;
-        ConsumeAmmo(); // shot 1
+
+        // Use the shared first-shot handling so this weapon also plays its
+        // configured shoot sound and consumes ammo like every other weapon.
+        base.OnShoot(direction);
         clientBulletsLeft = bulletPerBurst - 1;
         clientBurstTimer = 0;
     }
