@@ -140,6 +140,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportTarget: {fileID: 0}
   group: 0
+  padLight: {fileID: 7759163312115906009}
+  idleLightIntensity: 0.15
+  minimumBlinkIntensity: 0.3
+  maximumBlinkIntensity: 1.2
+  blinkSpeed: 0.75
 --- !u!1 &8849271562154350013
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +218,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 1
+  m_PointLightOuterRadius: 3
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1

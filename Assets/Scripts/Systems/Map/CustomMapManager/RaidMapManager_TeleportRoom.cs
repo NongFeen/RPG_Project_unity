@@ -12,6 +12,8 @@ public class RaidMapManager_TeleportRoom : MapManager
     [SerializeField]private float TeleporterCooldown = 5;
     [SerializeField]private float TeleporterTimer = 0;
     [SerializeField]private List<FriendShipTrigger> friendShipPlates;
+    private readonly NetworkVariable<bool> startRoomTeleportReady = new NetworkVariable<bool>();
+    private readonly NetworkVariable<bool> crossRoomTeleportReady = new NetworkVariable<bool>();
     // 1,2 for start room
     // 3,4 for crossed room
     void Start()
@@ -31,22 +33,29 @@ public class RaidMapManager_TeleportRoom : MapManager
     void Update()
     {
         if(!IsServer) return;
-        TeleporterTimer -= Time.deltaTime;
+        TeleporterTimer = Mathf.Max(0f, TeleporterTimer - Time.deltaTime);
+        UpdateTeleportReadiness();
         CheckAllPlayersDeadAndReset();
     }
     #region Teleport
-    bool IsTeleportReady()
+    private void UpdateTeleportReadiness()
     {
-        // if any of side is fully charged. It can be use to teleport once
-        if(TeleporterTimer > 0) return false;
-        if((pad1.IsCharged() && pad2.IsCharged()) ||  (pad3.IsCharged() && pad4.IsCharged()))
-            return true;
-        return false;
+        bool cooldownFinished = TeleporterTimer <= 0f;
+        startRoomTeleportReady.Value = cooldownFinished && pad1.IsCharged() && pad2.IsCharged();
+        crossRoomTeleportReady.Value = cooldownFinished && pad3.IsCharged() && pad4.IsCharged();
     }
+
+    public bool IsTeleportReady(TeleportGroup group)
+    {
+        return group == TeleportGroup.StartRoom
+            ? startRoomTeleportReady.Value
+            : crossRoomTeleportReady.Value;
+    }
+
     [ServerRpc(RequireOwnership = false)]
     public void RequestTeleportServerRpc(TeleportGroup group,ulong playerId,Vector3 targetPos)
     {
-        if (!IsTeleportReady())
+        if (!IsTeleportReady(group))
             return;
 
         if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(playerId, out var netObj))
@@ -71,6 +80,7 @@ public class RaidMapManager_TeleportRoom : MapManager
                 break;
         }
         TeleporterTimer = TeleporterCooldown;
+        UpdateTeleportReadiness();
     }
     #endregion
 
