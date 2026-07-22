@@ -57,6 +57,11 @@ public class InputReader : ScriptableObject, IPlayerActions
         controls.Player.Enable();
         InputSystem.onActionChange += InputAction_OnActionChange;
     }
+    private void OnDestroy()
+    {
+        InputSystem.onActionChange -= InputAction_OnActionChange;
+    }
+
     private void InputAction_OnActionChange(object arg1, InputActionChange inputActionChange)
     {
         if(inputActionChange == InputActionChange.ActionPerformed && arg1 is InputAction)

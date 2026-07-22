@@ -5,6 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class StartupLoader : MonoBehaviour
 {
+    private const int TargetFrameRate = 240;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void ConfigureFrameRate()
+    {
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = TargetFrameRate;
+    }
+
     // void Start()
     // {
     //     // SceneManager.LoadScene("MainMenu");

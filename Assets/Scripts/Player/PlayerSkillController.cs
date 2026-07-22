@@ -7,6 +7,7 @@ public class PlayerSkillController : NetworkBehaviour
     [SerializeField] private ClassSkillData classSkillData;
     [SerializeField] private PlayerStats player;
     [SerializeField] private InputReader inputReader;
+    [SerializeField] private PlayerAiming playerAiming;
     [SerializeField] private bool canCooldown = true;
 
     
@@ -27,6 +28,10 @@ public class PlayerSkillController : NetworkBehaviour
         if (player == null)
         {
             player = GetComponent<PlayerStats>();
+        }
+        if (playerAiming == null)
+        {
+            playerAiming = GetComponent<PlayerAiming>();
         }
         if (IsOwner)
         {
@@ -117,22 +122,24 @@ public class PlayerSkillController : NetworkBehaviour
     {
         if (!IsOwner) return;
         if (player.IsGhost) return;
+        if (playerAiming == null) return;
 
+        Vector2 targetPosition = playerAiming.GetAimWorldPosition();
 
         switch (skillIndex)
         {
             case 0:
                 // TryUseSkill(skillV);
-                SkillV?.TryActivate(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
+                SkillV?.TryActivate(targetPosition);
                 // skillV.ActivateSkill(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 break;
             case 1:
-                SkillQ?.TryActivate(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
+                SkillQ?.TryActivate(targetPosition);
                 // skillQ.ActivateSkill(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 break;
             case 2:
                 // TryUseSkill(skillF);
-                SkillF?.TryActivate(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
+                SkillF?.TryActivate(targetPosition);
                 // skillF.ActivateSkill(Camera.main.ScreenToWorldPoint(inputReader.AimPosition));
                 break;
         }
