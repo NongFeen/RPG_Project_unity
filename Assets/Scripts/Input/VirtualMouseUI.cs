@@ -34,7 +34,10 @@ public class VirtualMouseUI : MonoBehaviour
         inputReader.OnGameDeviceChange += DeviceChange;
         ApplyStickAction(GameManager.Instance != null ? GameManager.Instance.gameState : GameState.InGame);
     }
-
+    private void OnDestroy()
+    {
+    inputReader.OnGameDeviceChange -= DeviceChange;       
+    }
     private void DeviceChange(bool isMnK)
     {
         pendingIsMnK = isMnK;
