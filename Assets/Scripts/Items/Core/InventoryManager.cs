@@ -98,12 +98,23 @@ public class InventoryManager : MonoBehaviour
     public void EquipRelic(RelicInstance relic, int slotIndex)
     {
         if (slotIndex < 0 || slotIndex >= MAX_EQUIPPED_SLOTS) return;
-        if (relic == null) return;
+        if (relic == null || relic.IsEmpty) return;
+
+        // Empty RelicInstance objects are slot placeholders, not inventory
+        // items. Remove any left by older saves or the previous equip logic.
+        relicInventoryItems.RemoveAll(item => item == null || item.IsEmpty);
 
         int equippedIndex = equippedRelics.IndexOf(relic);
         if (equippedIndex >= 0)
         {
-            UnEquipRelic(slotIndex);
+            if (equippedIndex == slotIndex) return;
+
+            if (equippedRelics[slotIndex] != null &&
+                !equippedRelics[slotIndex].IsEmpty)
+            {
+                UnEquipRelic(slotIndex);
+            }
+
             equippedRelics[slotIndex] = relic;
             equippedRelics[equippedIndex] = null;
         }
@@ -113,8 +124,11 @@ public class InventoryManager : MonoBehaviour
             if (inventoryIndex >= 0)
                 relicInventoryItems.RemoveAt(inventoryIndex);
 
-            if (equippedRelics[slotIndex] != null)
+            if (equippedRelics[slotIndex] != null &&
+                !equippedRelics[slotIndex].IsEmpty)
+            {
                 UnEquipRelic(slotIndex);
+            }
 
             equippedRelics[slotIndex] = relic;
         }
@@ -126,9 +140,13 @@ public class InventoryManager : MonoBehaviour
     public void UnEquipRelic(int slot)
     {
         RelicInstance relic = equippedRelics[slot];
-        if (relic == null)
+        if (relic == null || relic.IsEmpty)
+        {
+            equippedRelics[slot] = null;
             return;
-        relicInventoryItems.Add(equippedRelics[slot]);
+        }
+
+        relicInventoryItems.Add(relic);
         equippedRelics[slot] = null;
     }
     #endregion
@@ -224,8 +242,19 @@ public class InventoryManager : MonoBehaviour
         // weaponInventoryItems = data.itemList;
         
         //relic
-        relicInventoryItems = data.relicList;
-        equippedRelics = data.relicEquipped;
+        relicInventoryItems = data.relicList != null
+            ? data.relicList.FindAll(relic => relic != null && !relic.IsEmpty)
+            : new List<RelicInstance>();
+
+        equippedRelics = data.relicEquipped != null
+            ? new List<RelicInstance>(data.relicEquipped)
+            : new List<RelicInstance>();
+
+        for (int i = 0; i < equippedRelics.Count; i++)
+        {
+            if (equippedRelics[i] != null && equippedRelics[i].IsEmpty)
+                equippedRelics[i] = null;
+        }
         
         if(equippedRelics.Count < MAX_EQUIPPED_SLOTS)
         {
