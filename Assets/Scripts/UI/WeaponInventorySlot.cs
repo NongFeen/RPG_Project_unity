@@ -9,6 +9,12 @@ public class WeaponInventorySlot : MonoBehaviour, IPointerClickHandler
 
     public bool IsEmpty => StoredWeapon == null;
 
+    private void Awake()
+    {
+        if (weaponImage != null)
+            weaponImage.preserveAspect = true;
+    }
+
     public void SetWeapon(WeaponInstance instance)
     {
         StoredWeapon = instance;
@@ -26,7 +32,7 @@ public class WeaponInventorySlot : MonoBehaviour, IPointerClickHandler
         }
         else
         {
-                weaponImage.sprite = StoredWeapon.weaponData.image;
+            weaponImage.sprite = StoredWeapon.weaponData.image;
             weaponImage.color = new Color(1,1,1,1);
         }
     }
