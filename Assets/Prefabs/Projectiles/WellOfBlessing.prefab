@@ -148,6 +148,26 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6068986225444833759, guid: 8cc2f37218421ec4ca5ba35762571f03, type: 3}
+      propertyPath: m_Color.b
+      value: 0.43867922
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068986225444833759, guid: 8cc2f37218421ec4ca5ba35762571f03, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8128931
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068986225444833759, guid: 8cc2f37218421ec4ca5ba35762571f03, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068986225444833759, guid: 8cc2f37218421ec4ca5ba35762571f03, type: 3}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068986225444833759, guid: 8cc2f37218421ec4ca5ba35762571f03, type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 7.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6974800817165401346, guid: 8cc2f37218421ec4ca5ba35762571f03, type: 3}
       propertyPath: m_Name
       value: Projectile
@@ -225,4 +245,5 @@ MonoBehaviour:
   isCrit: 0
   owner: {fileID: 0}
   pierce: 999
+  rb: {fileID: 0}
   lifeTimer: 0

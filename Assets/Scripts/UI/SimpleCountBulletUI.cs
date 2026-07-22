@@ -8,7 +8,7 @@ public class SimpleCountBulletUI : MonoBehaviour
     {
         if(GameplayLogger.Instance == null)
         {
-            Debug.LogError("GameplayLogger instance not found! Please ensure a GameplayLogger is present in the scene.");
+            // Debug.LogError("GameplayLogger instance not found! Please ensure a GameplayLogger is present in the scene.");
             this.enabled = false; 
             text.gameObject.SetActive(false); 
         }
