@@ -73,10 +73,9 @@ public class PlayerMovement : NetworkBehaviour
         gameObject.TryGetComponent<PlayerStats>(out var playerStats);
         if (playerStats.IsGhost)
         {
-        rb.linearVelocity= Vector2.zero;
-            
+            rb.linearVelocity= Vector2.zero;
+            return;
         }
-        return;
 
         Vector2 movementVelocity = baseMoveSpeed * moveInput;
         rb.linearVelocity = movementVelocity + externalVelocity;
