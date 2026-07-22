@@ -83,6 +83,16 @@ public class PlayerAiming : NetworkBehaviour
 
         return inputReader != null ? inputReader.AimPosition : Vector2.zero;
     }
+
+    public Vector2 GetAimWorldPosition()
+    {
+        Camera mainCamera = Camera.main;
+        if (mainCamera != null)
+            return mainCamera.ScreenToWorldPoint(GetScreenAimPosition());
+
+        return (Vector2)weaponDisplayRoot.position + aimDirection.Value;
+    }
+
     private Mouse GetVirtualMouse()
     {
         if (virtualMouse != null && virtualMouse.added)
